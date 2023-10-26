@@ -31,10 +31,9 @@ Whenever, you make commit, husky will auto formte the code first then try to fix
 
 ## Building for Production
 
-To build your Next.js application for production:
+To build your application for production:
 
-This command generates an optimized production build in the `.next` directory.
-
+This command generates an optimized production build
     npm run build
 
 ## Linting and Code Formatting
