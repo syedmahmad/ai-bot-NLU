@@ -1,4 +1,4 @@
-# Exagon Landing Page
+# XIVA Multi Intent
 
 Welcome to XIVA Multi Intent! This README will guide you through setting up and running the project.
 
@@ -34,7 +34,7 @@ Whenever, you make commit, husky will auto formte the code first then try to fix
 To build your application for production:
 
 This command generates an optimized production build
-    npm run build
+npm run build
 
 ## Linting and Code Formatting
 
