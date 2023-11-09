@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+/* eslint-disable */
+import { useCallback, useState, useMemo } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -10,6 +11,7 @@ import ReactFlow, {
   MarkerType,
 } from 'reactflow';
 import uniqid from 'uniqid';
+import CustomNodeComponent from './CustomNodeComponent';
 import 'reactflow/dist/style.css';
 
 export default function App() {
@@ -19,6 +21,8 @@ export default function App() {
   const reactFlowInstance = useReactFlow();
   // this holds the selected node data.
   const [selectedNode, setSelectedNode] = useState({});
+  // building our custom components type and pass this type to reactFlow
+  const nodeTypes = useMemo(() => ({ specialNode: CustomNodeComponent }), []);
 
   const [nodes, setNodes, onNodesChange] = useNodesState([
     {
@@ -45,8 +49,10 @@ export default function App() {
 
   // generate new node and connect this newly created node to other nodes via edges.
   const addNewNode = () => {
+    console.log('selectedNode', selectedNode);
+    debugger;
     // return if there is no node selected and user clicks on wdiget.
-    if (Object.keys(selectedNode).length === 0) {
+    if (!selectedNode || Object.keys(selectedNode).length === 0) {
       alert(
         'Before clicking on any widget. Please select either *Start Flow* button if you are creating *New Flow*. Otherwise click on specific node from where you wanted to create more (expand).',
       );
@@ -56,19 +62,29 @@ export default function App() {
     setNodes((prev) => {
       return prev.concat({
         id: newId,
-        // type: 'selectorNode',
-        position: { x: 700, y: selectedNode.position.y + 50 },
-        data: { label: selectedNode.data.label },
-        style: {
-          backgroundColor: '#fffff',
+        type: 'specialNode',
+        position: { x: 700, y: selectedNode.position.y + 200 },
+        data: {
+          label: `hello`,
+          sourceHandle: newId,
+          onNodeClick: onNodeClick,
+
         },
+        style: {
+          backgroundColor: '#000',
+          boxShadow: '#AADBFF',
+        },
+        background: '#000',
       });
     });
     setEdges((prev) => {
+      // in the edges, normally we use the "id of a node" for the source or target of an edge
       return prev.concat({
         id: `e${selectedNode.id}-${newId}`,
         source: selectedNode.id,
         target: newId,
+        sourceHandle: newId,
+        // to show the arrows in connection instead of dot.
         markerEnd: {
           type: MarkerType.Arrow,
           width: 30,
@@ -86,6 +102,7 @@ export default function App() {
   // need to store selected node data, that's why needed this callback.
   const onNodeClick = useCallback(
     (event) => {
+      debugger;
       setSelectedNode(
         reactFlowInstance.getNode(event?.target?.getAttribute('data-id')),
       );
@@ -105,6 +122,8 @@ export default function App() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onNodeClick={onNodeClick}
+        nodeTypes={nodeTypes}
+        // fitView
       >
         <Controls />
         <MiniMap />
