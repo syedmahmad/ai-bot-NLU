@@ -5,12 +5,12 @@ import { Box, Center } from '@chakra-ui/react';
 // import { Handle, Position } from 'reactflow';
 
 export default memo(({ data, isConnectable }: any) => {
-    // console.log('data', data, isConnectable);
+  // console.log('data', data, isConnectable);
 
   const handleClick = (event) => {
     debugger;
     data.onNodeClick(event);
-  }
+  };
 
   return (
     <>
@@ -24,16 +24,54 @@ export default memo(({ data, isConnectable }: any) => {
         style={{ background: '#000' }}
         isConnectable={isConnectable}
       />
-      
-      <Box style={{background: "#fff", height: 'fit-content', width: '300px'}} data-id={data.sourceHandle} onClick={handleClick}>
-        <Box width="100%" height="100%" background="#D1EAFE" borderRadius="17.487px 17.487px 0px 17.487px" padding={4}>
-          <Box width="100%" height="100%" background="#fff" borderRadius="17.487px 17.487px 0px 17.487px" display="flex" justifyContent="center" alignItems="center">
+
+      <Box
+        style={{ background: '#fff', height: 'fit-content', width: '300px' }}
+        data-id={data.sourceHandle}
+        onClick={handleClick}
+      >
+        <Box
+          width="100%"
+          height="100%"
+          background="#D1EAFE"
+          borderRadius="17.487px 17.487px 0px 17.487px"
+          padding={4}
+          data-id={data.sourceHandle}
+        >
+          <Box
+            width="100%"
+            height="100%"
+            background="#fff"
+            borderRadius="17.487px 17.487px 0px 17.487px"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            data-id={data.sourceHandle}
+          >
             Custom Color Picker Node
           </Box>
-          <Box width="100%" height="100%" background="#fff" borderRadius="17.487px 17.487px 0px 17.487px" display="flex" justifyContent="center" alignItems="center">
+          <Box
+            width="100%"
+            height="100%"
+            background="#fff"
+            borderRadius="17.487px 17.487px 0px 17.487px"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            data-id={data.sourceHandle}
+          >
             Custom Color Picker Node
           </Box>
-          <Box width="100%" height="100%" background="#fff" borderRadius="17.487px 17.487px 0px 17.487px" display="flex" justifyContent="center" alignItems="center">
+          <Box
+            width="100%"
+            height="100%"
+            background="#fff"
+            borderRadius="17.487px 17.487px 0px 17.487px"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            data-id={data.sourceHandle}
+          >
             Custom Color Picker Node
           </Box>
         </Box>
