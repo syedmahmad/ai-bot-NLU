@@ -21,7 +21,7 @@ const Sidebar = () => {
       <Box display={'flex'} flexDirection={'column'}>
         {sideBarItems.map((items) => {
           return (
-            <>
+            <Box key={items.title}>
               <Box
                 display={'flex'}
                 justifyContent={'space-between'}
@@ -56,7 +56,7 @@ const Sidebar = () => {
               {items.childrens.length > 0 &&
                 items.childrens.map((item) => {
                   return (
-                    <>
+                    <Box key={item.title}>
                       <Box
                         display={'flex'}
                         justifyContent={'space-between'}
@@ -125,10 +125,10 @@ const Sidebar = () => {
                           </Box>
                         </Box>
                       )}
-                    </>
+                    </Box>
                   );
                 })}
-            </>
+            </Box>
           );
         })}
       </Box>

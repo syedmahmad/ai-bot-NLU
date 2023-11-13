@@ -7,4 +7,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
+  background-color: hsla(220, 33%, 98%, 1) !important;
+}
+
+#root{
+  width: 100%;
 }

@@ -34,6 +34,7 @@ export const colors = {
     flowDiagram: 'hsla(220, 33%, 98%, 1)',
     markers: 'hsla(218, 19%, 38%, 0.1)',
     menu: 'hsla(203, 19%, 92%, 0.4)',
+    tableHead: 'hsla(0, 0%, 92%, 0.5)'
   },
   stroke: {
     table: 'hsla(0, 0%, 85%, 1)',
@@ -46,6 +47,7 @@ export const colors = {
     menu: 'hsla(0, 0%, 52%, 1)',
     body: 'hsla(0, 0%, 52%, 1)',
     placeholder: 'hsla(0, 0%, 69%, 1)',
+    tableHeading: 'hsla(0, 0%, 15%, 1)'
   },
   responseBlock: {
     bot: 'hsla(207, 96%, 91%, 1)',
