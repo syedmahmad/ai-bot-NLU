@@ -1,7 +1,7 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import FlowPage from "../pages/flowPage";
-import Layout from "../components/hoc/layout";
-import TablePage from "../pages/tablePage";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import FlowPage from '../pages/flowPage';
+import Layout from '../components/hoc/layout';
+import TablePage from '../pages/tablePage';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -9,13 +9,13 @@ const Router = () => {
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: '/',
           element: <TablePage />,
         },
         {
-          path: "/flow",
+          path: '/flow',
           element: <FlowPage />,
-        }
+        },
       ],
     },
   ]);

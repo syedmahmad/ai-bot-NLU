@@ -109,7 +109,9 @@ export const ReactFlowComponent = () => {
   );
 
   return (
-    <Box style={{ width: 'calc(100vw - 10.90rem)', height: 'calc(100vh - 71px)' }}>
+    <Box
+      style={{ width: 'calc(100vw - 10.90rem)', height: 'calc(100vh - 71px)' }}
+    >
       <Box display={'flex'} height={'26px'} alignItems={'center'}>
         {/* <Box width={'20%'}>
           <button onClick={addNewNode} style={{ backgroundColor: '#4CAF50', height: '26px', width: '100%' }}>

@@ -1,9 +1,7 @@
-import Table from "../components/table";
+import Table from '../components/table';
 
 const TablePage = () => {
-  return(
-    <Table />
-  );
+  return <Table />;
 };
 
 export default TablePage;
