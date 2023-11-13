@@ -1,16 +1,26 @@
 /* eslint-disable */
 import React, { memo } from 'react';
 import { Handle, Position } from 'reactflow';
-import { Box, Center } from '@chakra-ui/react';
+import { Box, Textarea, Editable, EditablePreview, EditableTextarea, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger } from '@chakra-ui/react';
 // import { Handle, Position } from 'reactflow';
 
 export default memo(({ data, isConnectable }: any) => {
-  // console.log('data', data, isConnectable);
+  let [value, setValue] = React.useState('')
 
   const handleClick = (event) => {
-    debugger;
+    // saving node id to use it later when user try to create new ndoe
+    event.target.setAttribute('data-id', data.sourceHandle);
     data.onNodeClick(event);
   };
+
+  const onOpen = () => {
+    console.log('open');
+  }
+
+  const onClose = () => {
+    console.log('close');
+    // need to send API call to save flow
+  }
 
   return (
     <>
@@ -24,59 +34,51 @@ export default memo(({ data, isConnectable }: any) => {
         style={{ background: '#000' }}
         isConnectable={isConnectable}
       />
-
-      <Box
-        style={{ background: '#fff', height: 'fit-content', width: '300px' }}
-        data-id={data.sourceHandle}
-        onClick={handleClick}
-      >
-        <Box
-          width="100%"
-          height="100%"
-          background="#D1EAFE"
-          borderRadius="17.487px 17.487px 0px 17.487px"
-          padding={4}
-          data-id={data.sourceHandle}
-        >
+      <Popover 
+        placement='left' 
+        isLazy
+        onOpen={onOpen}
+        onClose={onClose}>
+        <PopoverTrigger>
           <Box
-            width="100%"
-            height="100%"
-            background="#fff"
-            borderRadius="17.487px 17.487px 0px 17.487px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            data-id={data.sourceHandle}
+            style={{ background: '#fff', height: 'fit-content', width: '300px' }}
+            onClick={handleClick}
           >
-            Custom Color Picker Node
-          </Box>
-          <Box
-            width="100%"
-            height="100%"
-            background="#fff"
-            borderRadius="17.487px 17.487px 0px 17.487px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            data-id={data.sourceHandle}
-          >
-            Custom Color Picker Node
-          </Box>
-          <Box
-            width="100%"
-            height="100%"
-            background="#fff"
-            borderRadius="17.487px 17.487px 0px 17.487px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            data-id={data.sourceHandle}
-          >
-            Custom Color Picker Node
-          </Box>
-        </Box>
-        {/* <img src="https://via.placeholder.com/300.png/09f/fff" alt="Girl in a jacket" width="100" height="100" /> */}
-      </Box>
+            <Box
+              width="100%"
+              height="100%"
+              background="#D1EAFE"
+              borderRadius="17.487px 17.487px 0px 17.487px"
+              padding={4}
+            >
+              <Box
+                width="100%"
+                height="68px"
+                background="#fff"
+                borderRadius="17.487px 17.487px 0px 17.487px"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {value}
+              </Box>
+            </Box>
+            {/* <img src="https://via.placeholder.com/300.png/09f/fff" alt="Girl in a jacket" width="100" height="100" /> */}
+          </Box>  
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverArrow />
+          {/* <PopoverCloseButton /> */}
+          <PopoverHeader>Text</PopoverHeader>
+          <PopoverBody>
+            <Textarea 
+              placeholder='Add text...'
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              size='sm' />
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
       {/* handle={type="source"} means
           (isConnectableStart?) Dictates whether a connection can start from this handle.
       */}
