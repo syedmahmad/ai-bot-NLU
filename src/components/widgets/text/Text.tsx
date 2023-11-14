@@ -3,14 +3,9 @@ import React, { memo, useState, useEffect, useRef } from 'react';
 import { Handle, Position } from 'reactflow';
 import {
   Box,
-  Textarea,
-  Editable,
-  EditablePreview,
-  EditableTextarea,
   Popover,
   PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
@@ -40,15 +35,6 @@ export default memo(({ data, isConnectable }: any) => {
     data.onNodeClick(event);
   };
 
-  const onOpen = () => {
-    console.log('open');
-  };
-
-  const onClose = () => {
-    console.log('close');
-    // need to send API call to save flow
-  };
-
   return (
     <>
       {/* handle={type="target"} means
@@ -61,7 +47,7 @@ export default memo(({ data, isConnectable }: any) => {
         style={{ background: '#000' }}
         isConnectable={isConnectable}
       />
-      <Popover placement="left" isLazy onOpen={onOpen} onClose={onClose}>
+      <Popover placement="left-start" isLazy>
         <PopoverTrigger>
           <Box
             style={{
@@ -86,12 +72,10 @@ export default memo(({ data, isConnectable }: any) => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(convertedContent),
+                }}
               >
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(convertedContent),
-                  }}
-                ></div>
               </Box>
             </Box>
             {/* <img src="https://via.placeholder.com/300.png/09f/fff" alt="Girl in a jacket" width="100" height="100" /> */}

@@ -1,7 +1,7 @@
 import { useCallback, useState, useMemo } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import uniqid from 'uniqid';
-import CustomNodeComponent from '../../CustomNodeComponent';
+import TextComponent from '../widgets/text/Text';
 import { Icon } from '@iconify/react';
 import ReactFlow, {
   Background,
@@ -23,7 +23,7 @@ export const ReactFlowComponent = () => {
   const [selectedNode, setSelectedNode] = useState({});
   const [openWidget, setOpenWidget] = useState(false);
   // building our custom components type and pass this type to reactFlow
-  const nodeTypes = useMemo(() => ({ specialNode: CustomNodeComponent }), []);
+  const nodeTypes = useMemo(() => ({ specialNode: TextComponent }), []);
 
   const [nodes, setNodes, onNodesChange] = useNodesState([
     {
@@ -50,7 +50,6 @@ export const ReactFlowComponent = () => {
 
   // generate new node and connect this newly created node to other nodes via edges.
   const addNewNode = () => {
-    console.log('selectedNode', selectedNode);
     // return if there is no node selected and user clicks on wdiget.
     if (!selectedNode || Object.keys(selectedNode).length === 0) {
       alert(
