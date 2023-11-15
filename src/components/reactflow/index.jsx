@@ -2,6 +2,7 @@ import { useCallback, useState, useMemo } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import uniqid from 'uniqid';
 import TextComponent from '../widgets/text/Text';
+import ImageComponent from '../widgets/image/Image';
 import { Icon } from '@iconify/react';
 import ReactFlow, {
   Background,
@@ -23,7 +24,10 @@ export const ReactFlowComponent = () => {
   const [selectedNode, setSelectedNode] = useState({});
   const [openWidget, setOpenWidget] = useState(false);
   // building our custom components type and pass this type to reactFlow
-  const nodeTypes = useMemo(() => ({ specialNode: TextComponent }), []);
+  const nodeTypes = useMemo(
+    () => ({ TextNode: TextComponent, ImageNode: ImageComponent }),
+    [],
+  );
 
   const [nodes, setNodes, onNodesChange] = useNodesState([
     {
@@ -38,6 +42,7 @@ export const ReactFlowComponent = () => {
       background: '#D1EAFE',
     },
   ]);
+  // in the start, there will be no edge.
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   // this will allow user to interact with graph and execute once user add new node and connect it.
@@ -49,7 +54,7 @@ export const ReactFlowComponent = () => {
   );
 
   // generate new node and connect this newly created node to other nodes via edges.
-  const addNewNode = () => {
+  const addNewNode = (nodeType) => {
     // return if there is no node selected and user clicks on wdiget.
     if (!selectedNode || Object.keys(selectedNode).length === 0) {
       alert(
@@ -61,7 +66,7 @@ export const ReactFlowComponent = () => {
     setNodes((prev) => {
       return prev.concat({
         id: newId,
-        type: 'specialNode',
+        type: nodeType,
         position: { x: 700, y: selectedNode.position.y + 200 },
         data: {
           label: `hello`,
@@ -112,11 +117,6 @@ export const ReactFlowComponent = () => {
       style={{ width: 'calc(100vw - 10.90rem)', height: 'calc(100vh - 71px)' }}
     >
       <Box display={'flex'} height={'26px'} alignItems={'center'}>
-        {/* <Box width={'20%'}>
-          <button onClick={addNewNode} style={{ backgroundColor: '#4CAF50', height: '26px', width: '100%' }}>
-            Add new node
-          </button>
-        </Box> */}
         <Box
           width={'100%'}
           backgroundColor={'white'}
@@ -340,7 +340,6 @@ export const ReactFlowComponent = () => {
                 paddingTop={0}
                 boxShadow={'0px 4px 10px 0px rgba(0, 0, 0, 0.06)'}
                 borderRadius={'0.3125rem'}
-                onClick={addNewNode}
               >
                 <Box
                   cursor={'pointer'}
@@ -349,6 +348,7 @@ export const ReactFlowComponent = () => {
                   paddingBottom={0}
                   display={'flex'}
                   alignItems={'center'}
+                  onClick={() => addNewNode('TextNode')}
                 >
                   <Box width={'32px'} display={'flex'}>
                     <Icon icon="mdi:text" />
@@ -393,6 +393,7 @@ export const ReactFlowComponent = () => {
                   paddingBottom={0}
                   display={'flex'}
                   alignItems={'center'}
+                  onClick={() => addNewNode('ImageNode')}
                 >
                   <Box width={'32px'} display={'flex'}>
                     <Icon icon="ic:outline-image" />

@@ -3,31 +3,27 @@ import React, { memo, useState, useEffect, useRef } from 'react';
 import { Handle, Position } from 'reactflow';
 import {
   Box,
+  Input,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Image
 } from '@chakra-ui/react';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import { convertToHTML } from 'draft-convert';
-import DOMPurify from 'dompurify';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 // import { Handle, Position } from 'reactflow';
 
 export default memo(({ data, isConnectable }: any) => {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty(),
-  );
-  const [convertedContent, setConvertedContent] = useState(null);
+  const [input, setInput] = useState('');
+  const [url, setUrl] = useState('');
+  const [file, setFile] = useState('');
 
   useEffect(() => {
-    let html = convertToHTML(editorState.getCurrentContent());
-    setConvertedContent(html);
-  }, [editorState]);
+    setFile(url);
+  }, [url]);
 
   const handleClick = (event) => {
     // saving node id to use it later when user try to create new ndoe
@@ -72,10 +68,10 @@ export default memo(({ data, isConnectable }: any) => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(convertedContent),
-                }}
-              ></Box>
+              >
+                { file ? <Image src={file} alt='Preview' /> : null }
+                { input ? <p> {input}</p> : null }
+              </Box>
             </Box>
             {/* <img src="https://via.placeholder.com/300.png/09f/fff" alt="Girl in a jacket" width="100" height="100" /> */}
           </Box>
@@ -83,32 +79,12 @@ export default memo(({ data, isConnectable }: any) => {
         <PopoverContent>
           <PopoverArrow />
           {/* <PopoverCloseButton /> */}
-          <PopoverHeader>Text</PopoverHeader>
+          <PopoverHeader>Image</PopoverHeader>
           <PopoverBody>
-            <Editor
-              editorRef={(ref) => {
-                ref?.focus();
-              }}
-              editorState={editorState}
-              onEditorStateChange={setEditorState}
-              wrapperClassName="wrapper-class"
-              editorClassName="editor-class"
-              toolbarClassName="toolbar-class"
-              toolbar={{
-                options: ['inline', 'link'],
-                inline: {
-                  inDropdown: false,
-                  options: ['bold', 'italic', 'underline', 'strikethrough'],
-                },
-                link: {
-                  inDropdown: false,
-                  options: ['link'],
-                },
-              }}
-              toolbarCustomButtons={[
-                <div onClick={() => alert('Coming Soon!')}>Insert Entity</div>,
-              ]}
-            />
+            <Input placeholder="Type here" size="lg" onChange={(e) => setInput(e.target.value)}/>
+            { file ? <Image src={file} alt='Preview' /> : null }
+            { file ? null : <Input type="file" onChange={(e) => setFile(URL.createObjectURL(e.target.files[0]))} />}
+            <Input placeholder="Add url here" size="lg" onChange={(e) => setUrl(e.target.value)}/>
           </PopoverBody>
         </PopoverContent>
       </Popover>
