@@ -1,0 +1,171 @@
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  Input,
+  Textarea,
+  Grid,
+  GridItem,
+  Button,
+  Text,
+} from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useState } from 'react';
+
+function EditFlowModal({ isOpen, onClose, selectedItem }) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      return axios.put(
+        `http://54.81.9.89/flow_entity/{id}?_id=${selectedItem._id}`,
+        data,
+      );
+    },
+  });
+
+  const editFlow = () => {
+    if (name === '' && description === '') {
+      toast.error('flow name or description field is required');
+      onClose();
+    } else {
+      mutation.mutate(
+        { _id: selectedItem._id, name: name, description: description },
+        {
+          onSuccess: (response) => {
+            console.log('response', response);
+            toast.success('Flow Edited successfully');
+            setName('');
+            setDescription('');
+            onClose();
+          },
+        },
+      );
+    }
+  };
+
+  return (
+    <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+    >
+      <ModalOverlay />
+
+      <ModalContent
+          alignSelf="center"
+          display="flex"
+          padding="32px 0px"
+      >
+        <ModalHeader>
+          Edit Flow
+        </ModalHeader>
+
+        <ModalBody>
+          <Text
+              color="text.body"
+              fontSize="xs"
+              fontWeight={400}
+              margin="5px 0px"
+          >
+            Flow Name
+          </Text>
+
+          <Input
+              _placeholder={{
+              color: 'text.body',
+              fontSize: 'xs',
+              fontWeight: 400,
+            }}
+              border="0.5px solid"
+              borderColor="stroke.table"
+              borderRadius="0.3125rem"
+              height="2rem"
+              onChange={(event) => setName(event.target.value)}
+              placeholder="Account Balance"
+              value={name}
+          />
+
+          <br />
+
+          <br />
+
+          <Text
+              color="text.body"
+              fontSize="xs"
+              fontWeight={400}
+              margin="5px 0px"
+          >
+            Flow Description
+          </Text>
+
+          <Textarea
+              _placeholder={{
+              color: 'text.body',
+              fontSize: 'xs',
+              fontWeight: 400,
+            }}
+              border="0.5px solid"
+              borderColor="stroke.table"
+              borderRadius="0.3125rem"
+              height="2rem"
+              onChange={(event) => setDescription(event.target.value)}
+              value={description}
+          />
+
+          <br />
+
+          <br />
+
+          <Grid
+              gap={6}
+              templateColumns="repeat(3, 1fr)"
+          >
+            <GridItem
+                h="10"
+                w="100%"
+            />
+
+            <GridItem
+                h="10"
+                w="100%"
+            >
+              <Button
+                  borderColor="primary.100"
+                  color="primary.100"
+                  onClick={onClose}
+                  size="sm"
+                  variant="outline"
+                  width="100%"
+              >
+                Cancel
+              </Button>
+            </GridItem>
+
+            <GridItem
+                h="10"
+                w="100%"
+            >
+              <Button
+                  _hover={{ backgroundColor: 'primary.90' }}
+                  backgroundColor="primary.100"
+                  color="white"
+                  onClick={editFlow}
+                  size="sm"
+                  width="100%"
+              >
+                Edit Flow
+              </Button>
+            </GridItem>
+          </Grid>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  );
+}
+
+export default EditFlowModal;

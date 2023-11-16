@@ -100,10 +100,18 @@ function TextComponent({ data, isConnectable }) {
                 editorState={editorState}
                 onEditorStateChange={setEditorState}
                 toolbar={{
+                image: {
+                  alt: { present: true, mandatory: false },
+                  previewImage: true,
+                  inputAccept: 'svg',
+                },
                 options: ['inline', 'link'],
                 inline: {
                   inDropdown: false,
                   options: ['bold', 'italic', 'underline', 'strikethrough'],
+                  bold: {
+                    icon: '/icons/bold',
+                  },
                 },
                 link: {
                   inDropdown: false,
@@ -112,7 +120,10 @@ function TextComponent({ data, isConnectable }) {
               }}
                 toolbarClassName="toolbar-class"
                 toolbarCustomButtons={[
-                  <div onClick={() => alert('Coming Soon!')}>
+                  <div
+                      className="insert-entity"
+                      onClick={() => alert('Coming Soon!')}
+                  >
                     Insert Entity
                   </div>,
               ]}
