@@ -1,14 +1,8 @@
-/* eslint-disable */
 export const botNodeValidations = (selectedNode) => {
     // return if there is no node selected and user clicks on wdiget.
     if (!selectedNode || Object.keys(selectedNode).length === 0) {
      alert(
        'Parent node not selected. Please select the node from where you wanted to create new node.',
-     );
-     return false;
-   } else if (selectedNode?.data?.nodeType === "bot") {
-     alert(
-       'Sorry! You are not able to create new bot node due to restrictions. Try Customer Response',
      );
      return false;
    }

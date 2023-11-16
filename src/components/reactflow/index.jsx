@@ -109,6 +109,12 @@ function ReactFlowComponent() {
 
   // generate new node and connect this newly created node to other nodes via edges.
   const addBotNode = (widgetType) => {
+    
+
+    if (selectedNode?.data?.nodeType === "bot") {
+      // need to append widgets in the same node.
+    }
+
     if (botNodeValidations(selectedNode)) {
       const newId = uniqid();
       connectNewNode(newId, widgetType, "bot");
