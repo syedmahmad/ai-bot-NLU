@@ -48,3 +48,9 @@
 .rdw-option-wrapper:hover {
   box-shadow: none;
 }
+
+.react-flow__handle{
+  background: white;
+  top: 84%;
+  border: 1.5px solid hsla(0, 0%, 93%, 1);
+}

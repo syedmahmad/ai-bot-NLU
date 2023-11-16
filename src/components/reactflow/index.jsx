@@ -18,6 +18,7 @@ import ReactFlow, {
 } from 'reactflow';
 import RightSidebar from '../rightSidebar';
 import WidgetControls from './Controls';
+import { botNodeValidations, customerNodeValidations } from '../../utils';
 
 function ReactFlowComponent() {
   // once user click on specific node, we need to get that node hash,
@@ -37,17 +38,23 @@ function ReactFlowComponent() {
     [],
   );
 
+  const id = uniqid();
   const [nodes, setNodes, onNodesChange] = useNodesState([
     {
-      id: uniqid(),
+      id: id,
       type: 'input',
       position: { x: 700, y: 10 },
-      data: { label: 'Start Flow' },
+      data: { 
+        label: <Box data-id={id} fontFamily={"Inter"} fontSize={"21px"} fontWeight={400} color={"text.body"} border={"1px solid"} borderColor={"secondary.20"} borderRadius={"5px"} backgroundColor={"white"} width={164} height={54} display={"flex"} justifyContent={"center"} alignItems={"center"}>Start Flow</Box>,
+        nodeType: 'start',
+     },
       style: {
-        backgroundColor: '#fff',
-        boxShadow: '#AADBFF',
+        width: 184,
+        height: 82,
+        padding: '9px 10px',
+        backgroundColor: 'hsla(205, 100%, 83%, 0.17)',
+        borderColor: '#fff'
       },
-      background: '#D1EAFE',
     },
   ]);
   // in the start, there will be no edge.
@@ -65,10 +72,9 @@ function ReactFlowComponent() {
     setNodes((prev) => {
       return prev.concat({
         id: newNodeId,
-        type: widgetType,
+        type: widgetType, // this is responsible for custom nodes.
         position: { x: 700, y: selectedNode.position.y + 200 },
         data: {
-          label: `hello`,
           nodeType: nodeType,
           sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
@@ -95,7 +101,6 @@ function ReactFlowComponent() {
           color: '#D8D8D8',
         },
         style: { stroke: '#D8D8D8' },
-        // label: 'Bot'
       });
     });
     // reset selected node.
@@ -104,38 +109,24 @@ function ReactFlowComponent() {
 
   // generate new node and connect this newly created node to other nodes via edges.
   const addBotNode = (widgetType) => {
-    // return if there is no node selected and user clicks on wdiget.
-    if (!selectedNode || Object.keys(selectedNode).length === 0) {
-      alert(
-        'Parent node not selected. Please select the node from where you wanted to create new node.',
-      );
-      return;
+    if (botNodeValidations(selectedNode)) {
+      const newId = uniqid();
+      connectNewNode(newId, widgetType, "bot");
     }
-    const newId = uniqid();
-    connectNewNode(newId, widgetType, "bot");
   }
 
   const addCustomerNode = () => {
-    // return if there is no node selected and user clicks on wdiget.
-    if (!selectedNode || Object.keys(selectedNode).length === 0) {
-      alert(
-        'Parent node not selected. Please select the node from where you wanted to create new node.',
-      );
-      return;
-    } else if (selectedNode.data.label === "Start Flow") {
-      alert(
-        'You cannot start a flow with Customer Reponse. It should start with Bot response.',
-      );
-      return;
+    if (customerNodeValidations(selectedNode)) {
+      const newId = uniqid();
+      // its default type is "TextNode", we may decide later if wanted to update it.
+      connectNewNode(newId, 'TextNode', "customer");
     }
-    const newId = uniqid();
-    // its default type is "TextNode", we may decide later if wanted to update it.
-    connectNewNode(newId, 'TextNode', "customer");
   }
 
   // need to store selected node data, that's why needed this callback.
   const onNodeClick = useCallback(
     (event) => {
+      console.log('id', event?.target?.getAttribute('data-id'));
       setSelectedNode(
         reactFlowInstance.getNode(event?.target?.getAttribute('data-id')),
       );
