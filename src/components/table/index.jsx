@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
-const TableComponent = () => {
+function TableComponent() {
   const tablerows = [
     {
       id: '1',
@@ -58,127 +58,174 @@ const TableComponent = () => {
     },
   ];
   return (
-    <Box width="100%" padding="104px 28px">
+    <Box
+        padding="104px 28px"
+        width="100%"
+    >
       <Heading
-        marginLeft={'48px'}
-        fontFamily={'Inter'}
-        fontSize={'lg'}
-        fontWeight={400}
+          fontFamily="Inter"
+          fontSize="lg"
+          fontWeight={400}
+          marginLeft="48px"
       >
         Flows
       </Heading>
+
       <br />
+
       <Box>
         <TableContainer
-          width={'100%'}
-          borderRadius={'0.625rem 0.625rem 0rem 0rem'}
-          border={'0.5px solid'}
-          borderColor={'stroke.table'}
+            border="0.5px solid"
+            borderColor="stroke.table"
+            borderRadius="0.625rem 0.625rem 0rem 0rem"
+            width="100%"
         >
           <Table variant="simple">
-            <Thead backgroundColor={'background.tableHead'}>
+            <Thead backgroundColor="background.tableHead">
               <Tr>
                 <Th
-                  color={'text.tableHeading'}
-                  fontFamily={'Inter'}
-                  fontSize={'lg'}
-                  fontWeight={400}
-                  textTransform={'none'}
-                  fontStyle={'normal'}
-                  lineHeight={'normal'}
+                    color="text.tableHeading"
+                    fontFamily="Inter"
+                    fontSize="lg"
+                    fontStyle="normal"
+                    fontWeight={400}
+                    lineHeight="normal"
+                    textTransform="none"
                 >
                   Flow Name
                 </Th>
+
                 <Th
-                  color={'text.tableHeading'}
-                  fontFamily={'Inter'}
-                  fontSize={'lg'}
-                  fontWeight={400}
-                  textTransform={'none'}
-                  fontStyle={'normal'}
-                  lineHeight={'normal'}
+                    color="text.tableHeading"
+                    fontFamily="Inter"
+                    fontSize="lg"
+                    fontStyle="normal"
+                    fontWeight={400}
+                    lineHeight="normal"
+                    textTransform="none"
                 >
                   Flow Description
                 </Th>
+
                 <Th
-                  color={'text.tableHeading'}
-                  fontFamily={'Inter'}
-                  fontSize={'lg'}
-                  fontWeight={400}
-                  textTransform={'none'}
-                  fontStyle={'normal'}
-                  lineHeight={'normal'}
+                    color="text.tableHeading"
+                    fontFamily="Inter"
+                    fontSize="lg"
+                    fontStyle="normal"
+                    fontWeight={400}
+                    lineHeight="normal"
+                    textTransform="none"
                 >
                   Last Edited on
                 </Th>
+
                 <Th
-                  color={'text.tableHeading'}
-                  fontFamily={'Inter'}
-                  fontSize={'lg'}
-                  fontWeight={400}
-                  textTransform={'none'}
-                  fontStyle={'normal'}
-                  lineHeight={'normal'}
+                    color="text.tableHeading"
+                    fontFamily="Inter"
+                    fontSize="lg"
+                    fontStyle="normal"
+                    fontWeight={400}
+                    lineHeight="normal"
+                    textTransform="none"
                 >
                   Created at
                 </Th>
-                <Th display={'flex'} justifyContent={'right'}>
+
+                <Th
+                    display="flex"
+                    justifyContent="right"
+                >
                   <Button
-                    width={'7.375rem'}
-                    height={'1.75rem'}
-                    backgroundColor={'primary.100'}
-                    color={'white'}
-                    borderRadius={'0.25rem'}
-                    _hover={{ backgroundColor: 'primary.90' }}
+                      _hover={{ backgroundColor: 'primary.90' }}
+                      backgroundColor="primary.100"
+                      borderRadius="0.25rem"
+                      color="white"
+                      height="1.75rem"
+                      width="7.375rem"
                   >
                     Create Flow
                   </Button>
                 </Th>
               </Tr>
             </Thead>
+
             <Tbody>
               {tablerows.length > 0 &&
                 tablerows.map((item) => (
                   <Tr
-                    height={'3.125rem'}
-                    key={item.id}
-                    backgroundColor={'white'}
+                      backgroundColor="white"
+                      height="3.125rem"
+                      key={item.id}
                   >
-                    <Td color={'text.body'} fontSize={'md'} height={'3.125rem'}>
+                    <Td
+                        color="text.body"
+                        fontSize="md"
+                        height="3.125rem"
+                    >
                       {item.name}
                     </Td>
-                    <Td color={'text.body'} fontSize={'md'} height={'3.125rem'}>
+
+                    <Td
+                        color="text.body"
+                        fontSize="md"
+                        height="3.125rem"
+                    >
                       {item.description}
                     </Td>
-                    <Td color={'text.body'} fontSize={'md'} height={'3.125rem'}>
+
+                    <Td
+                        color="text.body"
+                        fontSize="md"
+                        height="3.125rem"
+                    >
                       {item.updatedAt}
                     </Td>
-                    <Td color={'text.body'} fontSize={'md'} height={'3.125rem'}>
+
+                    <Td
+                        color="text.body"
+                        fontSize="md"
+                        height="3.125rem"
+                    >
                       {item.createdAt}
                     </Td>
-                    <Td height={'3.125rem'} alignItems={'center'}>
+
+                    <Td
+                        alignItems="center"
+                        height="3.125rem"
+                    >
                       <Popover placement="bottom-end">
                         <Box
-                          display={'flex'}
-                          justifyContent={'right'}
-                          cursor={'pointer'}
+                            cursor="pointer"
+                            display="flex"
+                            justifyContent="right"
                         >
                           <PopoverTrigger>
                             <Icon
-                              icon="ph:dots-three-outline-vertical-fill"
-                              width={'1.375rem'}
-                              height={'1.375rem'}
+                                height="1.375rem"
+                                icon="ph:dots-three-outline-vertical-fill"
+                                width="1.375rem"
                             />
                           </PopoverTrigger>
                         </Box>
-                        <PopoverContent width={'6.8125rem'}>
+
+                        <PopoverContent width="6.8125rem">
                           <PopoverBody>
                             <List spacing={3}>
-                              <ListItem>Edit</ListItem>
+                              <ListItem>
+                                Edit
+                              </ListItem>
+
                               <Divider />
-                              <ListItem>Delete</ListItem>
+
+                              <ListItem>
+                                Delete
+                              </ListItem>
+
                               <Divider />
-                              <ListItem>Duplicate</ListItem>
+
+                              <ListItem>
+                                Duplicate
+                              </ListItem>
                             </List>
                           </PopoverBody>
                         </PopoverContent>
@@ -192,6 +239,6 @@ const TableComponent = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default TableComponent;

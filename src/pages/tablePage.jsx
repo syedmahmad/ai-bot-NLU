@@ -1,7 +1,7 @@
 import Table from '../components/table';
 
-const TablePage = () => {
+function TablePage() {
   return <Table />;
-};
+}
 
 export default TablePage;

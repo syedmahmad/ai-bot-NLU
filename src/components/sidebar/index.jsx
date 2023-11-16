@@ -2,120 +2,141 @@ import { Icon } from '@iconify/react';
 import { Box, Heading, Divider } from '@chakra-ui/react';
 import { sideBarItems } from './sidebarConfig';
 
-const Sidebar = () => {
+function Sidebar() {
   return (
     <Box
-      width="12rem"
-      height="calc(100vh - 3.1875rem)"
-      backgroundColor="background.menu"
-      padding="4rem 1.25rem"
+        backgroundColor="background.menu"
+        height="calc(100vh - 3.1875rem)"
+        padding="4rem 1.25rem"
+        width="12rem"
     >
       <Heading
-        fontSize={'xs'}
-        fontWeight={400}
-        color={'text.card'}
-        lineHeight={'20px'}
+          color="text.card"
+          fontSize="xs"
+          fontWeight={400}
+          lineHeight="20px"
       >
         AVAILABLE BOTS
       </Heading>
-      <Box display={'flex'} flexDirection={'column'}>
+
+      <Box
+          display="flex"
+          flexDirection="column"
+      >
         {sideBarItems.map((items) => {
           return (
             <Box key={items.title}>
               <Box
-                display={'flex'}
-                justifyContent={'space-between'}
-                alignItems={'center'}
-                height={'2.0625rem'}
-                width={'100%'}
+                  alignItems="center"
+                  display="flex"
+                  height="2.0625rem"
+                  justifyContent="space-between"
+                  width="100%"
               >
-                <Box width={'80%'} display={'flex'}>
-                  <Box marginRight={'2'} width={'20%'}>
-                    <Icon color="hsla(0, 0%, 38%, 1)" icon={items.icon} />
+                <Box
+                    display="flex"
+                    width="80%"
+                >
+                  <Box
+                      marginRight="2"
+                      width="20%"
+                  >
+                    <Icon
+                        color="hsla(0, 0%, 38%, 1)"
+                        icon={items.icon}
+                    />
                   </Box>
+
                   <Box>
                     <Heading
-                      color={'text.card'}
-                      fontWeight={500}
-                      fontSize={'sm'}
-                      lineHeight={'auto'}
+                        color="text.card"
+                        fontSize="sm"
+                        fontWeight={500}
+                        lineHeight="auto"
                     >
                       {items.title}
                     </Heading>
                   </Box>
                 </Box>
+
                 {items.childrens.length > 0 && (
-                  <Box width={'20%'}>
+                  <Box width="20%">
                     <Icon
-                      icon="ri:arrow-drop-down-line"
-                      color="hsla(0, 0%, 38%, 1)"
+                        color="hsla(0, 0%, 38%, 1)"
+                        icon="ri:arrow-drop-down-line"
                     />
                   </Box>
                 )}
               </Box>
+
               {items.childrens.length > 0 &&
                 items.childrens.map((item) => {
                   return (
                     <Box key={item.title}>
                       <Box
-                        display={'flex'}
-                        justifyContent={'space-between'}
-                        alignItems={'center'}
-                        height={'2.0625rem'}
-                        width={'100%'}
-                        cursor={'pointer'}
-                        paddingLeft={'32px'}
-                        _hover={{
+                          _hover={{
                           backgroundColor: 'white',
                           border: '0.5px solid',
                           borderColor: 'stroke.table',
                           borderRadius: '0.3125rem',
                         }}
+                          alignItems="center"
+                          cursor="pointer"
+                          display="flex"
+                          height="2.0625rem"
+                          justifyContent="space-between"
+                          paddingLeft="32px"
+                          width="100%"
                       >
                         <Heading
-                          color={'text.card'}
-                          fontWeight={500}
-                          fontSize={'sm'}
-                          lineHeight={'auto'}
+                            color="text.card"
+                            fontSize="sm"
+                            fontWeight={500}
+                            lineHeight="auto"
                         >
                           {item.title}
                         </Heading>
                       </Box>
-                      {item.childrens && (
+
+                      {item.childrens ? (
                         <Box
-                          display={'flex'}
-                          flexDirection={'row'}
-                          h="55px"
-                          paddingLeft={'32px'}
-                          margin={'8px 0px'}
+                            display="flex"
+                            flexDirection="row"
+                            h="55px"
+                            margin="8px 0px"
+                            paddingLeft="32px"
                         >
-                          <Divider orientation="vertical" opacity={1} />
+                          <Divider
+                              opacity={1}
+                              orientation="vertical"
+                          />
+
                           <Box
-                            display={'flex'}
-                            flexDirection={'column'}
-                            paddingLeft={'12px'}
-                            justifyContent={'space-between'}
+                              display="flex"
+                              flexDirection="column"
+                              justifyContent="space-between"
+                              paddingLeft="12px"
                           >
                             {item.childrens.map((item) => {
                               return (
                                 <Box
-                                  key={item.title}
-                                  width={'80px'}
-                                  height={'26px'}
-                                  padding={'4px 8px'}
-                                  _hover={{
+                                    _hover={{
                                     backgroundColor: 'white',
                                     border: '0.5px solid',
                                     borderColor: 'stroke.table',
                                     borderRadius: '0.3125rem',
                                   }}
+                                    height="26px"
+                                    key={item.title}
+                                    padding="4px 8px"
+                                    width="80px"
                                 >
                                   <Heading
-                                    cursor={'pointer'}
-                                    color={'text.card'}
-                                    fontWeight={500}
-                                    fontSize={'sm'}
-                                    lineHeight={'20px'}
+                                      color="text.card"
+                                      cursor="pointer"
+                                      fontSize="sm"
+                                      fontWeight={500}
+                                      lineHeight="20px"
                                   >
                                     {item.title}
                                   </Heading>
@@ -124,7 +145,7 @@ const Sidebar = () => {
                             })}
                           </Box>
                         </Box>
-                      )}
+                      ) : null}
                     </Box>
                   );
                 })}
@@ -134,6 +155,6 @@ const Sidebar = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default Sidebar;

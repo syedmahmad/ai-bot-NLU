@@ -1,131 +1,172 @@
 import { Box, Text, Select, Input } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
-const RightSidebar = () => {
+function RightSidebar() {
   return (
-    <Box height={'calc(100vh - 71px)'} width={'100%'}>
+    <Box
+        height="calc(100vh - 71px)"
+        width="100%"
+    >
       <Box
-        height={'2.625rem'}
-        width={'100%'}
-        backgroundColor={'secondary.10'}
-        border={'1px sollid'}
-        borderColor={'stroke.table'}
-        padding={'0px 12px'}
-        display={'flex'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
+          alignItems="center"
+          backgroundColor="secondary.10"
+          border="1px sollid"
+          borderColor="stroke.table"
+          display="flex"
+          height="2.625rem"
+          justifyContent="space-between"
+          padding="0px 12px"
+          width="100%"
       >
-        <Box width={'100px'}>
+        <Box width="100px">
           <Text
-            color={'text.menu'}
-            fontSize={'sm'}
-            fontWeight={300}
-            fontFamily={'Inter'}
+              color="text.menu"
+              fontFamily="Inter"
+              fontSize="sm"
+              fontWeight={300}
           >
             Flow Diagram
           </Text>
         </Box>
+
         <Box
-          cursor={'pointer'}
-          width={'1.375rem'}
-          height={'1.375rem'}
-          backgroundColor={'white'}
-          display={'flex'}
-          justifyContent={'center'}
-          alignItems={'center'}
-          borderRadius={'3px'}
+            alignItems="center"
+            backgroundColor="white"
+            borderRadius="3px"
+            cursor="pointer"
+            display="flex"
+            height="1.375rem"
+            justifyContent="center"
+            width="1.375rem"
         >
-          <Icon icon="lucide:expand" color="hsla(0, 0%, 52%, 1)" />
+          <Icon
+              color="hsla(0, 0%, 52%, 1)"
+              icon="lucide:expand"
+          />
         </Box>
       </Box>
+
       <Box
-        height={'17.1875rem'}
-        width={'100%'}
-        backgroundColor={'white'}
-        border={'1px solid'}
-        borderColor={'stroke.menuOrCard'}
+          backgroundColor="white"
+          border="1px solid"
+          borderColor="stroke.menuOrCard"
+          height="17.1875rem"
+          width="100%"
       >
         {/* <MiniMap position="top-right"/> */}
       </Box>
+
       <Box
-        height={'2.625rem'}
-        width={'100%'}
-        backgroundColor={'secondary.10'}
-        border={'1px sollid'}
-        borderColor={'stroke.table'}
-        padding={'0px 12px'}
-        display={'flex'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
+          alignItems="center"
+          backgroundColor="secondary.10"
+          border="1px sollid"
+          borderColor="stroke.table"
+          display="flex"
+          height="2.625rem"
+          justifyContent="space-between"
+          padding="0px 12px"
+          width="100%"
       >
-        <Box width={'100px'}>
+        <Box width="100px">
           <Text
-            color={'text.menu'}
-            fontSize={'sm'}
-            fontWeight={300}
-            fontFamily={'Inter'}
+              color="text.menu"
+              fontFamily="Inter"
+              fontSize="sm"
+              fontWeight={300}
           >
             Test
           </Text>
         </Box>
-        <Box display={'flex'} alignItems={'center'}>
-          <Box marginRight={'10px'} height={'1.375rem'} width={'10.75rem'}>
+
+        <Box
+            alignItems="center"
+            display="flex"
+        >
+          <Box
+              height="1.375rem"
+              marginRight="10px"
+              width="10.75rem"
+          >
             <Select
-              marginTop={'-3px'}
-              placeholder="Select Channel"
-              color={'text.menu'}
-              height={'1.75rem'}
-              backgroundColor={'white'}
-              width={'10.75rem'}
+                backgroundColor="white"
+                color="text.menu"
+                height="1.75rem"
+                marginTop="-3px"
+                placeholder="Select Channel"
+                width="10.75rem"
             >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              <option value="option1">
+                Option 1
+              </option>
+
+              <option value="option2">
+                Option 2
+              </option>
+
+              <option value="option3">
+                Option 3
+              </option>
             </Select>
           </Box>
+
           <Box
-            cursor={'pointer'}
-            width={'1.375rem'}
-            height={'1.375rem'}
-            backgroundColor={'white'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            borderRadius={'3px'}
+              alignItems="center"
+              backgroundColor="white"
+              borderRadius="3px"
+              cursor="pointer"
+              display="flex"
+              height="1.375rem"
+              justifyContent="center"
+              width="1.375rem"
           >
-            <Icon icon="tabler:reload" color="hsla(0, 0%, 52%, 1)" />
+            <Icon
+                color="hsla(0, 0%, 52%, 1)"
+                icon="tabler:reload"
+            />
           </Box>
         </Box>
       </Box>
+
       <Box
-        height={'17.1875rem'}
-        width={'100%'}
-        backgroundColor={'white'}
-        border={'1px solid'}
-        borderColor={'stroke.menuOrCard'}
+          backgroundColor="white"
+          border="1px solid"
+          borderColor="stroke.menuOrCard"
+          height="17.1875rem"
+          width="100%"
       >
         {/* <MiniMap position="top-right"/> */}
         <Box
-          position={'fixed'}
-          bottom={2}
-          paddingLeft={'14px'}
-          width={'26.75rem'}
-          display={'flex'}
-          alignItems={'center'}
+            alignItems="center"
+            bottom={2}
+            display="flex"
+            paddingLeft="14px"
+            position="fixed"
+            width="26.75rem"
         >
-          <Box width={'21.5625rem'} marginRight={'10px'}>
-            <Input placeholder="Type here" size="lg" />
+          <Box
+              marginRight="10px"
+              width="21.5625rem"
+          >
+            <Input
+                placeholder="Type here"
+                size="lg"
+            />
           </Box>
-          <Box width={'20px'} marginLeft={'10px'} cursor={'pointer'}>
+
+          <Box
+              cursor="pointer"
+              marginLeft="10px"
+              width="20px"
+          >
             <Icon
-              icon="fluent:send-32-regular"
-              color="hsla(349, 100%, 67%, 1)"
+                color="hsla(349, 100%, 67%, 1)"
+                icon="fluent:send-32-regular"
             />
           </Box>
         </Box>
       </Box>
     </Box>
   );
-};
+}
 
 export default RightSidebar;

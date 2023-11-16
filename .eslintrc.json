@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/all",
+    "plugin:react-hooks/recommended"
+  ],
+  "plugins": ["react", "react-hooks"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-max-depth": 0,
+    "react/jsx-no-literals": 0,
+    "react/jsx-indent": ["error", 2],
+    "react/forbid-dom-props": 0,
+    "react/forbid-component-props": 0,
+    "react/prop-types": ["off"],
+    "react/jsx-key": 0,
+    "react/jsx-no-bind": 0,
+    "react/jsx-closing-tag-location": 0,
+    "react-hooks/exhaustive-deps": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "./src/**/*.js",
+        "./src/**/*.jsx",
+        "./src/**/*.ts",
+        "./src/**/*.tsx",
+        "vitest.config.ts"
+      ]
+    }
+  ]
+}
