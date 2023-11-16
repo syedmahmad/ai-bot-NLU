@@ -1,4 +1,4 @@
-import { ReactFlowComponent } from '../components/reactflow';
+import ReactFlowComponent from '../components/reactflow';
 import { Box } from '@chakra-ui/react';
 
 function FlowPage() {

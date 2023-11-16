@@ -59,7 +59,7 @@ function TextComponent({ data, isConnectable }) {
             }}
           >
             <Box
-                background="#D1EAFE"
+                background={data.nodeType === 'customer' ? "#FCD8E0" : "#D1EAFE"}
                 borderRadius="17.487px 17.487px 0px 17.487px"
                 height="100%"
                 padding={4}

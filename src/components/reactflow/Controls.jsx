@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
-function WidgetsControl({ addNewNode }) {
+function WidgetsControl({ addCustomerNode, addBotNode }) {
   const [openWidget, setOpenWidget] = useState(false);
 
   return (
@@ -24,6 +24,7 @@ function WidgetsControl({ addNewNode }) {
             flexDirection="column"
             height="fit-content"
             justifyContent="center"
+            onClick={addCustomerNode}
             padding="0.85rem 0.5rem"
             width="3.5rem"
         >
@@ -232,7 +233,7 @@ function WidgetsControl({ addNewNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addNewNode('TextNode')}
+                onClick={() => addBotNode('TextNode')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
@@ -287,7 +288,7 @@ function WidgetsControl({ addNewNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addNewNode('ImageNode')}
+                onClick={() => addBotNode('ImageNode')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
@@ -342,7 +343,7 @@ function WidgetsControl({ addNewNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addNewNode('CalendarNode')}
+                onClick={() => addBotNode('CalendarNode')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useCallback, useState, useMemo } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import uniqid from 'uniqid';
@@ -11,6 +12,8 @@ import ReactFlow, {
   addEdge,
   useReactFlow,
   MarkerType,
+  MiniMap,
+  Controls,
   BackgroundVariant,
 } from 'reactflow';
 import RightSidebar from '../rightSidebar';
@@ -58,24 +61,16 @@ function ReactFlowComponent() {
     [setEdges],
   );
 
-  // generate new node and connect this newly created node to other nodes via edges.
-  const addNewNode = useCallback((nodeType) => {
-    // return if there is no node selected and user clicks on wdiget.
-    if (!selectedNode || Object.keys(selectedNode).length === 0) {
-      alert(
-        'Before clicking on any widget. Please select either *Start Flow* button if you are creating *New Flow*. Otherwise click on specific node from where you wanted to create more (expand).',
-      );
-      return;
-    }
-    const newId = uniqid();
+  const connectNewNode = (newNodeId, widgetType, nodeType) => {
     setNodes((prev) => {
       return prev.concat({
-        id: newId,
-        type: nodeType,
+        id: newNodeId,
+        type: widgetType,
         position: { x: 700, y: selectedNode.position.y + 200 },
         data: {
           label: `hello`,
-          sourceHandle: newId,
+          nodeType: nodeType,
+          sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
         },
         style: {
@@ -88,10 +83,10 @@ function ReactFlowComponent() {
     setEdges((prev) => {
       // in the edges, normally we use the "id of a node" for the source or target of an edge
       return prev.concat({
-        id: `e${selectedNode.id}-${newId}`,
+        id: `e${selectedNode.id}-${newNodeId}`,
         source: selectedNode.id,
-        target: newId,
-        sourceHandle: newId,
+        target: newNodeId,
+        sourceHandle: newNodeId,
         // to show the arrows in connection instead of dot.
         markerEnd: {
           type: MarkerType.Arrow,
@@ -105,7 +100,38 @@ function ReactFlowComponent() {
     });
     // reset selected node.
     setSelectedNode({});
-  }, []);
+  }
+
+  // generate new node and connect this newly created node to other nodes via edges.
+  const addBotNode = (widgetType) => {
+    // return if there is no node selected and user clicks on wdiget.
+    if (!selectedNode || Object.keys(selectedNode).length === 0) {
+      alert(
+        'Parent node not selected. Please select the node from where you wanted to create new node.',
+      );
+      return;
+    }
+    const newId = uniqid();
+    connectNewNode(newId, widgetType, "bot");
+  }
+
+  const addCustomerNode = () => {
+    // return if there is no node selected and user clicks on wdiget.
+    if (!selectedNode || Object.keys(selectedNode).length === 0) {
+      alert(
+        'Parent node not selected. Please select the node from where you wanted to create new node.',
+      );
+      return;
+    } else if (selectedNode.data.label === "Start Flow") {
+      alert(
+        'You cannot start a flow with Customer Reponse. It should start with Bot response.',
+      );
+      return;
+    }
+    const newId = uniqid();
+    // its default type is "TextNode", we may decide later if wanted to update it.
+    connectNewNode(newId, 'TextNode', "customer");
+  }
 
   // need to store selected node data, that's why needed this callback.
   const onNodeClick = useCallback(
@@ -163,18 +189,17 @@ function ReactFlowComponent() {
               onNodeClick={onNodeClick}
               onNodesChange={onNodesChange}
           >
-            {/* <Controls /> */}
-            {/* <MiniMap /> */}
+            <Controls />
             <Background
                 backgroundColor="hsla(220, 33%, 98%, 1)"
                 variant={BackgroundVariant.Dots}
             />
           </ReactFlow>
+          <WidgetControls addCustomerNode={addCustomerNode} addBotNode={addBotNode} />
         </Box>
 
-        <WidgetControls addNewNode={addNewNode} />
-
         <Box width="26.75rem">
+          <MiniMap />
           <RightSidebar />
         </Box>
       </Box>
