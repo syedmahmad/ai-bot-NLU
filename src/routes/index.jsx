@@ -3,7 +3,7 @@ import FlowPage from '../pages/flowPage';
 import Layout from '../components/hoc/layout';
 import TablePage from '../pages/tablePage';
 
-const Router = () => {
+function Router() {
   const router = createBrowserRouter([
     {
       element: <Layout />,
@@ -21,6 +21,6 @@ const Router = () => {
   ]);
 
   return <RouterProvider router={router} />;
-};
+}
 
 export default Router;

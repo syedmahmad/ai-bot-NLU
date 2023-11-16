@@ -1,8 +1,9 @@
+import React from 'react';
 import { colors } from './colors';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { fontSizes, fontWeights, fonts } from './fonts';
 
-const ProjectThemeProvider = ({ children }) => {
+function ProjectThemeProvider({ children }) {
   const theme = extendTheme({
     colors: colors,
     fonts: fonts,
@@ -10,7 +11,9 @@ const ProjectThemeProvider = ({ children }) => {
     fontWeights: fontWeights,
   });
 
-  return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
-};
+  return (<ChakraProvider theme={theme}>
+    {children}
+  </ChakraProvider>);
+}
 
 export default ProjectThemeProvider;

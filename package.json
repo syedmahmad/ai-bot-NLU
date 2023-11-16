@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint --fix .",
+    "lint:fix": "eslint --fix ./src",
     "format": "prettier --write .",
     "prepare": "husky install"
   },
@@ -38,8 +38,9 @@
     "@types/jquery": "^3.5.25",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.52.0",
+    "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
@@ -48,7 +49,8 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-eslint": "^1.8.1"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [

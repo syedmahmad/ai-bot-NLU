@@ -13,6 +13,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ProjectThemeProvider>
         <ToastContainer />
+
         <Router />
       </ProjectThemeProvider>
     </QueryClientProvider>

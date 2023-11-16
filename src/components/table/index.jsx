@@ -25,7 +25,7 @@ import { useQuery } from '@tanstack/react-query';
 import EditFlowModal from '../Modals/editFlowModal';
 import { useState } from 'react';
 
-const TableComponent = () => {
+function TableComponent() {
   const [selectedItem, setSelectedItem] = useState(null);
   const {
     isOpen: createFlowOpen,
@@ -46,94 +46,112 @@ const TableComponent = () => {
 
   return (
     <>
-      <CreateFlowModal isOpen={createFlowOpen} onClose={createFlowOnClose} />
-      <EditFlowModal
-        selectedItem={selectedItem}
-        isOpen={editModalOpen}
-        onClose={editModalOnClose}
+      <CreateFlowModal
+          isOpen={createFlowOpen}
+          onClose={createFlowOnClose}
       />
-      <Box width="100%" padding="104px 28px">
+
+      <EditFlowModal
+          isOpen={editModalOpen}
+          onClose={editModalOnClose}
+          selectedItem={selectedItem}
+      />
+
+      <Box
+          padding="104px 28px"
+          width="100%"
+      >
         <Heading
-          marginLeft={'48px'}
-          fontFamily={'Inter'}
-          fontSize={'lg'}
-          fontWeight={400}
+            fontFamily="Inter"
+            fontSize="lg"
+            fontWeight={400}
+            marginLeft="48px"
         >
           Flows
         </Heading>
+
         <br />
+
         <Box>
           <TableContainer
-            width={'100%'}
-            borderRadius={'0.625rem 0.625rem 0rem 0rem'}
-            border={'0.5px solid'}
-            borderColor={'stroke.table'}
+              border="0.5px solid"
+              borderColor="stroke.table"
+              borderRadius="0.625rem 0.625rem 0rem 0rem"
+              width="100%"
           >
             <Table variant="simple">
-              <Thead backgroundColor={'background.tableHead'}>
+              <Thead backgroundColor="background.tableHead">
                 <Tr>
                   <Th
-                    color={'text.tableHeading'}
-                    fontFamily={'Inter'}
-                    fontSize={'lg'}
-                    fontWeight={400}
-                    textTransform={'none'}
-                    fontStyle={'normal'}
-                    lineHeight={'normal'}
+                      color="text.tableHeading"
+                      fontFamily="Inter"
+                      fontSize="lg"
+                      fontStyle="normal"
+                      fontWeight={400}
+                      lineHeight="normal"
+                      textTransform="none"
                   >
                     Flow Name
                   </Th>
+
                   <Th
-                    color={'text.tableHeading'}
-                    fontFamily={'Inter'}
-                    fontSize={'lg'}
-                    fontWeight={400}
-                    textTransform={'none'}
-                    fontStyle={'normal'}
-                    lineHeight={'normal'}
+                      color="text.tableHeading"
+                      fontFamily="Inter"
+                      fontSize="lg"
+                      fontStyle="normal"
+                      fontWeight={400}
+                      lineHeight="normal"
+                      textTransform="none"
                   >
                     Flow Description
                   </Th>
+
                   <Th
-                    color={'text.tableHeading'}
-                    fontFamily={'Inter'}
-                    fontSize={'lg'}
-                    fontWeight={400}
-                    textTransform={'none'}
-                    fontStyle={'normal'}
-                    lineHeight={'normal'}
+                      color="text.tableHeading"
+                      fontFamily="Inter"
+                      fontSize="lg"
+                      fontStyle="normal"
+                      fontWeight={400}
+                      lineHeight="normal"
+                      textTransform="none"
                   >
                     Last Edited on
                   </Th>
+
                   <Th
-                    color={'text.tableHeading'}
-                    fontFamily={'Inter'}
-                    fontSize={'lg'}
-                    fontWeight={400}
-                    textTransform={'none'}
-                    fontStyle={'normal'}
-                    lineHeight={'normal'}
+                      color="text.tableHeading"
+                      fontFamily="Inter"
+                      fontSize="lg"
+                      fontStyle="normal"
+                      fontWeight={400}
+                      lineHeight="normal"
+                      textTransform="none"
                   >
                     Created at
                   </Th>
-                  <Th display={'flex'} justifyContent={'right'}>
+
+                  <Th
+                      display="flex"
+                      justifyContent="right"
+                  >
                     <Button
-                      width={'7.375rem'}
-                      height={'1.75rem'}
-                      backgroundColor={'primary.100'}
-                      color={'white'}
-                      borderRadius={'0.25rem'}
-                      _hover={{ backgroundColor: 'primary.90' }}
-                      onClick={createFlowOnOpen}
+                        _hover={{ backgroundColor: 'primary.90' }}
+                        backgroundColor="primary.100"
+                        borderRadius="0.25rem"
+                        color="white"
+                        height="1.75rem"
+                        onClick={createFlowOnOpen}
+                        width="7.375rem"
                     >
                       Create Flow
                     </Button>
                   </Th>
                 </Tr>
               </Thead>
+
               <Tbody>
                 {data?.length > 0 &&
-                  data?.map((item, index) => {
+                  data?.map((item) => {
                     const date_update_at = new Date(item.audit.updated_at);
                     const date_created_at = new Date(item.audit.created_at);
                     const options = {
@@ -143,69 +161,83 @@ const TableComponent = () => {
                     };
                     return (
                       <Tr
-                        height={'3.125rem'}
-                        key={index}
-                        backgroundColor={'white'}
+                          backgroundColor="white"
+                          height="3.125rem"
+                          key={item._id}
                       >
                         <Td
-                          color={'text.body'}
-                          fontSize={'md'}
-                          height={'3.125rem'}
+                            color="text.body"
+                            fontSize="md"
+                            height="3.125rem"
                         >
                           {item.name}
                         </Td>
+
                         <Td
-                          color={'text.body'}
-                          fontSize={'md'}
-                          height={'3.125rem'}
+                            color="text.body"
+                            fontSize="md"
+                            height="3.125rem"
                         >
                           {item.description}
                         </Td>
+
                         <Td
-                          color={'text.body'}
-                          fontSize={'md'}
-                          height={'3.125rem'}
+                            color="text.body"
+                            fontSize="md"
+                            height="3.125rem"
                         >
                           {date_update_at.toLocaleDateString('en-US', options)}
                         </Td>
+
                         <Td
-                          color={'text.body'}
-                          fontSize={'md'}
-                          height={'3.125rem'}
+                            color="text.body"
+                            fontSize="md"
+                            height="3.125rem"
                         >
                           {date_created_at.toLocaleDateString('en-US', options)}
                         </Td>
-                        <Td height={'3.125rem'} alignItems={'center'}>
+
+                        <Td
+                            alignItems="center"
+                            height="3.125rem"
+                        >
                           <Popover placement="bottom-end">
                             <Box
-                              display={'flex'}
-                              justifyContent={'right'}
-                              cursor={'pointer'}
+                                cursor="pointer"
+                                display="flex"
+                                justifyContent="right"
                             >
                               <PopoverTrigger>
                                 <Icon
-                                  icon="ph:dots-three-outline-vertical-fill"
-                                  width={'1.375rem'}
-                                  height={'1.375rem'}
+                                    height="1.375rem"
+                                    icon="ph:dots-three-outline-vertical-fill"
+                                    width="1.375rem"
                                 />
                               </PopoverTrigger>
                             </Box>
-                            <PopoverContent width={'6.8125rem'}>
+
+                            <PopoverContent width="6.8125rem">
                               <PopoverBody>
                                 <List spacing={3}>
                                   <ListItem
-                                    cursor={'pointer'}
-                                    onClick={() => {
+                                      cursor="pointer"
+                                      onClick={() => {
                                       console.log(item);
                                       setSelectedItem(item), editModalOnOpen();
                                     }}
                                   >
                                     Edit
                                   </ListItem>
+
                                   <Divider />
-                                  <ListItem cursor={'pointer'}>Delete</ListItem>
+
+                                  <ListItem cursor="pointer">
+                                    Delete
+                                  </ListItem>
+
                                   <Divider />
-                                  <ListItem cursor={'pointer'}>
+
+                                  <ListItem cursor="pointer">
                                     Duplicate
                                   </ListItem>
                                 </List>
@@ -223,6 +255,6 @@ const TableComponent = () => {
       </Box>
     </>
   );
-};
+}
 
 export default TableComponent;

@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useState } from 'react';
 
-const EditFlowModal = ({ isOpen, onClose, selectedItem }) => {
+function EditFlowModal({ isOpen, onClose, selectedItem }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
@@ -50,80 +50,113 @@ const EditFlowModal = ({ isOpen, onClose, selectedItem }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+    >
       <ModalOverlay />
-      <ModalContent padding={'32px 0px'} display={'flex'} alignSelf={'center'}>
-        <ModalHeader>Edit Flow</ModalHeader>
+
+      <ModalContent
+          alignSelf="center"
+          display="flex"
+          padding="32px 0px"
+      >
+        <ModalHeader>
+          Edit Flow
+        </ModalHeader>
+
         <ModalBody>
           <Text
-            color={'text.body'}
-            fontSize={'xs'}
-            fontWeight={400}
-            margin={'5px 0px'}
+              color="text.body"
+              fontSize="xs"
+              fontWeight={400}
+              margin="5px 0px"
           >
             Flow Name
           </Text>
+
           <Input
-            height={'2rem'}
-            borderRadius={'0.3125rem'}
-            border={'0.5px solid'}
-            borderColor={'stroke.table'}
-            placeholder="Account Balance"
-            _placeholder={{
+              _placeholder={{
               color: 'text.body',
               fontSize: 'xs',
               fontWeight: 400,
             }}
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+              border="0.5px solid"
+              borderColor="stroke.table"
+              borderRadius="0.3125rem"
+              height="2rem"
+              onChange={(event) => setName(event.target.value)}
+              placeholder="Account Balance"
+              value={name}
           />
+
           <br />
+
           <br />
+
           <Text
-            color={'text.body'}
-            fontSize={'xs'}
-            fontWeight={400}
-            margin={'5px 0px'}
+              color="text.body"
+              fontSize="xs"
+              fontWeight={400}
+              margin="5px 0px"
           >
             Flow Description
           </Text>
+
           <Textarea
-            height={'2rem'}
-            borderRadius={'0.3125rem'}
-            border={'0.5px solid'}
-            borderColor={'stroke.table'}
-            _placeholder={{
+              _placeholder={{
               color: 'text.body',
               fontSize: 'xs',
               fontWeight: 400,
             }}
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
+              border="0.5px solid"
+              borderColor="stroke.table"
+              borderRadius="0.3125rem"
+              height="2rem"
+              onChange={(event) => setDescription(event.target.value)}
+              value={description}
           />
+
           <br />
+
           <br />
-          <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-            <GridItem w="100%" h="10" />
-            <GridItem w="100%" h="10">
+
+          <Grid
+              gap={6}
+              templateColumns="repeat(3, 1fr)"
+          >
+            <GridItem
+                h="10"
+                w="100%"
+            />
+
+            <GridItem
+                h="10"
+                w="100%"
+            >
               <Button
-                variant={'outline'}
-                color={'primary.100'}
-                borderColor="primary.100"
-                size="sm"
-                width={'100%'}
-                onClick={onClose}
+                  borderColor="primary.100"
+                  color="primary.100"
+                  onClick={onClose}
+                  size="sm"
+                  variant="outline"
+                  width="100%"
               >
                 Cancel
               </Button>
             </GridItem>
-            <GridItem w="100%" h="10">
+
+            <GridItem
+                h="10"
+                w="100%"
+            >
               <Button
-                color={'white'}
-                backgroundColor="primary.100"
-                size="sm"
-                width={'100%'}
-                _hover={{ backgroundColor: 'primary.90' }}
-                onClick={editFlow}
+                  _hover={{ backgroundColor: 'primary.90' }}
+                  backgroundColor="primary.100"
+                  color="white"
+                  onClick={editFlow}
+                  size="sm"
+                  width="100%"
               >
                 Edit Flow
               </Button>
@@ -133,6 +166,6 @@ const EditFlowModal = ({ isOpen, onClose, selectedItem }) => {
       </ModalContent>
     </Modal>
   );
-};
+}
 
 export default EditFlowModal;
