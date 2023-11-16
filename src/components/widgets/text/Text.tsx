@@ -10,6 +10,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { convertToHTML } from 'draft-convert';
@@ -19,6 +20,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 // import { Handle, Position } from 'reactflow';
 
 export default memo(({ data, isConnectable }: any) => {
+  const boldIcon = <Icon icon="octicon:bold-16" color="hsl(0, 0%, 85%)" />
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );
@@ -95,10 +97,18 @@ export default memo(({ data, isConnectable }: any) => {
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
               toolbar={{
+                image: {
+                  alt: { present: true, mandatory: false },
+                  previewImage: true,
+                  inputAccept: "svg"
+                },
                 options: ['inline', 'link'],
                 inline: {
                   inDropdown: false,
                   options: ['bold', 'italic', 'underline', 'strikethrough'],
+                  bold: {
+                    icon: "/icons/bold"
+                  }
                 },
                 link: {
                   inDropdown: false,
@@ -106,7 +116,7 @@ export default memo(({ data, isConnectable }: any) => {
                 },
               }}
               toolbarCustomButtons={[
-                <div onClick={() => alert('Coming Soon!')}>Insert Entity</div>,
+                <div onClick={() => alert('Coming Soon!')} className='insert-entity'>Insert Entity</div>,
               ]}
             />
           </PopoverBody>
