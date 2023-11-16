@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
-  Image
+  Image,
 } from '@chakra-ui/react';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -69,8 +69,8 @@ export default memo(({ data, isConnectable }: any) => {
                 justifyContent="center"
                 alignItems="center"
               >
-                { file ? <Image src={file} alt='Preview' /> : null }
-                { input ? <p> {input}</p> : null }
+                {file ? <Image src={file} alt="Preview" /> : null}
+                {input ? <p> {input}</p> : null}
               </Box>
             </Box>
             {/* <img src="https://via.placeholder.com/300.png/09f/fff" alt="Girl in a jacket" width="100" height="100" /> */}
@@ -81,10 +81,25 @@ export default memo(({ data, isConnectable }: any) => {
           {/* <PopoverCloseButton /> */}
           <PopoverHeader>Image</PopoverHeader>
           <PopoverBody>
-            <Input placeholder="Type here" size="lg" onChange={(e) => setInput(e.target.value)}/>
-            { file ? <Image src={file} alt='Preview' /> : null }
-            { file ? null : <Input type="file" onChange={(e) => setFile(URL.createObjectURL(e.target.files[0]))} />}
-            <Input placeholder="Add url here" size="lg" onChange={(e) => setUrl(e.target.value)}/>
+            <Input
+              placeholder="Type here"
+              size="lg"
+              onChange={(e) => setInput(e.target.value)}
+            />
+            {file ? <Image src={file} alt="Preview" /> : null}
+            {file ? null : (
+              <Input
+                type="file"
+                onChange={(e) =>
+                  setFile(URL.createObjectURL(e.target.files[0]))
+                }
+              />
+            )}
+            <Input
+              placeholder="Add url here"
+              size="lg"
+              onChange={(e) => setUrl(e.target.value)}
+            />
           </PopoverBody>
         </PopoverContent>
       </Popover>

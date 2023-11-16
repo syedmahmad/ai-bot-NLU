@@ -1,4 +1,4 @@
-.editor-class{
+.editor-class {
   /* border: 2px solid red !important; */
   min-height: 108px;
   border-radius: 5px;
@@ -6,22 +6,22 @@
   width: 18.0625rem;
 }
 
-.wrapper-class{
+.wrapper-class {
   display: flex;
   flex-direction: column-reverse;
   border-radius: 5px;
-  border: 0.5px solid #D8D8D8;
+  border: 0.5px solid #d8d8d8;
 }
 
-.toolbar-class{
+.toolbar-class {
   margin-bottom: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  border-top:  0.5px solid #D8D8D8;
-  background-color: #F9FAFC;
+  border-top: 0.5px solid #d8d8d8;
+  background-color: #f9fafc;
 }
 
-.insert-entity{
+.insert-entity {
   width: 4.375rem;
   height: 0.9375rem;
   display: flex;
@@ -29,22 +29,22 @@
   align-items: center;
   flex-shrink: 0;
   border-radius: 0.1875rem;
-  border: 0.5px solid #ECECEC;
+  border: 0.5px solid #ececec;
   font-family: Inter;
   font-size: 0.4375rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #858585
+  color: #858585;
 }
 
-.rdw-option-wrapper{
+.rdw-option-wrapper {
   border: 0;
   border-radius: 0;
   background-color: transparent;
-  border-right: 1px solid #ECECEC;
+  border-right: 1px solid #ececec;
 }
 
-.rdw-option-wrapper:hover{
+.rdw-option-wrapper:hover {
   box-shadow: none;
 }
