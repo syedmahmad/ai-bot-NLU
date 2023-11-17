@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import {
   Box,
+  Text,
+  Input,
+  Select,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -9,12 +12,13 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
-import DatePicker from "react-multi-date-picker";
+import { Calendar } from "react-multi-date-picker";
 
-function Calendar({ data, isConnectable }) {
+function CalendarComponent({ data, isConnectable }) {
+  const [input, setInput] = useState('Select date on which you want to see your transaction details');
+  const [calendarType, setCalendarType] = useState('daily');
+  const [selectionType, setSelectionType] = useState('single'); 
   const [value, setValue] = useState(new Date());
-
-  console.log("value", value)
   const handleClick = (event) => {
     // saving node id to use it later when user try to create new ndoe
     event.target.setAttribute('data-id', data.sourceHandle);
@@ -62,7 +66,25 @@ function Calendar({ data, isConnectable }) {
                   height="68px"
                   justifyContent="center"
                   width="100%"
-              />
+              >
+                <Calendar
+                    onChange={setValue}
+                    onlyMonthPicker={calendarType === 'monthly' ? true : false}
+                    onlyYearPicker={calendarType === 'yearly' ? true : false}
+                    range={selectionType === 'multiple' ? true : false}
+                    style={{}}
+                    value={value}
+                />
+
+                <Text
+                    color="text.menu"
+                    fontFamily="Inter"
+                    fontSize="sm"
+                    fontWeight={300}
+                >
+                  {input}
+                </Text>
+              </Box>
             </Box>
           </Box>
         </PopoverTrigger>
@@ -72,23 +94,89 @@ function Calendar({ data, isConnectable }) {
 
           {/* <PopoverCloseButton /> */}
           <PopoverHeader>
-            Image
+            Calendar
           </PopoverHeader>
 
           <PopoverBody>
-            <DatePicker
-             // disableDayPicker
-                disableMonthPicker
-                disableYearPicker
-                format="YYYY/MM/DD"
-                onChange={setValue}
-                onlyMonthPicker={false}
-                onlyYearPicker={false}
-                placeholder="Choose a date"
-                range={false}
-                style={{}}
-                value={value}
-            />
+            <Box>
+              <Text
+                  color="text.menu"
+                  fontFamily="Inter"
+                  fontSize="sm"
+                  fontWeight={300}
+              >
+                Text
+              </Text>
+
+              <Input
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Type here"
+                  size="lg"
+              />
+
+              <Text
+                  color="text.menu"
+                  fontFamily="Inter"
+                  fontSize="sm"
+                  fontWeight={300}
+              >
+                Calendar Type
+              </Text>
+
+              <Select
+                  onChange={(e) => {
+                    setCalendarType(e.target.value);
+                    setValue(new Date());
+                  }}
+                  placeholder='Calendar Type'
+                  value={calendarType}
+              >
+                <option
+                    selected
+                    value='daily'
+                >
+                  Daily Calendar
+                </option>
+
+                <option value='monthly'>
+                  Monthly Calendar
+                </option>
+
+                <option value='yearly'>
+                  Yearly Calendar
+                </option>
+              </Select>
+
+              <Text
+                  color="text.menu"
+                  fontFamily="Inter"
+                  fontSize="sm"
+                  fontWeight={300}
+              >
+                Selection Type
+              </Text>
+
+              <Select
+                  onChange={(e) => {
+                    setSelectionType(e.target.value);
+                    setValue(new Date());
+                  }}
+                  placeholder='Selection Type'
+                  value={selectionType}
+              >
+                <option
+                    selected
+                    value='single'
+                >
+                  Single Date
+                </option>
+
+                <option value='multiple'>
+                  Multiple Dates (from one date to another date). 
+                </option>
+
+              </Select>
+            </Box>
           </PopoverBody>
         </PopoverContent>
       </Popover>
@@ -108,4 +196,4 @@ function Calendar({ data, isConnectable }) {
   );
 }
 
-export default Calendar;
+export default CalendarComponent;
