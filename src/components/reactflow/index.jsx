@@ -19,8 +19,10 @@ import ReactFlow, {
 import RightSidebar from '../rightSidebar';
 import WidgetControls from './Controls';
 import { botNodeValidations, customerNodeValidations } from '../../utils';
+import { useWidgets } from '../context/WidgetsContext';
 
 function ReactFlowComponent() {
+  const { updateWidget } = useWidgets();
   // once user click on specific node, we need to get that node hash,
   // useReactFlow hook allow us to retrive node based on node id.
   // that's why using this hook.
@@ -109,12 +111,13 @@ function ReactFlowComponent() {
 
   // generate new node and connect this newly created node to other nodes via edges.
   const addBotNode = (widgetType) => {
-    
-
     if (selectedNode?.data?.nodeType === "bot") {
-      // need to append widgets in the same node.
+      // via context, we will add widget to same bot node as there is no other 
+      // communication medium.
+      updateWidget(widgetType);
     }
 
+    // we'll not create same bot response again.
     if (botNodeValidations(selectedNode)) {
       const newId = uniqid();
       connectNewNode(newId, widgetType, "bot");
@@ -132,7 +135,6 @@ function ReactFlowComponent() {
   // need to store selected node data, that's why needed this callback.
   const onNodeClick = useCallback(
     (event) => {
-      console.log('id', event?.target?.getAttribute('data-id'));
       setSelectedNode(
         reactFlowInstance.getNode(event?.target?.getAttribute('data-id')),
       );

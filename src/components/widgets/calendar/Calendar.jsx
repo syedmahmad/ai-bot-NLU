@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import {
   Box,
-  Input,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
-  Image,
 } from '@chakra-ui/react';
+import DatePicker from "react-multi-date-picker";
 
 function Calendar({ data, isConnectable }) {
-  const [input, setInput] = useState('');
-  const [url, setUrl] = useState('');
-  const [file, setFile] = useState('');
+  const [value, setValue] = useState(new Date());
 
-  useEffect(() => {
-    setFile(url);
-  }, [url]);
-
+  console.log("value", value)
   const handleClick = (event) => {
     // saving node id to use it later when user try to create new ndoe
     event.target.setAttribute('data-id', data.sourceHandle);
@@ -68,21 +62,8 @@ function Calendar({ data, isConnectable }) {
                   height="68px"
                   justifyContent="center"
                   width="100%"
-              >
-                {file ? <Image
-                    alt="Preview"
-                    src={file}
-                        /> : null}
-
-                {input ? <p> 
-                  {' '}
-
-                  {input}
-                </p> : null}
-              </Box>
+              />
             </Box>
-
-            {/* <img src="https://via.placeholder.com/300.png/09f/fff" alt="Girl in a jacket" width="100" height="100" /> */}
           </Box>
         </PopoverTrigger>
 
@@ -95,29 +76,18 @@ function Calendar({ data, isConnectable }) {
           </PopoverHeader>
 
           <PopoverBody>
-            <Input
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type here"
-                size="lg"
-            />
-
-            {file ? <Image
-                alt="Preview"
-                src={file}
-                    /> : null}
-
-            {file ? null : (
-              <Input
-                  onChange={(e) =>
-                  setFile(URL.createObjectURL(e.target.files[0]))}
-                  type="file"
-              />
-            )}
-
-            <Input
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder="Add url here"
-                size="lg"
+            <DatePicker
+             // disableDayPicker
+                disableMonthPicker
+                disableYearPicker
+                format="YYYY/MM/DD"
+                onChange={setValue}
+                onlyMonthPicker={false}
+                onlyYearPicker={false}
+                placeholder="Choose a date"
+                range={false}
+                style={{}}
+                value={value}
             />
           </PopoverBody>
         </PopoverContent>

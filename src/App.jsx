@@ -5,17 +5,20 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ProjectThemeProvider from './theme';
+import WidgetsProvider from './components/context/WidgetsProvider';
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ProjectThemeProvider>
-        <ToastContainer />
+    <WidgetsProvider>
+      <QueryClientProvider client={queryClient}>
+        <ProjectThemeProvider>
+          <ToastContainer />
 
-        <Router />
-      </ProjectThemeProvider>
-    </QueryClientProvider>
+          <Router />
+        </ProjectThemeProvider>
+      </QueryClientProvider>
+    </WidgetsProvider>
   );
 }

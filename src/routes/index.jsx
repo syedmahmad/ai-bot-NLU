@@ -14,7 +14,7 @@ function Router() {
         },
         {
           path: '/flow',
-          element: <FlowPage />,
+          element: <FlowPage />
         },
       ],
     },

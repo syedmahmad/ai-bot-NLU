@@ -5,7 +5,9 @@ export const botNodeValidations = (selectedNode) => {
        'Parent node not selected. Please select the node from where you wanted to create new node.',
      );
      return false;
-   }
+   } else if (selectedNode?.data?.nodeType === "bot") {
+      return false;
+    }
    return true;
  }
 

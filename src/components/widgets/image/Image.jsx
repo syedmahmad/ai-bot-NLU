@@ -12,8 +12,12 @@ import {
   Image,
 } from '@chakra-ui/react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { useWidgets } from '../../context/WidgetsContext';
 
 function ImageComponent({ data, isConnectable }) {
+  const { widget } = useWidgets();
+
+  console.log("widget", widget);
   const [input, setInput] = useState('');
   const [url, setUrl] = useState('');
   const [file, setFile] = useState('');

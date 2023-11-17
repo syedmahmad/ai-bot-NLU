@@ -17,8 +17,11 @@ import { Editor } from 'react-draft-wysiwyg';
 import { convertToHTML } from 'draft-convert';
 import DOMPurify from 'dompurify';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { useWidgets } from '../../context/WidgetsContext';
 
 function TextComponent({ data, isConnectable }) {
+  const { widget } = useWidgets();
+  console.log("widget", widget);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );
