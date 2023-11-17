@@ -12,6 +12,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 import { Calendar } from "react-multi-date-picker";
 
 function CalendarComponent({ data, isConnectable }) {
@@ -34,7 +35,7 @@ function CalendarComponent({ data, isConnectable }) {
           isConnectable={isConnectable}
           onConnect={(params) => console.log('handle onConnect', params)}
           position={Position.Top}
-          style={{ background: '#000' }}
+          style={{ background: '#000', top: "auto" }}
           type="target"
       />
 
@@ -54,8 +55,8 @@ function CalendarComponent({ data, isConnectable }) {
             <Box
                 background="#D1EAFE"
                 borderRadius="17.487px 17.487px 0px 17.487px"
-                height="100%"
-                padding={4}
+                height='fit-content'
+                padding={2}
                 width="100%"
             >
               <Box
@@ -63,27 +64,34 @@ function CalendarComponent({ data, isConnectable }) {
                   background="#fff"
                   borderRadius="17.487px 17.487px 0px 17.487px"
                   display="flex"
-                  height="68px"
+                  flexDirection="column"
+                  height='fit-content'
                   justifyContent="center"
+                  padding="20px 10px"
                   width="100%"
               >
-                <Calendar
-                    onChange={setValue}
-                    onlyMonthPicker={calendarType === 'monthly' ? true : false}
-                    onlyYearPicker={calendarType === 'yearly' ? true : false}
-                    range={selectionType === 'multiple' ? true : false}
-                    style={{}}
-                    value={value}
-                />
+                <Box>
+                  <Calendar
+                      onChange={setValue}
+                      onlyMonthPicker={calendarType === 'monthly' ? true : false}
+                      onlyYearPicker={calendarType === 'yearly' ? true : false}
+                      range={selectionType === 'multiple' ? true : false}
+                      style={{}}
+                      value={value}
+                  />
+                </Box>
 
-                <Text
-                    color="text.menu"
-                    fontFamily="Inter"
-                    fontSize="sm"
-                    fontWeight={300}
-                >
-                  {input}
-                </Text>
+                <Box>
+                  <Text
+                      color="text.menu"
+                      fontFamily="Inter"
+                      fontSize="sm"
+                      fontWeight={300}
+                      margin="10px 5px"
+                  >
+                    {input}
+                  </Text>
+                </Box>
               </Box>
             </Box>
           </Box>
@@ -93,8 +101,21 @@ function CalendarComponent({ data, isConnectable }) {
           <PopoverArrow />
 
           {/* <PopoverCloseButton /> */}
-          <PopoverHeader>
-            Calendar
+          <PopoverHeader
+              display="flex"
+              justifyContent="space-between"
+              padding="15px 10px 0px"
+          >
+            <Box>
+              Calendar
+            </Box>
+
+            <Box>
+              <Icon
+                  color='hsla(0, 0%, 85%, 1)'
+                  icon="bi:three-dots-vertical"
+              />
+            </Box>
           </PopoverHeader>
 
           <PopoverBody>
@@ -111,7 +132,7 @@ function CalendarComponent({ data, isConnectable }) {
               <Input
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Type here"
-                  size="lg"
+                  size="sm"
               />
 
               <Text
@@ -119,6 +140,7 @@ function CalendarComponent({ data, isConnectable }) {
                   fontFamily="Inter"
                   fontSize="sm"
                   fontWeight={300}
+                  marginTop="15px"
               >
                 Calendar Type
               </Text>
@@ -129,6 +151,7 @@ function CalendarComponent({ data, isConnectable }) {
                     setValue(new Date());
                   }}
                   placeholder='Calendar Type'
+                  size="sm"
                   value={calendarType}
               >
                 <option
@@ -152,6 +175,7 @@ function CalendarComponent({ data, isConnectable }) {
                   fontFamily="Inter"
                   fontSize="sm"
                   fontWeight={300}
+                  marginTop="15px"
               >
                 Selection Type
               </Text>
@@ -162,6 +186,7 @@ function CalendarComponent({ data, isConnectable }) {
                     setValue(new Date());
                   }}
                   placeholder='Selection Type'
+                  size="md"
                   value={selectionType}
               >
                 <option
@@ -189,7 +214,7 @@ function CalendarComponent({ data, isConnectable }) {
           isConnectable={isConnectable}
           onConnect={(params) => console.log('handle onConnect', params)}
           position={Position.Bottom}
-          style={{ background: '#000' }}
+          style={{ background: '#000', top: "98%" }}
           type="source"
       />
     </>

@@ -261,6 +261,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
+                onClick={() => addBotNode('ButtonNode')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
@@ -316,6 +317,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
+                onClick={() => addBotNode('CarouselNode')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >

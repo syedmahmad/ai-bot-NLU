@@ -1,5 +1,8 @@
 import { Box, Text, Select, Input } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
+import {
+  MiniMap
+} from 'reactflow';
 
 function RightSidebar() {
   return (
@@ -51,9 +54,16 @@ function RightSidebar() {
           border="1px solid"
           borderColor="stroke.menuOrCard"
           height="17.1875rem"
+          position="relative"
           width="100%"
       >
         {/* <MiniMap position="top-right"/> */}
+        <MiniMap
+            style={{
+              top: 0,
+              left: "25%",
+            }}
+        />
       </Box>
 
       <Box

@@ -5,6 +5,8 @@ import uniqid from 'uniqid';
 import TextComponent from '../widgets/text/Text';
 import ImageComponent from '../widgets/image/Image';
 import CalendarComponent from '../widgets/calendar/Calendar';
+import ButtonComponent from '../widgets/button/Button';
+import CarouselComponent from '../widgets/carousel/Carousel';
 import ReactFlow, {
   Background,
   useNodesState,
@@ -12,7 +14,6 @@ import ReactFlow, {
   addEdge,
   useReactFlow,
   MarkerType,
-  MiniMap,
   Controls,
   BackgroundVariant,
 } from 'reactflow';
@@ -36,6 +37,8 @@ function ReactFlowComponent() {
       TextNode: TextComponent,
       ImageNode: ImageComponent,
       CalendarNode: CalendarComponent,
+      ButtonNode: ButtonComponent,
+      CarouselNode: CarouselComponent
     }),
     [],
   );
@@ -198,7 +201,6 @@ function ReactFlowComponent() {
         </Box>
 
         <Box width="26.75rem">
-          <MiniMap />
           <RightSidebar />
         </Box>
       </Box>
