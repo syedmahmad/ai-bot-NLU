@@ -16,9 +16,9 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useState } from 'react';
 
-function EditFlowModal({ isOpen, onClose, selectedItem }) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchData }) {
+  const [name, setName] = useState(selectedItem?.name);
+  const [description, setDescription] = useState(selectedItem?.description);
 
   const mutation = useMutation({
     mutationFn: (data) => {
@@ -37,9 +37,10 @@ function EditFlowModal({ isOpen, onClose, selectedItem }) {
       mutation.mutate(
         { _id: selectedItem._id, name: name, description: description },
         {
-          onSuccess: (response) => {
-            console.log('response', response);
-            toast.success('Flow Edited successfully');
+          onSuccess: async () => {
+            fetchData();
+            toast.success("Flow edited successfully");
+            setSelectedItem(null);
             setName('');
             setDescription('');
             onClose();
@@ -52,7 +53,7 @@ function EditFlowModal({ isOpen, onClose, selectedItem }) {
   return (
     <Modal
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={() => {setSelectedItem(null), onClose()}}
     >
       <ModalOverlay />
 

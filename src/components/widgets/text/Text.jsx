@@ -75,12 +75,16 @@ function TextComponent({ data, isConnectable }) {
                   alignItems="center"
                   background="#fff"
                   borderRadius="17.487px 17.487px 0px 17.487px"
+                  color="text.body"
                   dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(convertedContent),
                 }}
                   display="flex"
-                  height="68px"
+                  fontSize="md"
                   justifyContent="center"
+                  margin="6px 0px"
+                  minHeight="68px"
+                  textTransform="capitalize"
                   width="100%"
               />
             </Box>

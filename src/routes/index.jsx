@@ -13,7 +13,7 @@ function Router() {
           element: <TablePage />,
         },
         {
-          path: '/flow',
+          path: '/flow/:id',
           element: <FlowPage />
         },
       ],
