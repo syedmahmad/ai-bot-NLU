@@ -16,7 +16,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-function CreateFlowModal({ isOpen, onClose }) {
+function CreateFlowModal({ isOpen, onClose, fetchData }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
@@ -34,9 +34,9 @@ function CreateFlowModal({ isOpen, onClose }) {
       mutation.mutate(
         { name: name, description: description },
         {
-          onSuccess: (response) => {
-            console.log('response', response);
-            toast.success('Flow added successfully');
+          onSuccess: async (response) => {
+            fetchData();
+            toast.success(response.data.detail);
             setName('');
             setDescription('');
             onClose();

@@ -9,8 +9,11 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Button,
   Image,
+  Text
 } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useWidgets } from '../../context/WidgetsContext';
 
@@ -61,7 +64,6 @@ function ImageComponent({ data, isConnectable }) {
             <Box
                 background="#D1EAFE"
                 borderRadius="17.487px 17.487px 0px 17.487px"
-                height="100%"
                 padding={4}
                 width="100%"
             >
@@ -70,20 +72,34 @@ function ImageComponent({ data, isConnectable }) {
                   background="#fff"
                   borderRadius="17.487px 17.487px 0px 17.487px"
                   display="flex"
-                  height="68px"
+                  flexDirection="column"
                   justifyContent="center"
+                  minHeight="68px"
+                  padding="25px 28px"
                   width="100%"
               >
                 {file ? <Image
                     alt="Preview"
+                    borderRadius="0.3125rem"
                     src={file}
                         /> : null}
 
-                {input ? <p> 
-                  {' '}
+                {input ? (
+                  <Box
+                      width="100%"
+                  >
+                    <Text
+                        color="text.body"
+                        fontSize="md"
+                        margin="6px 0px"
+                        textAlign="left"
+                        textTransform="capitalize"
+                    > 
+                      {input}
+                    </Text>
+                  </Box>
+                ): null}
 
-                  {input}
-                </p> : null}
               </Box>
             </Box>
 
@@ -95,34 +111,136 @@ function ImageComponent({ data, isConnectable }) {
           <PopoverArrow />
 
           {/* <PopoverCloseButton /> */}
-          <PopoverHeader>
-            Image
+          <PopoverHeader
+              display="flex"
+              justifyContent="space-between"
+              padding="15px 10px 0px"
+          >
+            <Box>
+              Image
+            </Box>
+
+            <Box>
+              <Icon
+                  color='hsla(0, 0%, 85%, 1)'
+                  icon="bi:three-dots-vertical"
+              />
+            </Box>
           </PopoverHeader>
 
-          <PopoverBody>
-            <Input
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type here"
-                size="lg"
-            />
+          <PopoverBody
+              padding="20px"
+          >
+            <Text
+                color="text.body"
+                fontSize="xs"
+            >
+              Text
+            </Text>
+
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                marginBottom="10px"
+            >
+              <Box width="93%">
+                <Input
+                    borderRadius="0.3125rem"
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Type here"
+                    size="sm"
+                />
+              </Box>
+
+              <Box
+                  alignItems="center"
+                  display="flex"
+                  height="inherit"
+              >
+                <Icon
+                    color='hsla(0, 0%, 85%, 1)'
+                    icon="ic:outline-delete"
+                />
+              </Box>
+            </Box>
 
             {file ? <Image
                 alt="Preview"
+                borderRadius="0.3125rem"
                 src={file}
+                width="93%"
                     /> : null}
 
             {file ? null : (
-              <Input
-                  onChange={(e) =>
+              <>
+                <Text
+                    color="text.body"
+                    fontSize="xs"
+                >
+                  Upload Image
+                </Text>
+
+                <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    marginBottom="10px"
+                >
+                  <Box
+                      alignItems="center"
+                      backgroundColor="background.flowDiagram"
+                      border="0.5px solid"
+                      borderColor="stroke.table"
+                      borderRadius="0.3125rem"
+                      display="flex"
+                      height="8.0625rem"
+                      justifyContent="center"
+                      paddingTop="20%"
+                      width="93%"
+                  >
+                    <Button
+                        _hover={{ backgroundColor: 'primary.90' }}
+                        backgroundColor="primary.100"
+                        borderRadius="0.25rem"
+                        color="white"
+                        height="1.75rem"
+                        onClick={() => document.getElementById("file").click()}
+                        width="7.375rem"
+                    >
+                      Upload
+                    </Button>
+
+                    <Input
+                        id="file"
+                        onChange={(e) =>
                   setFile(URL.createObjectURL(e.target.files[0]))}
-                  type="file"
-              />
+                        style={{display: "none"}}
+                        type="file"
+                    />
+                  </Box>
+
+                  <Box>
+                    <Icon
+                        color='hsla(0, 0%, 85%, 1)'
+                        icon="ic:outline-delete"
+                    />
+                  </Box>
+                </Box>
+              </>
             )}
 
+            <Text
+                color="text.body"
+                fontSize="xs"
+            >
+              Add Link
+            </Text>
+
             <Input
+                borderRadius="0.3125rem"
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="Add url here"
-                size="lg"
+                size="sm"
+                width="93%"
             />
           </PopoverBody>
         </PopoverContent>
