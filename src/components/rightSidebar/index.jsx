@@ -65,7 +65,7 @@ function RightSidebar() {
           backgroundColor="white"
           border="1px solid"
           borderColor="stroke.menuOrCard"
-          height="17.1875rem"
+          height="calc(55vh - 113px)"
           position="relative"
           width="100%"
 
@@ -163,7 +163,7 @@ function RightSidebar() {
           backgroundColor="white"
           border="1px solid"
           borderColor="stroke.menuOrCard"
-          height="17.1875rem"
+          height="calc(45vh - 2.625rem)"
           width="100%"
       >
         <Box

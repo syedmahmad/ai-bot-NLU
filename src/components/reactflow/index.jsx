@@ -85,10 +85,10 @@ function ReactFlowComponent() {
           onNodeClick: onNodeClick,
         },
         style: {
-          backgroundColor: '#000',
+          backgroundColor: 'transparent',
           boxShadow: '#AADBFF',
         },
-        background: '#000',
+        background: 'transparent',
       });
     });
     setEdges((prev) => {

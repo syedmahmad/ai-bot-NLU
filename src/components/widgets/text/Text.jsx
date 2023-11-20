@@ -47,7 +47,7 @@ function TextComponent({ data, isConnectable }) {
           isConnectable={isConnectable}
           onConnect={(params) => console.log('handle onConnect', params)}
           position={Position.Top}
-          style={{ background: '#000' }}
+          style={{ top: 'auto', visibility: 'hidden' }}
           type="target"
       />
 
@@ -59,15 +59,15 @@ function TextComponent({ data, isConnectable }) {
           <Box
               onClick={handleClick}
               style={{
-              background: '#fff',
+              background: 'transparent',
               height: 'fit-content',
               width: '300px',
+              marginTop: '10px' 
             }}
           >
             <Box
                 background={data.nodeType === 'customer' ? "#FCD8E0" : "#D1EAFE"}
                 borderRadius="17.487px 17.487px 0px 17.487px"
-                height="100%"
                 padding={4}
                 width="100%"
             >
@@ -206,7 +206,7 @@ function TextComponent({ data, isConnectable }) {
           isConnectable={isConnectable}
           onConnect={(params) => console.log('handle onConnect', params)}
           position={Position.Bottom}
-          style={{ background: '#000' }}
+          style={{ background: '#fff', border: '1px solid', borderColor: 'hsla(0, 0%, 93%, 1)', top: "auto", marginBottom: '10px' }}
           type="source"
       />
     </>

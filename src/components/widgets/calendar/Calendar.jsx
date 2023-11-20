@@ -35,7 +35,7 @@ function CalendarComponent({ data, isConnectable }) {
           isConnectable={isConnectable}
           onConnect={(params) => console.log('handle onConnect', params)}
           position={Position.Top}
-          style={{ background: '#000', top: "auto" }}
+          style={{ top: 'auto', visibility: 'hidden' }}
           type="target"
       />
 
@@ -50,6 +50,7 @@ function CalendarComponent({ data, isConnectable }) {
               background: '#fff',
               height: 'fit-content',
               width: '300px',
+              marginTop: '10px' 
             }}
           >
             <Box
@@ -214,7 +215,7 @@ function CalendarComponent({ data, isConnectable }) {
           isConnectable={isConnectable}
           onConnect={(params) => console.log('handle onConnect', params)}
           position={Position.Bottom}
-          style={{ background: '#000', top: "98%" }}
+          style={{ background: '#fff', border: '1px solid', borderColor: 'hsla(0, 0%, 93%, 1)', top: "auto", marginBottom: '10px' }}
           type="source"
       />
     </>
