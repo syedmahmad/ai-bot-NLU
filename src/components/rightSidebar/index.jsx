@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Box, Text, Select, Input } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import {
@@ -5,6 +6,17 @@ import {
 } from 'reactflow';
 
 function RightSidebar() {
+  const nodeColor = (node) => {
+    if (node.type === 'input') {
+        return '#D1EAFE';
+    }
+    switch (node.data.nodeType) {
+      case 'customer':
+        return '#FCD8E0';
+      default:
+        return '#D1EAFE';
+    }
+  };
   return (
     <Box
         height="calc(100vh - 71px)"
@@ -56,13 +68,23 @@ function RightSidebar() {
           height="17.1875rem"
           position="relative"
           width="100%"
+
       >
-        {/* <MiniMap position="top-right"/> */}
         <MiniMap
+            nodeColor={nodeColor}
+            nodeStrokeWidth={3}
+            pannable
             style={{
-              top: 0,
-              left: "25%",
+              top: "0",
+              left: "0",
+              margin: "0",
+              padding: "0",
+              width: '430',
+              height: '275',
+              fill: 'white'
             }}
+            zoomable
+            fill="white"
         />
       </Box>
 
@@ -144,7 +166,6 @@ function RightSidebar() {
           height="17.1875rem"
           width="100%"
       >
-        {/* <MiniMap position="top-right"/> */}
         <Box
             alignItems="center"
             bottom={2}
@@ -180,3 +201,5 @@ function RightSidebar() {
 }
 
 export default RightSidebar;
+
+

@@ -201,7 +201,9 @@ function ReactFlowComponent() {
         </Box>
 
         <Box width="26.75rem">
-          <RightSidebar />
+          <RightSidebar 
+            edges={edges}
+            nodes={nodes} />
         </Box>
       </Box>
     </Box>

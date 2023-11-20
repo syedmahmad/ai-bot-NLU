@@ -148,7 +148,7 @@ function CalendarComponent({ data, isConnectable }) {
               <Select
                   onChange={(e) => {
                     setCalendarType(e.target.value);
-                    setValue(new Date());
+                    // setValue(new Date());
                   }}
                   placeholder='Calendar Type'
                   size="sm"
@@ -183,7 +183,7 @@ function CalendarComponent({ data, isConnectable }) {
               <Select
                   onChange={(e) => {
                     setSelectionType(e.target.value);
-                    setValue(new Date());
+                    // setValue(new Date());
                   }}
                   placeholder='Selection Type'
                   size="md"
