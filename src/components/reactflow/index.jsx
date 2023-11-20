@@ -21,9 +21,19 @@ import RightSidebar from '../rightSidebar';
 import WidgetControls from './Controls';
 import { botNodeValidations, customerNodeValidations } from '../../utils';
 import { useWidgets } from '../context/WidgetsContext';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 function ReactFlowComponent() {
   const { updateWidget } = useWidgets();
+  const {pathname} = useLocation();
+  const { data } = useQuery({
+    queryFn: () => axios
+    .get(`http://54.81.9.89/flow_entity/{id}?_id=${pathname.split('/')[2]}&include_deleted=false`)
+    .then((res) => res.data),
+  })
+
   // once user click on specific node, we need to get that node hash,
   // useReactFlow hook allow us to retrive node based on node id.
   // that's why using this hook.
@@ -168,7 +178,7 @@ function ReactFlowComponent() {
               fontSize="sm"
               fontWeight={300}
           >
-            Flow Name
+            {data?.name}
           </Text>
         </Box>
       </Box>

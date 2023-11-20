@@ -58,3 +58,15 @@
 .react-flow__minimap-mask {
   fill: white;
 }
+
+.ant-table-thead {
+  background-color: hsla(0, 0%, 92%, 0.5);
+}
+
+.ant-table-thead > tr > th {
+  background: transparent !important;
+}
+
+.ant-table-cell {
+  background-color: white;
+}

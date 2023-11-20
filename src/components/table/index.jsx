@@ -83,6 +83,7 @@ function TableComponent() {
       title: 'Flow Name',
       dataIndex: 'name',
       key: 'name',
+      className: 'first'
     },
     {
       title: 'Flow Description',
@@ -107,6 +108,7 @@ function TableComponent() {
       ),
       align: 'right',
       key: '_id',
+      className: 'last',
       render: (item) => (
         <TablePopover 
             deleteFlow={deleteFlow}
@@ -175,6 +177,11 @@ function TableComponent() {
                 pageSize: pagination.pageSize,
                 position: ["bottomCenter"],
                 onChange: handleTableButtonClick
+              }}
+              style={{
+                borderTopRightRadius: '0.625rem',
+                borderTopLeftRadius: '0.625rem',
+                border: '1px solid #D8D8D8'
               }}
           />
         </Box>
