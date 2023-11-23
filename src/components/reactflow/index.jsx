@@ -7,6 +7,8 @@ import ImageComponent from '../widgets/image/Image';
 import CalendarComponent from '../widgets/calendar/Calendar';
 import ButtonComponent from '../widgets/button/Button';
 import CarouselComponent from '../widgets/carousel/Carousel';
+import WidgetComponent from '../widgets/widget/Index';
+
 import ReactFlow, {
   Background,
   useNodesState,
@@ -44,6 +46,7 @@ function ReactFlowComponent() {
   // building our custom components type and pass this type to reactFlow
   const nodeTypes = useMemo(
     () => ({
+      Widget: WidgetComponent,
       TextNode: TextComponent,
       ImageNode: ImageComponent,
       CalendarNode: CalendarComponent,
@@ -93,6 +96,71 @@ function ReactFlowComponent() {
           nodeType: nodeType,
           sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
+          components: [
+            {
+              name: "text",
+              props: {
+                value: "<h1>Hello <b>How are you?</b></h1>"
+              }
+            },
+            {
+              name: "button",
+              props: {
+                label: "save",
+                variant: "solid"
+              }
+            },
+            {
+              name: "button",
+              props: {
+                label: "save1",
+                variant: "outline"
+              }
+            },
+            {
+              name: "text",
+              props: {
+                value: "<h1>Hello <b>How are you?</b></h1>"
+              }
+            },
+            {
+              name: "image",
+              props: {
+                file: null,
+                link: 'https://picsum.photos/200/300'
+              }
+            },
+            {
+              name: "calendar",
+              props: {
+                type: 'monthly',
+                multiple: true,
+                value: new Date()
+              }
+            },
+            {
+              name: "carousal",
+              props: {
+                cards: [
+                  {
+                    file: null,
+                    link: 'https://picsum.photos/200/300',
+                    text: "<h1>Hello <b>How are you?</b></h1>"
+                  },
+                  {
+                    file: null,
+                    link: 'https://picsum.photos/200/300',
+                    text: "<h1>Hello <b>How are you?</b></h1>"
+                  },
+                  {
+                    file: null,
+                    link: 'https://picsum.photos/200/300',
+                    text: "<h1>Hello <b>How are you?</b></h1>"
+                  }
+                ]
+              }
+            }
+          ]
         },
         style: {
           backgroundColor: 'transparent',

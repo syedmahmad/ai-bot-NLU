@@ -233,7 +233,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addBotNode('TextNode')}
+                onClick={() => addBotNode('Widget')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
