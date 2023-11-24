@@ -22,6 +22,7 @@ function ButtonBody({ comp, setComp, components}) {
     });
     setComp(arr);
   }, [btnLabel, btnType]);
+  
   return(
     <>
       <Text

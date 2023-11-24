@@ -96,71 +96,7 @@ function ReactFlowComponent() {
           nodeType: nodeType,
           sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
-          components: [
-            {
-              order: 1,
-              name: "text",
-              props: {
-                value: "<h1>Hello <b>How are you?</b></h1>"
-              }
-            },
-            {
-              order: 2,
-              name: "button",
-              props: {
-                label: "save",
-                variant: "solid"
-              }
-            },
-            {
-              order: 3,
-              name: "button",
-              props: {
-                label: "save1",
-                variant: "outline"
-              }
-            },
-            {
-              order: 4,
-              name: "image",
-              props: {
-                file: null,
-                link: null
-              }
-            },
-            {
-              order: 5,
-              name: "calendar",
-              props: {
-                type: 'monthly',
-                multiple: true,
-                value: new Date()
-              }
-            },
-            {
-              order: 6,
-              name: "carousal",
-              props: {
-                cards: [
-                  {
-                    file: null,
-                    link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>How are you?</b></h1>"
-                  },
-                  {
-                    file: null,
-                    link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>How are you?</b></h1>"
-                  },
-                  {
-                    file: null,
-                    link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>How are you?</b></h1>"
-                  }
-                ]
-              }
-            }
-          ]
+          components: []
         },
         style: {
           backgroundColor: 'transparent',

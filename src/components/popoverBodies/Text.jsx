@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Checkbox,
@@ -7,21 +7,34 @@ import {
 import { Icon } from '@iconify/react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
-// import { convertToHTML } from 'draft-convert';
-// import DOMPurify from 'dompurify';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-// import { useWidgets } from '../../context/WidgetsContext';
+import { convertToHTML } from 'draft-convert';
+import {stateFromHTML} from 'draft-js-import-html';
 
-function TextBody() {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty(),
-  );
-  // const [convertedContent, setConvertedContent] = useState('');
-  // console.log(convertedContent);
-  // useEffect(() => {
-  //   let html = convertToHTML(editorState.getCurrentContent());
-  //   setConvertedContent(html);
-  // }, [editorState]);
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+function TextBody({comp, components, setComp}) {
+  const [convertedContent, setConvertedContent] = useState(comp.props.value);
+  let contentState = stateFromHTML(convertedContent);
+  const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
+  
+  useEffect(() => {
+    let html = convertToHTML(editorState.getCurrentContent());
+    setConvertedContent(html);
+  }, [editorState]);
+
+  useEffect(() => {
+    const arr = components?.map((item) => {
+      if (item.order === comp.order) {
+        item.props = {
+          ...item.order.props,
+          value: convertedContent
+        }
+      }
+      return item
+    });
+    setComp(arr);
+  }, [convertedContent]);
+  
   return(
     <>
       <Box
