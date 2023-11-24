@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
 import TextBody from '../../popoverBodies/Text';
 import ButtonBody from '../../popoverBodies/Button';
 import ImageBody from '../../popoverBodies/Image';
 import CalendarBody from '../../popoverBodies/Calender';
+// import CarousalBody from '../../popoverBodies/Carousal';
 
 function EditComponent({ comps, setComp }) {
   return (
@@ -44,7 +44,14 @@ function EditComponent({ comps, setComp }) {
                       />
                     );
                 case 'carousal':
-                    return <Box />;
+                    return (
+                      <div />
+                      // <CarousalBody
+                      //     comp={comp}
+                      //     components={comps}
+                      //     setComp={setComp}
+                      // />
+                    );
                 default:
                     return null;
             }

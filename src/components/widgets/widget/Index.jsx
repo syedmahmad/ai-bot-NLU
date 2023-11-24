@@ -61,17 +61,10 @@ function WidgetComponent({ data, isConnectable }) {
                 width="100%"
             >
               <Box
-                  alignItems="center"
-                  flexDirection={"column"}
                   background="#fff"
                   borderRadius="17.487px 17.487px 0px 17.487px"
-                  color="text.body"
-                  display="flex"
-                  fontSize="md"
-                  justifyContent="center"
                   margin="6px 0px"
                   minHeight="68px"
-                  textTransform="capitalize"
                   width="100%"
               > 
                 <ViewComponent comps={comp} />

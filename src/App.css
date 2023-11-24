@@ -70,3 +70,11 @@
 .ant-table-cell {
   background-color: white;
 }
+
+.slick-next:before {
+  color: hsla(218, 19%, 38%, 0.55)
+}
+
+.slick-prev:before {
+  color: hsla(218, 19%, 38%, 0.55)
+}
