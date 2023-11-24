@@ -98,12 +98,15 @@ function ReactFlowComponent() {
           onNodeClick: onNodeClick,
           components: [
             {
+              order: 1,
               name: "text",
               props: {
                 value: "<h1>Hello <b>How are you?</b></h1>"
               }
             },
             {
+              order: 2,
+              id: uniqid(),
               name: "button",
               props: {
                 label: "save",
@@ -111,6 +114,8 @@ function ReactFlowComponent() {
               }
             },
             {
+              order: 3,
+              id: uniqid(),
               name: "button",
               props: {
                 label: "save1",
@@ -118,6 +123,8 @@ function ReactFlowComponent() {
               }
             },
             {
+              order: 4,
+              id: uniqid(),
               name: "image",
               props: {
                 file: null,
@@ -125,6 +132,8 @@ function ReactFlowComponent() {
               }
             },
             {
+              order: 5,
+              id: uniqid(),
               name: "calendar",
               props: {
                 type: 'monthly',
@@ -133,6 +142,8 @@ function ReactFlowComponent() {
               }
             },
             {
+              order: 6,
+              id: uniqid(),
               name: "carousal",
               props: {
                 cards: [
@@ -217,6 +228,8 @@ function ReactFlowComponent() {
     [reactFlowInstance],
   );
 
+  const onPaneClick = () => console.log('onPaneClick', nodes);
+
   return (
     <Box
         style={{ width: 'calc(100vw - 10.90rem)', height: 'calc(100vh - 71px)' }}
@@ -262,6 +275,7 @@ function ReactFlowComponent() {
               onEdgesChange={onEdgesChange}
               onNodeClick={onNodeClick}
               onNodesChange={onNodesChange}
+              onPaneClick={onPaneClick}
           >
             <Controls />
             <Background

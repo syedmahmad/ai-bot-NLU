@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import { Icon } from '@iconify/react';
 import {
@@ -10,28 +10,13 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
-  Checkbox,
-  Button
 } from '@chakra-ui/react';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import { convertToHTML } from 'draft-convert';
-import DOMPurify from 'dompurify';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useWidgets } from '../../context/WidgetsContext';
 import ViewComponent from './View';
-import TextBody from '../../popoverBodies/Text';
-import ButtonBody from '../../popoverBodies/Button';
-import ImageBody from '../../popoverBodies/Image';
-import CalendarBody from '../../popoverBodies/Calender';
+import EditComponent from './Edit';
 
 function WidgetComponent({ data, isConnectable }) {
   const [comp, setComp] = useState(data?.components || []);
-  
-  
-  
-  
-  
   
   const { widget } = useWidgets();
   console.log("widget", widget);
@@ -89,7 +74,7 @@ function WidgetComponent({ data, isConnectable }) {
                   textTransform="capitalize"
                   width="100%"
               > 
-                <ViewComponent components={comp} />
+                <ViewComponent comps={comp} />
               </Box>
             </Box>
           </Box>
@@ -103,8 +88,8 @@ function WidgetComponent({ data, isConnectable }) {
               justifyContent="space-between"
               padding="15px 10px 0px"
           >
-            <Box>
-              Text
+            <Box textTransform={'capitalize'}>
+              {comp[0]?.name}
             </Box>
 
             <Box>
@@ -116,26 +101,7 @@ function WidgetComponent({ data, isConnectable }) {
           </PopoverHeader>
 
           <PopoverBody paddingBottom="30px">
-          { 
-            comp.map((comp) => {
-                const props = comp?.props;
-                switch(comp.name) {
-                    case 'text':
-                        return (<TextBody />);
-                    case 'button':
-                        return (<ButtonBody label={props.label} variant={props.variant}/>);
-                    case 'image':
-                        return (<ImageBody file={props.file} link={props.link} />);
-                    case 'calendar':
-                        return  <CalendarBody multiple={props.multiple} value={props.value} type={props.type} />;
-                    case 'carousal':
-                        return <>
-                              </>;
-                    default:
-                        return null;
-                }
-            })
-      }
+            <EditComponent comps={comp} setComp={setComp} />
           </PopoverBody>
         </PopoverContent>
       </Popover>

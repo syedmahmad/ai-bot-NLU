@@ -10,11 +10,11 @@ import { Calendar } from "react-multi-date-picker";
 import DOMPurify from 'dompurify';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-function ViewComponent({ components }) {
+function ViewComponent({ comps }) {
   return (
     <>
       { 
-        components.map((comp) => {
+        comps.map((comp) => {
             const props = comp?.props;
             switch(comp.name) {
                 case 'text':
