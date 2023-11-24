@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   Input,
@@ -8,11 +8,23 @@ import {
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
-function ImageBody(props) {
-  const [url, setUrl] = useState(props?.link);
-  const [file, setFile] = useState(props?.file);
+function ImageBody({ comp, setComp, components}) {
+  const [url, setUrl] = useState(comp?.props?.link);
+  const [file, setFile] = useState(comp?.props?.file);
 
-  console.log('url', url);
+  useEffect(() => {
+    const arr = components?.map((item) => {
+      if (item.order === comp.order) {
+        item.props = {
+          ...item.order.props,
+          link: url,
+          file: file
+        }
+      }
+      return item
+    });
+    setComp(arr);
+  }, [url, file]);
   return(
     <>
       {file !== null ? (
@@ -31,7 +43,7 @@ function ImageBody(props) {
           />
         )}
 
-      {file === null ? null : (
+      {file !== null ? null : (
         <>
           <Text
               color="text.body"

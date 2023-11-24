@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   Input,
   Select
 } from '@chakra-ui/react';
 
-function ButtonBody(props) {
-  const [ btnLabel, setBtnLabel] = useState(props?.label)
-  const [ btnType, setBtnType] = useState(props?.variant);
+function ButtonBody({ comp, setComp, components}) {
+  const [ btnLabel, setBtnLabel] = useState(comp?.props?.label)
+  const [ btnType, setBtnType] = useState(comp?.props?.variant);
+
+  useEffect(() => {
+    const arr = components?.map((item) => {
+      if (item.order === comp.order) {
+        item.props = {
+          ...item.order.props,
+          label: btnLabel,
+          variant: btnType
+        }
+      }
+      return item
+    });
+    setComp(arr);
+  }, [btnLabel, btnType]);
   return(
     <>
       <Text

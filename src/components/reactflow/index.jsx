@@ -106,7 +106,6 @@ function ReactFlowComponent() {
             },
             {
               order: 2,
-              id: uniqid(),
               name: "button",
               props: {
                 label: "save",
@@ -115,7 +114,6 @@ function ReactFlowComponent() {
             },
             {
               order: 3,
-              id: uniqid(),
               name: "button",
               props: {
                 label: "save1",
@@ -124,16 +122,14 @@ function ReactFlowComponent() {
             },
             {
               order: 4,
-              id: uniqid(),
               name: "image",
               props: {
                 file: null,
-                link: 'https://picsum.photos/200/300'
+                link: null
               }
             },
             {
               order: 5,
-              id: uniqid(),
               name: "calendar",
               props: {
                 type: 'monthly',
@@ -143,7 +139,6 @@ function ReactFlowComponent() {
             },
             {
               order: 6,
-              id: uniqid(),
               name: "carousal",
               props: {
                 cards: [

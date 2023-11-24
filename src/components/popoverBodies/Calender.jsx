@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   Input,
@@ -6,11 +6,26 @@ import {
   Box
 } from '@chakra-ui/react';
 
-function CalendarBody(props) {
-  const [ input, setInput] = useState(props?.value);
-  const [ selectionType, setSelectionType] = useState(props?.multiple ? 'multiple' : 'single');
-  const [ calendarType, setCalendarType] = useState(props?.type);
-  console.log(input);
+function CalendarBody({ comp, setComp, components}) {
+  const [ input, setInput] = useState(comp?.props?.value);
+  const [ selectionType, setSelectionType] = useState(comp?.props?.multiple ? 'multiple' : 'single');
+  const [ calendarType, setCalendarType] = useState(comp?.props?.type);
+
+  useEffect(() => {
+    const arr = components?.map((item) => {
+      if (item.order === comp.order) {
+        item.props = {
+          ...item.order.props,
+          value: input,
+          multiple: selectionType === 'multiple' ? true : false,
+          type: calendarType
+        }
+      }
+      return item
+    });
+    setComp(arr);
+  }, [input, selectionType, calendarType]);
+
   return(
     <Box>
       <Text
