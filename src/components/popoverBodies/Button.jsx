@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   Text,
   Input,
-  Select
+  Select,
+  Box
 } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 
 function ButtonBody({ comp, setComp, components}) {
   const [ btnLabel, setBtnLabel] = useState(comp?.props?.label)
@@ -13,7 +15,7 @@ function ButtonBody({ comp, setComp, components}) {
     const arr = components?.map((item) => {
       if (item.order === comp.order) {
         item.props = {
-          ...item.order.props,
+          ...item.props,
           label: btnLabel,
           variant: btnType
         }
@@ -24,63 +26,79 @@ function ButtonBody({ comp, setComp, components}) {
   }, [btnLabel, btnType]);
   
   return(
-    <>
-      <Text
-          color="text.body"
-          fontSize="xs"
-          marginBottom="5px"
+    <Box
+        display="flex"
+        justifyContent="space-between"
+    >
+      <Box
+          width="93%"
       >
-        Button Label
-      </Text>
-
-      <Input
-          borderRadius="0.3125rem"
-          marginBottom="10px"
-          onChange={(e) => setBtnLabel(e.target.value)}
-          placeholder="Type here"
-          size="sm"
-          value={btnLabel}
-      />
-
-      <Text
-          color="text.body"
-          fontSize="xs"
-          marginBottom="5px"
-      >
-        Button Type
-      </Text>
-
-      <Select
-          marginBottom="10px"
-          onChange={(e) => setBtnType(e.target.value)}
-          placeholder='Button Type'
-          size="md"
-          value={btnType}
-      >
-        <option
-            selected
-            value='outline'
+        <Text
+            color="text.body"
+            fontSize="xs"
+            marginBottom="5px"
         >
-          Outlined Button
-        </option>
+          Button Label
+        </Text>
 
-        <option value='ghost'>
-          Text Button
-        </option>
+        <Input
+            borderRadius="0.3125rem"
+            marginBottom="10px"
+            onChange={(e) => setBtnLabel(e.target.value)}
+            placeholder="Type here"
+            size="sm"
+            value={btnLabel}
+        />
 
-        <option
-            selected
-            value='solid'
+        <Text
+            color="text.body"
+            fontSize="xs"
+            marginBottom="5px"
         >
-          Filled Button
-        </option>
+          Button Type
+        </Text>
 
-        <option value='link'>
-          FAB Button
-        </option>
+        <Select
+            marginBottom="10px"
+            onChange={(e) => setBtnType(e.target.value)}
+            placeholder='Button Type'
+            size="md"
+            value={btnType}
+        >
+          <option
+              selected
+              value='outline'
+          >
+            Outlined Button
+          </option>
 
-      </Select>
-    </>
+          <option value='ghost'>
+            Text Button
+          </option>
+
+          <option
+              selected
+              value='solid'
+          >
+            Filled Button
+          </option>
+
+          <option value='link'>
+            FAB Button
+          </option>
+
+        </Select>
+      </Box>
+
+      <Box
+          marginTop="25px"
+      >
+        <Icon
+            color='hsla(0, 0%, 85%, 1)'
+            icon="ic:outline-delete"
+        />
+      </Box>
+    </Box>
   )
 }
 

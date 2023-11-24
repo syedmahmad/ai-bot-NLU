@@ -5,6 +5,7 @@ import {
   Select,
   Box
 } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 
 function CalendarBody({ comp, setComp, components}) {
   const [ input, setInput] = useState(comp?.props?.value);
@@ -15,7 +16,7 @@ function CalendarBody({ comp, setComp, components}) {
     const arr = components?.map((item) => {
       if (item.order === comp.order) {
         item.props = {
-          ...item.order.props,
+          ...item.props,
           value: input,
           multiple: selectionType === 'multiple' ? true : false,
           type: calendarType
@@ -27,87 +28,103 @@ function CalendarBody({ comp, setComp, components}) {
   }, [input, selectionType, calendarType]);
 
   return(
-    <Box>
-      <Text
-          color="text.menu"
-          fontFamily="Inter"
-          fontSize="sm"
-          fontWeight={300}
+    <Box
+        display="flex"
+        justifyContent="space-between"
+    >
+      <Box
+          width="93%"
       >
-        Text
-      </Text>
+        <Text
+            color="text.menu"
+            fontFamily="Inter"
+            fontSize="sm"
+            fontWeight={300}
+        >
+          Text
+        </Text>
 
-      <Input
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type here"
-          size="sm"
-      />
+        <Input
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type here"
+            size="sm"
+        />
 
-      <Text
-          color="text.menu"
-          fontFamily="Inter"
-          fontSize="sm"
-          fontWeight={300}
-          marginTop="15px"
-      >
-        Calendar Type
-      </Text>
+        <Text
+            color="text.menu"
+            fontFamily="Inter"
+            fontSize="sm"
+            fontWeight={300}
+            marginTop="15px"
+        >
+          Calendar Type
+        </Text>
 
-      <Select
-          onChange={(e) => {
+        <Select
+            onChange={(e) => {
                     setCalendarType(e.target.value);
                   }}
-          placeholder='Calendar Type'
-          size="sm"
-          value={calendarType}
-      >
-        <option
-            selected
-            value='daily'
+            placeholder='Calendar Type'
+            size="sm"
+            value={calendarType}
         >
-          Daily Calendar
-        </option>
+          <option
+              selected
+              value='daily'
+          >
+            Daily Calendar
+          </option>
 
-        <option value='monthly'>
-          Monthly Calendar
-        </option>
+          <option value='monthly'>
+            Monthly Calendar
+          </option>
 
-        <option value='yearly'>
-          Yearly Calendar
-        </option>
-      </Select>
+          <option value='yearly'>
+            Yearly Calendar
+          </option>
+        </Select>
 
-      <Text
-          color="text.menu"
-          fontFamily="Inter"
-          fontSize="sm"
-          fontWeight={300}
-          marginTop="15px"
-      >
-        Selection Type
-      </Text>
+        <Text
+            color="text.menu"
+            fontFamily="Inter"
+            fontSize="sm"
+            fontWeight={300}
+            marginTop="15px"
+        >
+          Selection Type
+        </Text>
 
-      <Select
-          onChange={(e) => {
+        <Select
+            onChange={(e) => {
                     setSelectionType(e.target.value);
                     // setValue(new Date());
                   }}
-          placeholder='Selection Type'
-          size="md"
-          value={selectionType}
-      >
-        <option
-            selected
-            value='single'
+            placeholder='Selection Type'
+            size="md"
+            value={selectionType}
         >
-          Single Date
-        </option>
+          <option
+              selected
+              value='single'
+          >
+            Single Date
+          </option>
 
-        <option value='multiple'>
-          Multiple Dates (from one date to another date). 
-        </option>
+          <option value='multiple'>
+            Multiple Dates (from one date to another date). 
+          </option>
 
-      </Select>
+        </Select>
+      </Box>
+
+      <Box
+          marginTop="25px"
+      >
+        <Icon
+            color='hsla(0, 0%, 85%, 1)'
+            icon="ic:outline-delete"
+        />
+      </Box>
     </Box>
   )
 }

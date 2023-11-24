@@ -26,7 +26,7 @@ function TextBody({comp, components, setComp}) {
     const arr = components?.map((item) => {
       if (item.order === comp.order) {
         item.props = {
-          ...item.order.props,
+          ...item.props,
           value: convertedContent
         }
       }

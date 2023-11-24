@@ -25,7 +25,9 @@ function ViewComponent({ comps }) {
         display="flex"
         flexDirection="column"
         height="300px"
-        overflow="auto"
+        overflowX="hidden"
+        overflowY="auto"
+        padding="10px"
     >
       { 
         comps.map((comp) => {

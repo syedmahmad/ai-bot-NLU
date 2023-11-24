@@ -73,7 +73,11 @@ function WidgetComponent({ data, isConnectable }) {
           </Box>
         </PopoverTrigger>
 
-        <PopoverContent>
+        <PopoverContent
+          height="400px"
+          overflowY="auto"
+          overflowX={"hidden"}
+        >
           <PopoverArrow />
 
           <PopoverHeader

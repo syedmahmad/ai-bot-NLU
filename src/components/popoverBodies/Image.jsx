@@ -16,7 +16,7 @@ function ImageBody({ comp, setComp, components}) {
     const arr = components?.map((item) => {
       if (item.order === comp.order) {
         item.props = {
-          ...item.order.props,
+          ...item.props,
           link: url,
           file: file
         }

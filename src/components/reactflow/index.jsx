@@ -8,6 +8,7 @@ import CalendarComponent from '../widgets/calendar/Calendar';
 import ButtonComponent from '../widgets/button/Button';
 import CarouselComponent from '../widgets/carousel/Carousel';
 import WidgetComponent from '../widgets/widget/Index';
+import { useMutation } from '@tanstack/react-query';
 
 import ReactFlow, {
   Background,
@@ -34,7 +35,18 @@ function ReactFlowComponent() {
     queryFn: () => axios
     .get(`http://54.81.9.89/flow_entity/{id}?_id=${pathname.split('/')[2]}&include_deleted=false`)
     .then((res) => res.data),
-  })
+  });
+
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      // eslint-disable
+      debugger;
+      return axios.put(
+        `http://54.81.9.89/flow_entity/{id}?_id=${pathname.split('/')[2]}`,
+        data,
+      );
+    },
+  });
 
   // once user click on specific node, we need to get that node hash,
   // useReactFlow hook allow us to retrive node based on node id.
@@ -144,21 +156,24 @@ function ReactFlowComponent() {
                 cards: [
                   {
                     id: uniqid(),
+                    label: 'card 1',
                     file: null,
                     link: 'https://picsum.photos/200/300',
                     text: "<h1>Hello <b>How are you?</b></h1>"
                   },
                   {
                     id: uniqid(),
+                    label: 'card 2',
                     file: null,
                     link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>How are you?</b></h1>"
+                    text: "<h1>Hello <b>How you?</b></h1>"
                   },
                   {
                     id: uniqid(),
+                    label: 'card 3',
                     file: null,
                     link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>How are you?</b></h1>"
+                    text: "<h1>Hello <b>are you?</b></h1>"
                   }
                 ]
               }
@@ -226,7 +241,19 @@ function ReactFlowComponent() {
     [reactFlowInstance],
   );
 
-  const onPaneClick = () => console.log('onPaneClick', nodes);
+  const onPaneClick = () => {
+    console.log('onPaneClick', nodes);
+    mutation.mutate(
+      {
+        nodes
+      },
+      {
+        onSuccess: async () => {
+          toast.success("Flow edited successfully");
+        },
+      },
+    )
+  }
 
   return (
     <Box
