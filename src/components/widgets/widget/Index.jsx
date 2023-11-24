@@ -20,6 +20,10 @@ import DOMPurify from 'dompurify';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useWidgets } from '../../context/WidgetsContext';
 import ViewComponent from './View';
+import TextBody from '../../popoverBodies/Text';
+import ButtonBody from '../../popoverBodies/Button';
+import ImageBody from '../../popoverBodies/Image';
+import CalendarBody from '../../popoverBodies/Calender';
 
 function WidgetComponent({ data, isConnectable }) {
   const [comp, setComp] = useState(data?.components || []);
@@ -73,6 +77,7 @@ function WidgetComponent({ data, isConnectable }) {
             >
               <Box
                   alignItems="center"
+                  flexDirection={"column"}
                   background="#fff"
                   borderRadius="17.487px 17.487px 0px 17.487px"
                   color="text.body"
@@ -110,7 +115,28 @@ function WidgetComponent({ data, isConnectable }) {
             </Box>
           </PopoverHeader>
 
-          <PopoverBody paddingBottom="30px"></PopoverBody>
+          <PopoverBody paddingBottom="30px">
+          { 
+            comp.map((comp) => {
+                const props = comp?.props;
+                switch(comp.name) {
+                    case 'text':
+                        return (<TextBody />);
+                    case 'button':
+                        return (<ButtonBody label={props.label} variant={props.variant}/>);
+                    case 'image':
+                        return (<ImageBody file={props.file} link={props.link} />);
+                    case 'calendar':
+                        return  <CalendarBody multiple={props.multiple} value={props.value} type={props.type} />;
+                    case 'carousal':
+                        return <>
+                              </>;
+                    default:
+                        return null;
+                }
+            })
+      }
+          </PopoverBody>
         </PopoverContent>
       </Popover>
 

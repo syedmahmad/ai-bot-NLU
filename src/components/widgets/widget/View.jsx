@@ -18,19 +18,36 @@ function ViewComponent({ components }) {
             const props = comp?.props;
             switch(comp.name) {
                 case 'text':
-                    return (<Text dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(props?.value),
-                    }}
-                            />);
+                    return (
+                        <Box
+                          width={"100%"}
+                          margin="10px 0px"
+                        >
+                          <Text
+                            align={"center"}
+                            dangerouslySetInnerHTML={{
+                              __html: DOMPurify.sanitize(props?.value),
+                            }}
+                          />
+                        </Box>
+                            );
                 case 'button':
-                    return (<Button
-                        colorScheme='teal'
-                        variant={props?.variant}
-                            >
-                      {props?.label}
-                    </Button>);
+                    return (
+                      <Box
+                        margin="10px 0px"
+                      >
+                        <Button
+                            colorScheme='teal'
+                            variant={props?.variant}
+                                >
+                          {props?.label}
+                        </Button>
+                    </Box>
+                    );
                 case 'image':
-                    return <>
+                    return <Box
+                      margin={"10px 0px"}
+                    >
                     { props?.file !== null ? <Image
                                         alt="Preview"
                                         borderRadius="0.3125rem"
@@ -42,18 +59,30 @@ function ViewComponent({ components }) {
                                 />
                                     }
 
-                                        </>;
+                                        </Box>;
                 case 'calendar':
-                    return  <Calendar
-                        onlyMonthPicker={props?.type === 'monthly' ? true : false}
-                        onlyYearPicker={props?.type === 'yearly' ? true : false}
-                        range={props?.multiple ? true : false}
-                        value={props?.value}
-                    />;
+                    return  (
+                      <Box
+                        margin={"10px 0px"}
+                      >
+                        <Calendar
+                            onlyMonthPicker={props?.type === 'monthly' ? true : false}
+                            onlyYearPicker={props?.type === 'yearly' ? true : false}
+                            range={props?.multiple ? true : false}
+                            value={props?.value}
+                        />
+                      </Box>
+                    );
                 case 'carousal':
-                    return <>
+                    return <Box
+                      display={"flex"}
+                      justifyContent={"space-between"}
+                      width={"94%"}
+                    >
                         {props?.cards.map((card) => {
-                            return (<Box>
+                            return (<Box
+                              margin={"10px 0px"}
+                            >
                                 {card?.file !== null ? <Image
                                         alt="Preview"
                                         borderRadius="0.3125rem"
@@ -70,7 +99,7 @@ function ViewComponent({ components }) {
                                         />
                             </Box>)
                         })}
-                    </>;
+                    </Box>;
                 default:
                     return null;
             }

@@ -118,12 +118,6 @@ function ReactFlowComponent() {
               }
             },
             {
-              name: "text",
-              props: {
-                value: "<h1>Hello <b>How are you?</b></h1>"
-              }
-            },
-            {
               name: "image",
               props: {
                 file: null,
