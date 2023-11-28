@@ -13,6 +13,10 @@ function ImageBody({ comp, setComp, components}) {
   const [file, setFile] = useState(comp?.props?.file);
 
   useEffect(() => {
+    setFile(url);
+  }, [url]);
+
+  useEffect(() => {
     const arr = components?.map((item) => {
       if (item.order === comp.order) {
         item.props = {
@@ -24,7 +28,8 @@ function ImageBody({ comp, setComp, components}) {
       return item
     });
     setComp(arr);
-  }, [url, file]);
+  }, [file]);
+
   return(
     <>
       {file !== null ? (
@@ -34,14 +39,7 @@ function ImageBody({ comp, setComp, components}) {
             src={file}
             width="93%"
         />
-        ) : (
-          <Image
-              alt="Preview"
-              borderRadius="0.3125rem"
-              src={url}
-              width="93%"
-          />
-        )}
+        ) : null}
 
       {file !== null ? null : (
         <>

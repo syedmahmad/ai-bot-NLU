@@ -4,13 +4,13 @@ import WidgetsContext from './WidgetsContext';
 function WidgetsProvider({ children }) {
   const [widget, setWidget] = useState('');
 
-  const updateWidget = (widgetType) => {
+  const addWidget = (widgetType) => {
     setWidget(widgetType);
   };
 
   const value = useMemo(() => ({
-    widget, updateWidget
-  }), [widget, updateWidget])
+    widget, addWidget
+  }), [widget, addWidget])
 
   return (
     <WidgetsContext.Provider value={value}>

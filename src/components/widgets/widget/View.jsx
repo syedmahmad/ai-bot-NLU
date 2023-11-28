@@ -24,9 +24,9 @@ function ViewComponent({ comps }) {
         alignItems="center"
         display="flex"
         flexDirection="column"
-        height="300px"
-        overflowX="hidden"
-        overflowY="auto"
+        // height="300px"
+        // overflowX="hidden"
+        // overflowY="auto"
         padding="10px"
     >
       { 
@@ -71,11 +71,12 @@ function ViewComponent({ comps }) {
                             src={props?.file}
                         />
                         ) : ( 
-                          <Image
-                              alt="Preview"
-                              borderRadius="0.3125rem"
-                              src={props?.link}
-                          />
+                          <Text
+                              color="text.body"
+                              fontSize="xs"
+                          >
+                            Upload Image
+                          </Text>
                       )}
 
                     </Box>);
@@ -92,7 +93,7 @@ function ViewComponent({ comps }) {
                         />
                       </Box>
                     );
-                case 'carousal':
+                case 'carousel':
                     return (<Box
                         margin="10px 0px"
                         padding="0px 20px"

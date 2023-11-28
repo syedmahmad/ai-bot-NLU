@@ -64,7 +64,7 @@ function EditComponent({ comps, setComp }) {
                         />
                       </Box>
                     );
-                case 'carousal':
+                case 'carousel':
                     return (
                       <Box
                           margin="10px 0px"

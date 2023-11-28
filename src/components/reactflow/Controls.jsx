@@ -233,7 +233,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addBotNode('Widget')}
+                onClick={() => addBotNode('text')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
@@ -261,7 +261,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addBotNode('ButtonNode')}
+                onClick={() => addBotNode('button')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
@@ -289,7 +289,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addBotNode('ImageNode')}
+                onClick={() => addBotNode('image')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
@@ -317,7 +317,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addBotNode('CarouselNode')}
+                onClick={() => addBotNode('carousel')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >
@@ -345,7 +345,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
                 cursor="pointer"
                 display="flex"
                 height="fit-content"
-                onClick={() => addBotNode('CalendarNode')}
+                onClick={() => addBotNode('calendar')}
                 padding="0.85rem 1.06rem"
                 paddingBottom={0}
             >

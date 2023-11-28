@@ -2,12 +2,7 @@
 import { useCallback, useState, useMemo } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import uniqid from 'uniqid';
-import TextComponent from '../widgets/text/Text';
-import ImageComponent from '../widgets/image/Image';
-import CalendarComponent from '../widgets/calendar/Calendar';
-import ButtonComponent from '../widgets/button/Button';
-import CarouselComponent from '../widgets/carousel/Carousel';
-import WidgetComponent from '../widgets/widget/Index';
+import BotComponent from '../widgets/widget/Index';
 import { useMutation } from '@tanstack/react-query';
 
 import ReactFlow, {
@@ -29,7 +24,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
 function ReactFlowComponent() {
-  const { updateWidget } = useWidgets();
+  const { addWidget } = useWidgets();
   const {pathname} = useLocation();
   const { data } = useQuery({
     queryFn: () => axios
@@ -40,7 +35,7 @@ function ReactFlowComponent() {
   const mutation = useMutation({
     mutationFn: (data) => {
       // eslint-disable
-      debugger;
+      // debugger;
       return axios.put(
         `http://54.81.9.89/flow_entity/{id}?_id=${pathname.split('/')[2]}`,
         data,
@@ -58,12 +53,7 @@ function ReactFlowComponent() {
   // building our custom components type and pass this type to reactFlow
   const nodeTypes = useMemo(
     () => ({
-      Widget: WidgetComponent,
-      TextNode: TextComponent,
-      ImageNode: ImageComponent,
-      CalendarNode: CalendarComponent,
-      ButtonNode: ButtonComponent,
-      CarouselNode: CarouselComponent
+      bot: BotComponent
     }),
     [],
   );
@@ -76,7 +66,7 @@ function ReactFlowComponent() {
       position: { x: 700, y: 10 },
       data: { 
         label: <Box data-id={id} fontFamily={"Inter"} fontSize={"21px"} fontWeight={400} color={"text.body"} border={"1px solid"} borderColor={"secondary.20"} borderRadius={"5px"} backgroundColor={"white"} width={164} height={54} display={"flex"} justifyContent={"center"} alignItems={"center"}>Start Flow</Box>,
-        nodeType: 'start',
+        type: 'start',
      },
       style: {
         width: 184,
@@ -97,87 +87,25 @@ function ReactFlowComponent() {
     },
     [setEdges],
   );
-
-  const connectNewNode = (newNodeId, widgetType, nodeType) => {
+  // console.log(nodes);
+  const connectNewNode = (newNodeId, type, widgetName) => {
     setNodes((prev) => {
       return prev.concat({
         id: newNodeId,
-        type: widgetType, // this is responsible for custom nodes.
+        type: type,
         position: { x: 700, y: selectedNode.position.y + 200 },
         data: {
-          nodeType: nodeType,
+          type: type,
           sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
           components: [
-            {
-              order: 1,
-              name: "text",
-              props: {
-                value: "<h1>Hello <b>How are you?</b></h1>"
-              }
-            },
-            {
-              order: 2,
-              name: "button",
-              props: {
-                label: "save",
-                variant: "solid"
-              }
-            },
-            {
-              order: 3,
-              name: "button",
-              props: {
-                label: "save1",
-                variant: "outline"
-              }
-            },
-            {
-              order: 4,
-              name: "image",
-              props: {
-                file: null,
-                link: null
-              }
-            },
-            {
-              order: 5,
-              name: "calendar",
-              props: {
-                type: 'monthly',
-                multiple: true,
-                value: new Date()
-              }
-            },
-            {
-              order: 6,
-              name: "carousal",
-              props: {
-                cards: [
-                  {
-                    id: uniqid(),
-                    label: 'card 1',
-                    file: null,
-                    link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>How are you?</b></h1>"
-                  },
-                  {
-                    id: uniqid(),
-                    label: 'card 2',
-                    file: null,
-                    link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>How you?</b></h1>"
-                  },
-                  {
-                    id: uniqid(),
-                    label: 'card 3',
-                    file: null,
-                    link: 'https://picsum.photos/200/300',
-                    text: "<h1>Hello <b>are you?</b></h1>"
-                  }
-                ]
-              }
-            }
+            // {
+            //   order: 1,
+            //   name: "text",
+            //   props: {
+            //     value: "<h1>Hello <b>How are you?</b></h1>"
+            //   }
+            // }
           ]
         },
         style: {
@@ -209,17 +137,18 @@ function ReactFlowComponent() {
   }
 
   // generate new node and connect this newly created node to other nodes via edges.
-  const addBotNode = (widgetType) => {
-    if (selectedNode?.data?.nodeType === "bot") {
+  const addBotNode = (widgetName) => {
+    if (selectedNode?.data?.type === "bot") {
       // via context, we will add widget to same bot node as there is no other 
       // communication medium.
-      updateWidget(widgetType);
+      addWidget(widgetName);
+      return;
     }
 
-    // we'll not create same bot response again.
+    // we'll not create same bot response again if parent is already bot.
     if (botNodeValidations(selectedNode)) {
       const newId = uniqid();
-      connectNewNode(newId, widgetType, "bot");
+      connectNewNode(newId, "bot", widgetName);
     }
   }
 
@@ -227,7 +156,7 @@ function ReactFlowComponent() {
     if (customerNodeValidations(selectedNode)) {
       const newId = uniqid();
       // its default type is "TextNode", we may decide later if wanted to update it.
-      connectNewNode(newId, 'TextNode', "customer");
+      connectNewNode(newId, "customer");
     }
   }
 
@@ -243,16 +172,16 @@ function ReactFlowComponent() {
 
   const onPaneClick = () => {
     console.log('onPaneClick', nodes);
-    mutation.mutate(
-      {
-        nodes
-      },
-      {
-        onSuccess: async () => {
-          toast.success("Flow edited successfully");
-        },
-      },
-    )
+    // mutation.mutate(
+    //   {
+    //     nodes
+    //   },
+    //   {
+    //     onSuccess: async () => {
+    //       toast.success("Flow edited successfully");
+    //     },
+    //   },
+    // )
   }
 
   return (
