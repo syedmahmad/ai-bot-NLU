@@ -13,62 +13,14 @@ import {
 } from '@chakra-ui/react';
 import { useWidgets } from '../../context/WidgetsContext';
 import ViewComponent from './View';
-import uniqid from 'uniqid';
 import EditComponent from './Edit';
+import { createFields } from '../../../utils';
 
 function WidgetComponent({ data, isConnectable }) {
   const [comp, setComp] = useState(data?.components || []);
-  const { widget } = useWidgets();
-
-  const fields = (widget) => {
-    switch(widget) {
-      case 'text':
-        return {
-          props: {
-            value: "add something here"
-          } 
-        }
-      case 'button':
-        return {
-          props: {
-            label: "new button",
-            variant: "solid"
-          } 
-        }
-      case 'image':
-        return {
-          props: {
-            file: null,
-            link: null
-          } 
-        }
-      case 'calendar':
-        return {
-          props: {
-            type: 'monthly',
-            multiple: false,
-            value: new Date()
-          } 
-        }
-      case 'carousel':
-        return {
-          props: {
-            cards: [
-              {
-                id: uniqid(),
-                label: 'card 1',
-                file: null,
-                link: 'https://picsum.photos/200/300',
-                text: "<h1>Hello <b>write something here</b></h1>"
-              }
-            ]
-          }
-        }
-      default:
-        return;
-    }
-  }
+  const { widget, addWidget } = useWidgets();
   
+  /* This executes every time the user wanted to add new widget. */
   useEffect(() => {
     if (widget) {
       // get the order 
@@ -77,28 +29,34 @@ function WidgetComponent({ data, isConnectable }) {
       const newComp = [...comp, {
         order: widgetOrder,
         name: widget,
-        ...fields(widget)
+        ...createFields(widget)
       }]
       // appending new nodes to components.
       setComp(newComp);
       // appending new nodes to this custom flow node.
       data.components = newComp;
+      // need to reset the widget else we're not able to create duplicate again.
+      addWidget('');
     }
   }, [widget])
 
-  // useEffect(() => {
-  //   if (data.components.length === 0) {
-  //     const newComp = [{
-  //       order: 1,
-  //       name: data.type, // in case of bot response, adding widget name in data.type
-  //       ...fields(data.type)
-  //     }]
-  //     // appending new nodes to components.
-  //     setComp(newComp);
-  //     // appending new nodes to this custom flow node.
-  //     data.components = newComp;
-  //   }
-  // }, [data]);
+  /* This executes only first time when there is no data exist. */
+  useEffect(() => {
+    if (data.components.length === 0) {
+      const newComp = [{
+        order: 1,
+        // in case of customer response. we just need to add text component.
+        // in case of bot response, adding widget name in data.type (that could be any widget)
+        name: data.type === 'customer' ? 'text' : data.type,
+        ...createFields(data.type)
+      }]
+      console.log('newComp', newComp);
+      // appending new nodes to components.
+      setComp(newComp);
+      // appending new nodes to this custom flow node.
+      data.components = newComp;
+    }
+  }, [data]);
 
   const handleClick = (event) => {
     // saving node id to use it later when user try to create new ndoe
@@ -127,11 +85,11 @@ function WidgetComponent({ data, isConnectable }) {
           <Box
               onClick={handleClick}
               style={{
-              background: 'transparent',
-              height: 'fit-content',
-              width: '300px',
-              marginTop: '10px' 
-            }}
+                background: 'transparent',
+                height: 'fit-content',
+                width: '300px',
+                marginTop: '10px' 
+              }}
           >
             <Box
                 background={data.type === 'customer' ? "#FCD8E0" : "#D1EAFE"}

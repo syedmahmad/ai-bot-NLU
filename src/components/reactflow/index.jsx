@@ -53,7 +53,8 @@ function ReactFlowComponent() {
   // building our custom components type and pass this type to reactFlow
   const nodeTypes = useMemo(
     () => ({
-      bot: BotComponent
+      bot: BotComponent,
+      customer: BotComponent
     }),
     [],
   );
@@ -95,18 +96,10 @@ function ReactFlowComponent() {
         type: type,
         position: { x: 700, y: selectedNode.position.y + 200 },
         data: {
-          type: type,
+          type: type === "bot" ? widgetName : type,
           sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
-          components: [
-            // {
-            //   order: 1,
-            //   name: "text",
-            //   props: {
-            //     value: "<h1>Hello <b>How are you?</b></h1>"
-            //   }
-            // }
-          ]
+          components: []
         },
         style: {
           backgroundColor: 'transparent',
@@ -138,7 +131,7 @@ function ReactFlowComponent() {
 
   // generate new node and connect this newly created node to other nodes via edges.
   const addBotNode = (widgetName) => {
-    if (selectedNode?.data?.type === "bot") {
+    if (selectedNode?.type === "bot") {
       // via context, we will add widget to same bot node as there is no other 
       // communication medium.
       addWidget(widgetName);
@@ -156,7 +149,7 @@ function ReactFlowComponent() {
     if (customerNodeValidations(selectedNode)) {
       const newId = uniqid();
       // its default type is "TextNode", we may decide later if wanted to update it.
-      connectNewNode(newId, "customer");
+      connectNewNode(newId, "customer", "text");
     }
   }
 
