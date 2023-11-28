@@ -24,7 +24,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 
 function ReactFlowComponent() {
-  const { addWidget } = useWidgets();
+  const { addWidget, updateSelectedComp } = useWidgets();
   const {pathname} = useLocation();
   const { data } = useQuery({
     queryFn: () => axios
@@ -99,6 +99,7 @@ function ReactFlowComponent() {
           type: type === "bot" ? widgetName : type,
           sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
+          selectedNode: selectedNode,
           components: []
         },
         style: {
@@ -156,6 +157,7 @@ function ReactFlowComponent() {
   // need to store selected node data, that's why needed this callback.
   const onNodeClick = useCallback(
     (event) => {
+      updateSelectedComp(reactFlowInstance.getNode(event?.target?.getAttribute('data-id')).id);
       setSelectedNode(
         reactFlowInstance.getNode(event?.target?.getAttribute('data-id')),
       );
@@ -164,7 +166,7 @@ function ReactFlowComponent() {
   );
 
   const onPaneClick = () => {
-    console.log('onPaneClick', nodes);
+    // console.log('onPaneClick', nodes);
     // mutation.mutate(
     //   {
     //     nodes

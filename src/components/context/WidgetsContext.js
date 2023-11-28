@@ -1,6 +1,6 @@
 import { useContext, createContext } from 'react';
 
-const WidgetsContext = createContext({widget: '', addWidget: () => {}});
+const WidgetsContext = createContext({widget: '', addWidget: () => {}, selectedComp: '', updateSelectedComp: () => {}});
 
 export const useWidgets = () => {
   const context = useContext(WidgetsContext);

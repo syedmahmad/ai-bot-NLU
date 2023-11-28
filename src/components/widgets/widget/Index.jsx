@@ -18,11 +18,12 @@ import { createFields } from '../../../utils';
 
 function WidgetComponent({ data, isConnectable }) {
   const [comp, setComp] = useState(data?.components || []);
-  const { widget, addWidget } = useWidgets();
+  const { widget, addWidget, selectedComp } = useWidgets();
   
   /* This executes every time the user wanted to add new widget. */
   useEffect(() => {
-    if (widget) {
+    // console.log('selected component', data.sourceHandle);
+    if (widget && data.sourceHandle === selectedComp) {
       // get the order 
       let widgetOrder = comp.length === 0 ? 1 : comp[comp.length-1].order + 1;
       // appending new nodes
@@ -50,7 +51,6 @@ function WidgetComponent({ data, isConnectable }) {
         name: data.type === 'customer' ? 'text' : data.type,
         ...createFields(data.type)
       }]
-      console.log('newComp', newComp);
       // appending new nodes to components.
       setComp(newComp);
       // appending new nodes to this custom flow node.
