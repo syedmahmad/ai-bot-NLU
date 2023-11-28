@@ -109,19 +109,20 @@ function ViewComponent({ comps }) {
                               key={card?.id}
                               width="100%"
                           >
-                            {card?.file !== null ?(
+                            {card?.file !== null && card?.file !== '' ? (
                               <Image
                                   alt="Preview"
                                   borderRadius="0.3125rem"
                                   src={card?.file}
                               />
-                                    ) : (
-                                      <Image
-                                          alt="Preview"
-                                          borderRadius="0.3125rem"
-                                          src={card?.link}
-                                      />
-                                  )}
+                            ) : ( 
+                              <Text
+                                  align="center"
+                                  color="text.body"
+                              >
+                                Upload Image
+                              </Text>
+                          )}
 
                             <br />
 
@@ -132,7 +133,7 @@ function ViewComponent({ comps }) {
                                 }}
                             />
                           </Box>
-                            ))}
+                        ))}
                       </Slider>
                     </Box>);
                 default:

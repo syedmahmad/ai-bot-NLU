@@ -13,7 +13,7 @@ import {stateFromHTML} from 'draft-js-import-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 function TextBody({comp, components, setComp}) {
-  const [convertedContent, setConvertedContent] = useState(comp.props.value);
+  const [convertedContent, setConvertedContent] = useState(comp.props.value === 'Add something here' ? '' : comp.props.value);
   let contentState = stateFromHTML(convertedContent);
   const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
   
@@ -51,6 +51,7 @@ function TextBody({comp, components, setComp}) {
               //   }}
               editorState={editorState}
               onEditorStateChange={setEditorState}
+              placeholder="Add something here"
               toolbar={{
                   image: {
                     alt: { present: true, mandatory: false },

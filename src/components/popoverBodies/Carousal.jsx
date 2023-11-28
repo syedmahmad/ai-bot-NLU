@@ -14,7 +14,6 @@ const initialCardState = {
   id: uniqid(),
   label: '',
   file: null,
-  link: '',
   text: ""
 };
 
@@ -86,106 +85,100 @@ function CarousalBody({ comp, components, setComp }) {
 
           </Select>
 
-          {(selectedCard.file || selectedCard.link) && selectedCard.text ? <Box>
-            {selectedCard.file !== null ? (
-              <Image 
-                  alt="Preview"
-                  borderRadius="0.3125rem"
-                  height="300px"
-                  src={selectedCard.file}
-                  width="100%"
-              />
-        ) : (
-          <Image 
-              alt="Preview"
-              borderRadius="0.3125rem"
-              height="300px"
-              src={selectedCard.link}
-              width="100%"
-          />
-        )}
-
-            {selectedCard.file !== null ? null : (
-              <Box width="100%">
-                <Text
-                    color="text.body"
-                    fontSize="xs"
-                >
-                  Upload Image
-                </Text>
-
-                <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    marginBottom="10px"
+          {selectedCard.text !== '' ? 
+            <Box>
+              {selectedCard.file !== null && selectedCard.file !== '' ? (
+                <Image 
+                    alt="Preview"
+                    borderRadius="0.3125rem"
+                    height="300px"
+                    objectFit="contain"
+                    src={selectedCard.file}
                     width="100%"
-                >
+                />
+        ) : null}
+
+              {selectedCard.file !== null && selectedCard.file !== '' ? null : (
+                <Box width="100%">
+                  <Text
+                      color="text.body"
+                      fontSize="xs"
+                  >
+                    Upload Image
+                  </Text>
+
                   <Box
-                      alignItems="center"
-                      backgroundColor="background.flowDiagram"
-                      border="0.5px solid"
-                      borderColor="stroke.table"
-                      borderRadius="0.3125rem"
                       display="flex"
-                      height="8.0625rem"
-                      justifyContent="center"
-                      paddingTop="20%"
+                      justifyContent="space-between"
+                      marginBottom="10px"
                       width="100%"
                   >
-                    <Button
-                        _hover={{ backgroundColor: 'primary.90' }}
-                        backgroundColor="primary.100"
-                        borderRadius="0.25rem"
-                        color="white"
-                        height="1.75rem"
-                        onClick={() => document.getElementById("file-carousal").click()}
-                        width="7.375rem"
+                    <Box
+                        alignItems="center"
+                        backgroundColor="background.flowDiagram"
+                        border="0.5px solid"
+                        borderColor="stroke.table"
+                        borderRadius="0.3125rem"
+                        display="flex"
+                        height="8.0625rem"
+                        justifyContent="center"
+                        paddingTop="20%"
+                        width="100%"
                     >
-                      Upload
-                    </Button>
+                      <Button
+                          _hover={{ backgroundColor: 'primary.90' }}
+                          backgroundColor="primary.100"
+                          borderRadius="0.25rem"
+                          color="white"
+                          height="1.75rem"
+                          onClick={() => document.getElementById("file-carousal").click()}
+                          width="7.375rem"
+                      >
+                        Upload
+                      </Button>
 
-                    <Input
-                        id="file-carousal"
-                        onChange={(e) =>
+                      <Input
+                          id="file-carousal"
+                          onChange={(e) =>
                     setSelectedCard({...selectedCard, file: URL.createObjectURL(e.target.files[0])})}
-                        style={{display: "none"}}
-                        type="file"
-                    />
+                          style={{display: "none"}}
+                          type="file"
+                      />
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
             )}
 
-            <Text
-                color="text.body"
-                fontSize="xs"
-            >
-              Add Link
-            </Text>
+              <Text
+                  color="text.body"
+                  fontSize="xs"
+              >
+                Add Link
+              </Text>
 
-            <Input
-                borderRadius="0.3125rem"
-                onChange={(e) => setSelectedCard({...selectedCard, link: e.target.value})}
-                placeholder="Add url here"
-                size="sm"
-            />
+              <Input
+                  borderRadius="0.3125rem"
+                  onChange={(e) => setSelectedCard({...selectedCard, file: e.target.value})}
+                  placeholder="Add url here"
+                  size="sm"
+              />
 
-            <Text
-                color="text.body"
-                fontSize="xs"
-                margin="10px 0px 0px"
-            >
-              Add Text
-            </Text>
+              <Text
+                  color="text.body"
+                  fontSize="xs"
+                  margin="10px 0px 0px"
+              >
+                Add Text
+              </Text>
 
-            <Input
-                borderRadius="0.3125rem"
-                onChange={(e) => setSelectedCard({...selectedCard, text: e.target.value})}
-                placeholder="Add text here"
-                size="sm"
-                value={selectedCard.text}
-            />
-          </Box> : null}
+              <Input
+                  borderRadius="0.3125rem"
+                  onChange={(e) => setSelectedCard({...selectedCard, text: e.target.value})}
+                  placeholder="Add text here"
+                  size="sm"
+                  value={selectedCard.text}
+              />
+            </Box> : null}
         </Box>
 
         <Box

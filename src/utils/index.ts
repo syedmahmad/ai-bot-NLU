@@ -41,7 +41,7 @@ export const customerNodeValidations = (selectedNode) => {
       case 'text':
         return {
           props: {
-            value: "add something here"
+            value: "Add something here"
           } 
         }
       case 'button':
@@ -74,7 +74,6 @@ export const customerNodeValidations = (selectedNode) => {
                 id: uniqid(),
                 label: 'card 1',
                 file: null,
-                link: 'https://picsum.photos/200/300',
                 text: "<h1>Hello <b>write something here</b></h1>"
               }
             ]

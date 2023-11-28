@@ -109,6 +109,13 @@ function TableComponent() {
       align: 'right',
       key: '_id',
       className: 'last',
+      onCell: () => {
+        return {
+          onClick: (event) => {
+              event.stopPropagation();
+          },
+      };
+      },
       render: (item) => (
         <TablePopover 
             deleteFlow={deleteFlow}
