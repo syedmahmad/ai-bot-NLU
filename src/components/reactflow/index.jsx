@@ -166,7 +166,7 @@ function ReactFlowComponent() {
   );
 
   const onPaneClick = () => {
-    // console.log('onPaneClick', nodes);
+    console.log('onPaneClick', nodes);
     // mutation.mutate(
     //   {
     //     nodes
