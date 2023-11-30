@@ -46,3 +46,18 @@ npm run build
 
 - To format your code using Prettier:
   `npm run format`
+
+
+## Building for Production with Docker
+
+To build your application for production:
+
+sudo docker build -t xiva-app .
+
+## Run the app via follwoing command
+
+To build your application for production:
+
+sudo docker run -it --name xiva-app -p 3001:4173 xiva-app 
+
+Open the terminal and browse the follwoing url: http://localhost:3001
