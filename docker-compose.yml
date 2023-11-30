@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  xiva-app:
+    container_name: xiva-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode:
+      host
+    restart:
+      on-failure
+    ports:
+      - "3001:3001"
