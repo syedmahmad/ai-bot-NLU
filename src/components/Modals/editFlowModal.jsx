@@ -23,7 +23,7 @@ function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchDa
   const mutation = useMutation({
     mutationFn: (data) => {
       return axios.put(
-        `http://54.81.9.89/flow_entity/{id}?_id=${selectedItem._id}`,
+        `${import.meta.env.VITE_API_URL}/flow_entity/{id}?_id=${selectedItem._id}`,
         data,
       );
     },

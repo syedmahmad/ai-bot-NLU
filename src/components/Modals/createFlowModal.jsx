@@ -22,7 +22,7 @@ function CreateFlowModal({ isOpen, onClose, fetchData }) {
 
   const mutation = useMutation({
     mutationFn: (data) => {
-      return axios.post('http://54.81.9.89/flow_entity/', data);
+      return axios.post(`${import.meta.env.VITE_API_URL}/flow_entity/`, data);
     },
   });
 

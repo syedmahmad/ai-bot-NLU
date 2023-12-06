@@ -35,7 +35,7 @@ function TableComponent() {
   const mutation = useMutation({
     mutationFn: async (data) => {
       await axios.delete(
-        `http://54.81.9.89/flow_entity/{id}?_id=${data._id}`,
+        `${import.meta.env.VITE_API_URL}/flow_entity/{id}?_id=${data._id}`,
       );
     },
   });
@@ -54,7 +54,7 @@ function TableComponent() {
   }
 
   const fetchData = async () => {
-    await axios.get(`http://54.81.9.89/flow_entity/?include_deleted=false&page=${pagination.current}&size=${pagination.pageSize}`).then((response) => {
+    await axios.get(`${import.meta.env.VITE_API_URL}/flow_entity/?include_deleted=false&page=${pagination.current}&size=${pagination.pageSize}`).then((response) => {
       const arr = createTableData(response);
       setData(arr);
       setPagination({
