@@ -13,7 +13,7 @@ export const createTableData = (res) => {
     const obj = {
       name: item.name,
       description: item.description,
-      _id: item._id,
+      id: item.id,
       is_deleted: item.is_deleted,
       created_at: date_created_at.toLocaleDateString('en-US', options),
       updated_at: date_update_at.toLocaleDateString('en-US', options),

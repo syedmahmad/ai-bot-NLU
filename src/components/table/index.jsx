@@ -35,14 +35,14 @@ function TableComponent() {
   const mutation = useMutation({
     mutationFn: async (data) => {
       await axios.delete(
-        `${import.meta.env.VITE_API_URL}/flow_entity/{id}?_id=${data._id}`,
+        `${import.meta.env.VITE_API_URL}/flow_document/{id}?id=${data.id}`,
       );
     },
   });
   // delete flow function
   const deleteFlow = (item) => {
     mutation.mutate(
-      { _id: item._id },
+      { id: item.id },
       {
         onError: async () => {
           await fetchData()
@@ -54,7 +54,7 @@ function TableComponent() {
   }
 
   const fetchData = async () => {
-    await axios.get(`${import.meta.env.VITE_API_URL}/flow_entity/?include_deleted=false&page=${pagination.current}&size=${pagination.pageSize}`).then((response) => {
+    await axios.get(`${import.meta.env.VITE_API_URL}/flow_document/?include_deleted=false&page=${pagination.current}&size=${pagination.pageSize}`).then((response) => {
       const arr = createTableData(response);
       setData(arr);
       setPagination({
@@ -107,7 +107,7 @@ function TableComponent() {
         />
       ),
       align: 'right',
-      key: '_id',
+      key: 'id',
       className: 'last',
       onCell: () => {
         return {
@@ -174,7 +174,7 @@ function TableComponent() {
               onRow={(record) => {
                 return {
                   onClick: () => {
-                    navigate(`/flow/${record._id}`)
+                    navigate(`/flow/${record.id}`)
                   },
                 };
               }}

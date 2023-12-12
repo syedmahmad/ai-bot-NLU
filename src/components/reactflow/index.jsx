@@ -28,7 +28,7 @@ function ReactFlowComponent() {
   const {pathname} = useLocation();
   const { data } = useQuery({
     queryFn: () => axios
-    .get(`${import.meta.env.VITE_API_URL}/flow_entity/{id}?_id=${pathname.split('/')[2]}&include_deleted=false`)
+    .get(`${import.meta.env.VITE_API_URL}/flow_document/{id}?id=${pathname.split('/')[2]}&include_deleted=false`)
     .then((res) => res.data),
   });
 
@@ -37,7 +37,7 @@ function ReactFlowComponent() {
       // eslint-disable
       // debugger;
       return axios.put(
-        `${import.meta.env.VITE_API_URL}/flow_entity/{id}?_id=${pathname.split('/')[2]}`,
+        `${import.meta.env.VITE_API_URL}/flow_document/{id}?id=${pathname.split('/')[2]}`,
         data,
       );
     },
