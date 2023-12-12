@@ -85,7 +85,9 @@ function Sidebar() {
                           display="flex"
                           height="2.0625rem"
                           justifyContent="space-between"
+                          onClick={() => window.open(item?.link, '_blank')}
                           paddingLeft="32px"
+                          target='_blank'
                           width="100%"
                       >
                         <Heading
