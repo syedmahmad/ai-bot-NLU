@@ -35,7 +35,7 @@ function TableComponent() {
   const mutation = useMutation({
     mutationFn: async (data) => {
       await axios.delete(
-        `${import.meta.env.VITE_API_URL}/flow_document/{id}?id=${data.id}`,
+        `${import.meta.env.VITE_API_URL}/flow_document/${data.id}`,
       );
     },
   });

@@ -28,18 +28,14 @@ function ReactFlowComponent() {
   const {pathname} = useLocation();
   const { data } = useQuery({
     queryFn: () => axios
-    .get(`${import.meta.env.VITE_API_URL}/flow_document/{id}?id=${pathname.split('/')[2]}&include_deleted=false`)
+    .get(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`)
     .then((res) => res.data),
   });
 
   const mutation = useMutation({
-    mutationFn: (data) => {
-      // eslint-disable
-      // debugger;
-      return axios.put(
-        `${import.meta.env.VITE_API_URL}/flow_document/{id}?id=${pathname.split('/')[2]}`,
-        data,
-      );
+    mutationFn: (nodes) => {
+      console.log(data, 'data');
+      return 
     },
   });
 
@@ -165,18 +161,15 @@ function ReactFlowComponent() {
     [reactFlowInstance],
   );
 
-  const onPaneClick = () => {
+  const onPaneClick = async () => {
+    debugger
     console.log('onPaneClick', nodes);
-    // mutation.mutate(
-    //   {
-    //     nodes
-    //   },
-    //   {
-    //     onSuccess: async () => {
-    //       toast.success("Flow edited successfully");
-    //     },
-    //   },
-    // )
+    const updatedData = {...data}
+    const res = await axios.put(
+      `${import.meta.env.VITE_API_URL}/flow_document/${data.id}`,
+      updatedData
+    );
+    console.log(res, 'res');
   }
 
   return (
