@@ -9,6 +9,10 @@ import {
 } from '@chakra-ui/react';
 import uniqid from 'uniqid';
 import { Icon } from '@iconify/react';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import { convertToHTML } from 'draft-convert';
+import {stateFromHTML} from 'draft-js-import-html';
 
 const initialCardState = {
   id: uniqid(),
@@ -19,6 +23,14 @@ const initialCardState = {
 
 function CarousalBody({ comp, components, setComp }) {
   const [selectedCard, setSelectedCard] = useState(initialCardState);
+  const [convertedContent, setConvertedContent] = useState(initialCardState.text);
+  let contentState = stateFromHTML(convertedContent);
+  const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
+
+  useEffect(() => {
+    let html = convertToHTML(editorState.getCurrentContent());
+    setConvertedContent(html);
+  }, [editorState]);
 
   useEffect(() => {
     const arr = components?.map((item) => {
@@ -27,7 +39,7 @@ function CarousalBody({ comp, components, setComp }) {
           ...item.props,
           cards: comp?.props?.cards?.map((item) => {
             if (item.id === selectedCard.id) {
-              return selectedCard
+              return {...selectedCard, text: convertedContent}
             }
             return item
           })
@@ -36,7 +48,7 @@ function CarousalBody({ comp, components, setComp }) {
       return item
     });
     setComp(arr);
-  }, [selectedCard]);
+  }, [selectedCard, convertedContent]);
 
   const handleChange = (e) => {
     const cardId = e.target.value;
@@ -84,7 +96,7 @@ function CarousalBody({ comp, components, setComp }) {
 
           </Select>
 
-          {selectedCard.text !== '' ? 
+          {selectedCard.text !== "" ? 
             <Box>
               {selectedCard.file !== null && selectedCard.file !== '' ? (
                 <Image 
@@ -170,12 +182,43 @@ function CarousalBody({ comp, components, setComp }) {
                 Add Text
               </Text>
 
-              <Input
-                  borderRadius="0.3125rem"
-                  onChange={(e) => setSelectedCard({...selectedCard, text: e.target.value})}
-                  placeholder="Add text here"
-                  size="sm"
-                  value={selectedCard.text}
+              <Editor
+                  editorClassName="editor-class"
+                  editorState={editorState}
+                  onEditorStateChange={setEditorState}
+                  placeholder="Add something here"
+                  toolbar={{
+                  image: {
+                    alt: { present: true, mandatory: false },
+                    previewImage: true,
+                    inputAccept: 'svg',
+                  },
+                  options: ['inline', 'link'],
+                  inline: {
+                    inDropdown: false,
+                    options: ['bold', 'italic', 'underline', 'strikethrough'],
+                  },
+                  link: {
+                    inDropdown: false,
+                    options: ['link'],
+                  },
+                }}
+                  toolbarClassName="toolbar-class"
+                  toolbarCustomButtons={[
+                    <div style={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                    >
+                      <div
+                          className="insert-entity"
+                          onClick={() => alert('Coming Soon!')}
+                      >
+                        Insert Entity
+                      </div>
+                    </div>,
+                ]}
+                  wrapperClassName="wrapper-class"
               />
             </Box> : null}
         </Box>
