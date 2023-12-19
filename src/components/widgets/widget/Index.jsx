@@ -130,6 +130,7 @@ function WidgetComponent({ data, isConnectable }) {
               <Icon
                   color='hsla(0, 0%, 85%, 1)'
                   icon="bi:three-dots-vertical"
+                  onClick={() => alert('Coming Soon!')}
               />
             </Box>
           </PopoverHeader>

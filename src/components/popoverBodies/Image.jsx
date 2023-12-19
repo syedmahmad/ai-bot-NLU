@@ -92,6 +92,7 @@ function ImageBody({ comp, setComp, components}) {
               <Icon
                   color='hsla(0, 0%, 85%, 1)'
                   icon="ic:outline-delete"
+                  onClick={() => alert('Coming Soon!')}
               />
             </Box>
           </Box>

@@ -24,6 +24,7 @@
 .insert-entity {
   width: 4.375rem;
   height: 0.9375rem;
+  margin-left: 18px;
   display: flex;
   justify-content: center;
   align-items: center;

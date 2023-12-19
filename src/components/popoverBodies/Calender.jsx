@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
   Text,
-  Input,
   Select,
   Box
 } from '@chakra-ui/react';
-import { Icon } from '@iconify/react';
 
 function CalendarBody({ comp, setComp, components}) {
-  const [ input, setInput] = useState(comp?.props?.value);
   const [ selectionType, setSelectionType] = useState(comp?.props?.multiple ? 'multiple' : 'single');
   const [ calendarType, setCalendarType] = useState(comp?.props?.type);
 
@@ -17,7 +14,6 @@ function CalendarBody({ comp, setComp, components}) {
       if (item.order === comp.order) {
         item.props = {
           ...item.props,
-          value: input,
           multiple: selectionType === 'multiple' ? true : false,
           type: calendarType
         }
@@ -25,7 +21,7 @@ function CalendarBody({ comp, setComp, components}) {
       return item
     });
     setComp(arr);
-  }, [input, selectionType, calendarType]);
+  }, [selectionType, calendarType]);
 
   return(
     <Box
@@ -35,20 +31,6 @@ function CalendarBody({ comp, setComp, components}) {
       <Box
           width="93%"
       >
-        <Text
-            color="text.menu"
-            fontFamily="Inter"
-            fontSize="sm"
-            fontWeight={300}
-        >
-          Text
-        </Text>
-
-        <Input
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type here"
-            size="sm"
-        />
 
         <Text
             color="text.menu"
@@ -115,15 +97,6 @@ function CalendarBody({ comp, setComp, components}) {
           </option>
 
         </Select>
-      </Box>
-
-      <Box
-          marginTop="25px"
-      >
-        <Icon
-            color='hsla(0, 0%, 85%, 1)'
-            icon="ic:outline-delete"
-        />
       </Box>
     </Box>
   )

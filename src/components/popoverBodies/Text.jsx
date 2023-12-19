@@ -46,9 +46,6 @@ function TextBody({comp, components, setComp}) {
         >
           <Editor
               editorClassName="editor-class"
-              // editorRef={(ref) => {
-              //     // ref?.focus();
-              //   }}
               editorState={editorState}
               onEditorStateChange={setEditorState}
               placeholder="Add something here"
@@ -62,9 +59,6 @@ function TextBody({comp, components, setComp}) {
                   inline: {
                     inDropdown: false,
                     options: ['bold', 'italic', 'underline', 'strikethrough'],
-                    bold: {
-                      icon: '/icons/bold',
-                    },
                   },
                   link: {
                     inDropdown: false,
@@ -73,18 +67,26 @@ function TextBody({comp, components, setComp}) {
                 }}
               toolbarClassName="toolbar-class"
               toolbarCustomButtons={[
-                <div
-                    className="insert-entity"
-                    onClick={() => alert('Coming Soon!')}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
                 >
-                  Insert Entity
+                  <div
+                      className="insert-entity"
+                      onClick={() => alert('Coming Soon!')}
+                  >
+                    Insert Entity
+                  </div>
                 </div>,
                 ]}
               wrapperClassName="wrapper-class"
           />
         </Box>
 
-        <Box>
+        <Box
+            onClick={() => alert('Coming Soon!')}
+        >
           <Icon
               color='hsla(0, 0%, 85%, 1)'
               icon="ic:outline-delete"
@@ -97,6 +99,7 @@ function TextBody({comp, components, setComp}) {
             color="text.body"
             iconColor='blue.400'
             iconSize='1rem'
+            onChange={() => alert('Coming Soon!')}
         >
           Question
         </Checkbox>
@@ -111,6 +114,7 @@ function TextBody({comp, components, setComp}) {
             _hover={{ backgroundColor: 'primary.90' }}
             backgroundColor="primary.100"
             color="white"
+            onClick={() => alert('Coming Soon!')}
             size="sm"
             width="118px"
         >

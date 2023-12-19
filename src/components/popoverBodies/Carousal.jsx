@@ -19,7 +19,6 @@ const initialCardState = {
 
 function CarousalBody({ comp, components, setComp }) {
   const [selectedCard, setSelectedCard] = useState(initialCardState);
-  const [cards, setCards] = useState(comp?.props?.cards || []);
 
   useEffect(() => {
     const arr = components?.map((item) => {
@@ -71,7 +70,7 @@ function CarousalBody({ comp, components, setComp }) {
               value={selectedCard.id}
           >
             {
-          cards?.map((card) => {
+          comp?.props?.cards?.map((card) => {
             return(
               <option
                   key={card.id}
@@ -187,6 +186,7 @@ function CarousalBody({ comp, components, setComp }) {
           <Icon
               color='hsla(0, 0%, 85%, 1)'
               icon="ic:outline-delete"
+              onClick={() => alert('Coming Soon!')}
           />
         </Box>
       </Box>
@@ -202,7 +202,7 @@ function CarousalBody({ comp, components, setComp }) {
             backgroundColor="primary.100"
             borderRadius="0.25rem"
             color="white"
-            onClick={() => {setCards([ ...cards, initialCardState ])}}
+            onClick={() => alert('Coming Soon!')}
             width="7.375rem"
         >
           Add Card
