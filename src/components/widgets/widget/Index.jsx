@@ -29,7 +29,7 @@ function WidgetComponent({ data, isConnectable }) {
       // appending new nodes
       const newComp = [...comp, {
         order: widgetOrder,
-        name: widget,
+        type: widget,
         ...createFields(widget)
       }]
       // appending new nodes to components.
@@ -47,9 +47,9 @@ function WidgetComponent({ data, isConnectable }) {
       const newComp = [{
         order: 1,
         // in case of customer response. we just need to add text component.
-        // in case of bot response, adding widget name in data.type (that could be any widget)
-        name: data.type === 'customer' ? 'text' : data.type,
-        ...createFields(data.type)
+        // in case of bot response, adding widget type in data.type (that could be any widget)
+        type: data.type === 'customer_response_node' ? 'text_widget' : data.widgetName,
+        ...createFields(data.widgetName)
       }]
       // appending new nodes to components.
       setComp(newComp);
@@ -92,7 +92,7 @@ function WidgetComponent({ data, isConnectable }) {
               }}
           >
             <Box
-                background={data.type === 'customer' ? "#FCD8E0" : "#D1EAFE"}
+                background={data.type === 'customer_response_node' ? "#FCD8E0" : "#D1EAFE"}
                 borderRadius="17.487px 17.487px 0px 17.487px"
                 padding={4}
                 width="100%"
@@ -123,7 +123,7 @@ function WidgetComponent({ data, isConnectable }) {
               padding="15px 10px 0px"
           >
             <Box textTransform={'capitalize'}>
-              {comp[0]?.name}
+              {comp[0]?.widgetName}
             </Box>
 
             <Box>

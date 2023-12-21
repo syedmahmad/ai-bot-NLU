@@ -1,4 +1,4 @@
-import uniqid from 'uniqid';
+// import uniqid from 'uniqid';
 
 export const botNodeValidations = (selectedNode) => {
     // return if there is no node selected and user clicks on wdiget.
@@ -7,7 +7,7 @@ export const botNodeValidations = (selectedNode) => {
        'Parent node not selected. Please select the node from where you wanted to create new node.',
      );
      return false;
-   } else if (selectedNode?.type === "bot") {
+   } else if (selectedNode?.type === "bot_response_node") {
       return false;
     }
    return true;
@@ -25,7 +25,7 @@ export const customerNodeValidations = (selectedNode) => {
         'You cannot start a flow with Customer Reponse. Bot will initiate the FLow.',
       );
       return false;
-    } else if (selectedNode?.type === "customer") {
+    } else if (selectedNode?.type === "customer_response_node") {
       alert(
         "Sorry! You're not able to create customer response form customer response. There should be bot response after customer response.",
       );
@@ -37,28 +37,28 @@ export const customerNodeValidations = (selectedNode) => {
   export const createFields = (widget) => {
     console.log(widget);
     switch(widget) {
-      case 'customer':
-      case 'text':
+      case 'customer_response_node':
+      case 'text_widget':
         return {
           props: {
             value: "Add something here"
           } 
         }
-      case 'button':
+      case 'button_widget':
         return {
           props: {
             label: "new button",
             variant: "solid"
           } 
         }
-      case 'image':
+      case 'image_widget':
         return {
           props: {
             file: null,
             link: null
           } 
         }
-      case 'calendar':
+      case 'calendar_widget':
         return {
           props: {
             type: 'daily',
@@ -66,12 +66,12 @@ export const customerNodeValidations = (selectedNode) => {
             value: new Date()
           } 
         }
-      case 'carousel':
+      case 'carousel_widget':
         return {
           props: {
             cards: [
               {
-                id: uniqid(),
+                id: mongoObjectId(),
                 label: 'card 1',
                 file: null,
                 text: "<h1>Hello <b>write something here</b></h1>"
@@ -83,3 +83,11 @@ export const customerNodeValidations = (selectedNode) => {
         return;
     }
   }
+
+
+  export const mongoObjectId = function () {
+    var timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+    return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+        return (Math.random() * 16 | 0).toString(16);
+    }).toLowerCase();
+};

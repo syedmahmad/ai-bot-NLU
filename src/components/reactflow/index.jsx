@@ -1,7 +1,9 @@
 /* eslint-disable */
 import { useCallback, useState, useMemo } from 'react';
+import { parser } from '../../utils/parser';
+import { mongoObjectId } from '../../utils/index';
 import { Box, Text } from '@chakra-ui/react';
-import uniqid from 'uniqid';
+// import uniqid from 'uniqid';
 import BotComponent from '../widgets/widget/Index';
 import { useMutation } from '@tanstack/react-query';
 
@@ -26,7 +28,7 @@ import { useQuery } from '@tanstack/react-query';
 function ReactFlowComponent() {
   const { addWidget, updateSelectedComp } = useWidgets();
   const {pathname} = useLocation();
-  const { data } = useQuery({
+  const { data: document } = useQuery({
     queryFn: () => axios
     .get(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`)
     .then((res) => res.data),
@@ -49,13 +51,13 @@ function ReactFlowComponent() {
   // building our custom components type and pass this type to reactFlow
   const nodeTypes = useMemo(
     () => ({
-      bot: BotComponent,
-      customer: BotComponent
+      bot_response_node: BotComponent,
+      customer_response_node: BotComponent
     }),
     [],
   );
 
-  const id = uniqid();
+  const id = mongoObjectId();
   const [nodes, setNodes, onNodesChange] = useNodesState([
     {
       id: id,
@@ -92,10 +94,12 @@ function ReactFlowComponent() {
         type: type,
         position: { x: 700, y: selectedNode.position.y + 200 },
         data: {
-          type: type === "bot" ? widgetName : type,
+          // type: type === "bot" ? widgetName : type,
+          type: type,
           sourceHandle: newNodeId,
           onNodeClick: onNodeClick,
           selectedNode: selectedNode,
+          widgetName: widgetName,
           components: []
         },
         style: {
@@ -128,7 +132,7 @@ function ReactFlowComponent() {
 
   // generate new node and connect this newly created node to other nodes via edges.
   const addBotNode = (widgetName) => {
-    if (selectedNode?.type === "bot") {
+    if (selectedNode?.type === "bot_response_node") {
       // via context, we will add widget to same bot node as there is no other 
       // communication medium.
       addWidget(widgetName);
@@ -137,16 +141,16 @@ function ReactFlowComponent() {
 
     // we'll not create same bot response again if parent is already bot.
     if (botNodeValidations(selectedNode)) {
-      const newId = uniqid();
-      connectNewNode(newId, "bot", widgetName);
+      const newId = mongoObjectId();
+      connectNewNode(newId, "bot_response_node", widgetName);
     }
   }
 
   const addCustomerNode = () => {
     if (customerNodeValidations(selectedNode)) {
-      const newId = uniqid();
+      const newId = mongoObjectId();
       // its default type is "TextNode", we may decide later if wanted to update it.
-      connectNewNode(newId, "customer", "text");
+      connectNewNode(newId, "customer_response_node", "text_widget");
     }
   }
 
@@ -162,12 +166,13 @@ function ReactFlowComponent() {
   );
 
   const onPaneClick = async () => {
-    debugger
-    console.log('onPaneClick', nodes);
-    const updatedData = {...data}
+    // console.log('nodes', nodes);
+    // console.log('edges', edges);
+    const data = parser(edges, nodes, document);
+    console.log("data", data);
     const res = await axios.put(
       `${import.meta.env.VITE_API_URL}/flow_document/${data.id}`,
-      updatedData
+      data
     );
     console.log(res, 'res');
   }
@@ -195,7 +200,7 @@ function ReactFlowComponent() {
               fontSize="sm"
               fontWeight={300}
           >
-            {data?.name}
+            {document?.name}
           </Text>
         </Box>
       </Box>

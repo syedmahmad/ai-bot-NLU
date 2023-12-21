@@ -32,8 +32,8 @@ function ViewComponent({ comps }) {
       { 
         comps.map((comp) => {
             const props = comp?.props;
-            switch(comp.name) {
-                case 'text':
+            switch(comp.type) {
+                case 'text_widget':
                     return (
                       <Box
                           margin="10px 0px"
@@ -47,7 +47,7 @@ function ViewComponent({ comps }) {
                         />
                       </Box>
                     );
-                case 'button':
+                case 'button_widget':
                     return (
                       <Box
                           margin="10px 0px"
@@ -60,7 +60,7 @@ function ViewComponent({ comps }) {
                         </Button>
                       </Box>
                     );
-                case 'image':
+                case 'image_widget':
                     return (<Box
                         margin="10px 0px"
                             >
@@ -80,7 +80,7 @@ function ViewComponent({ comps }) {
                       )}
 
                     </Box>);
-                case 'calendar':
+                case 'calendar_widget':
                     return  (
                       <Box
                           margin="10px 0px"
@@ -93,7 +93,7 @@ function ViewComponent({ comps }) {
                         />
                       </Box>
                     );
-                case 'carousel':
+                case 'carousel_widget':
                     return (<Box
                         margin="10px 0px"
                         padding="0px 20px"

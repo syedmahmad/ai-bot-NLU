@@ -7,7 +7,8 @@ import {
   Image,
   Select
 } from '@chakra-ui/react';
-import uniqid from 'uniqid';
+// import uniqid from 'uniqid';
+import { mongoObjectId } from '../../utils/index'
 import { Icon } from '@iconify/react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -15,7 +16,7 @@ import { convertToHTML } from 'draft-convert';
 import {stateFromHTML} from 'draft-js-import-html';
 
 const initialCardState = {
-  id: uniqid(),
+  id: mongoObjectId(),
   label: '',
   file: null,
   text: ""

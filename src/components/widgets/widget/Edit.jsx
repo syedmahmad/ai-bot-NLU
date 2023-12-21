@@ -11,8 +11,8 @@ function EditComponent({ comps, setComp }) {
     <Box>
       { 
         comps.map((comp) => {
-            switch(comp.name) {
-                case 'text':
+            switch(comp.type) {
+                case 'text_widget':
                     return (
                       <Box
                           margin="10px 0px"
@@ -25,7 +25,7 @@ function EditComponent({ comps, setComp }) {
                         />
                       </Box>
                     );
-                case 'button':
+                case 'button_widget':
                     return (
                       <Box
                           margin="10px 0px"
@@ -38,7 +38,7 @@ function EditComponent({ comps, setComp }) {
                         />
                       </Box>
                     );
-                case 'image':
+                case 'image_widget':
                     return (
                       <Box
                           margin="10px 0px"
@@ -51,7 +51,7 @@ function EditComponent({ comps, setComp }) {
                         />
                       </Box>
                     );
-                case 'calendar':
+                case 'calendar_widget':
                     return  (
                       <Box
                           margin="10px 0px"
@@ -64,7 +64,7 @@ function EditComponent({ comps, setComp }) {
                         />
                       </Box>
                     );
-                case 'carousel':
+                case 'carousel_widget':
                     return (
                       <Box
                           margin="10px 0px"
