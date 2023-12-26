@@ -1,11 +1,9 @@
 /* eslint-disable */
-import { useCallback, useState, useMemo } from 'react';
-import { parser } from '../../utils/parser';
+import { useCallback, useState, useMemo, useEffect } from 'react';
+import { prepareDataForAPIs, prepareDataForReactFlow } from '../../utils/parser';
 import { mongoObjectId } from '../../utils/index';
 import { Box, Text } from '@chakra-ui/react';
-// import uniqid from 'uniqid';
 import BotComponent from '../widgets/widget/Index';
-import { useMutation } from '@tanstack/react-query';
 
 import ReactFlow, {
   Background,
@@ -28,19 +26,6 @@ import { useQuery } from '@tanstack/react-query';
 function ReactFlowComponent() {
   const { addWidget, updateSelectedComp } = useWidgets();
   const {pathname} = useLocation();
-  const { data: document } = useQuery({
-    queryFn: () => axios
-    .get(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`)
-    .then((res) => res.data),
-  });
-
-  const mutation = useMutation({
-    mutationFn: (nodes) => {
-      console.log(data, 'data');
-      return 
-    },
-  });
-
   // once user click on specific node, we need to get that node hash,
   // useReactFlow hook allow us to retrive node based on node id.
   // that's why using this hook.
@@ -56,6 +41,30 @@ function ReactFlowComponent() {
     }),
     [],
   );
+  const { data: document } = useQuery({
+    queryFn: () => axios
+    .get(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`)
+    .then((res) => res.data),
+  });
+
+  console.log("document", document);
+
+
+  useEffect(() => {
+    if (document) {
+      debugger;
+      if (document?.edges?.length === 0 && document?.nodes?.length === 0) {
+        return 
+      };
+      const {newEdges, newNodes} = prepareDataForReactFlow(document, onNodeClick, selectedNode);
+      // set the edges and nodes that can we display in reactflow..
+
+      console.log("edges", newEdges);
+      console.log("nodes", newNodes);
+      setEdges(newEdges);
+      setNodes(newNodes);
+    }
+  }, [document]);
 
   const id = mongoObjectId();
   const [nodes, setNodes, onNodesChange] = useNodesState([
@@ -112,7 +121,8 @@ function ReactFlowComponent() {
     setEdges((prev) => {
       // in the edges, normally we use the "id of a node" for the source or target of an edge
       return prev.concat({
-        id: `e${selectedNode.id}-${newNodeId}`,
+        // id: `e${selectedNode.id}-${newNodeId}`,
+        id: mongoObjectId(),
         source: selectedNode.id,
         target: newNodeId,
         sourceHandle: newNodeId,
@@ -166,13 +176,12 @@ function ReactFlowComponent() {
   );
 
   const onPaneClick = async () => {
-    // console.log('nodes', nodes);
-    // console.log('edges', edges);
-    const data = parser(edges, nodes, document);
-    console.log("data", data);
+    const data11 = prepareDataForAPIs(edges, nodes, document);
+    console.log("data", data11);
+    // debugger;
     const res = await axios.put(
-      `${import.meta.env.VITE_API_URL}/flow_document/${data.id}`,
-      data
+      `${import.meta.env.VITE_API_URL}/flow_document/${data11.id}`,
+      data11
     );
     console.log(res, 'res');
   }

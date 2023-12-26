@@ -35,7 +35,6 @@ export const customerNodeValidations = (selectedNode) => {
   }
 
   export const createFields = (widget) => {
-    console.log(widget);
     switch(widget) {
       case 'customer_response_node':
       case 'text_widget':
