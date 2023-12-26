@@ -35,7 +35,11 @@ function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchDa
       onClose();
     } else {
       mutation.mutate(
-        { id: selectedItem.id, name: name, description: description },
+        { id: selectedItem.id, name: name, 
+          description: description, 
+          edges: selectedItem?.edges, 
+          nodes: selectedItem?.nodes 
+        },
         {
           onSuccess: async () => {
             fetchData();

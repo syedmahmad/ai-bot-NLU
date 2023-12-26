@@ -17,6 +17,8 @@ export const createTableData = (res) => {
       is_deleted: item.is_deleted,
       created_at: date_created_at.toLocaleDateString('en-US', options),
       updated_at: date_update_at.toLocaleDateString('en-US', options),
+      edges: item?.edges,
+      nodes: item?.nodes
     }
     arr.push(obj);
   });

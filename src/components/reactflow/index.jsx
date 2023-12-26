@@ -47,20 +47,13 @@ function ReactFlowComponent() {
     .then((res) => res.data),
   });
 
-  console.log("document", document);
-
-
   useEffect(() => {
     if (document) {
-      debugger;
       if (document?.edges?.length === 0 && document?.nodes?.length === 0) {
         return 
       };
       const {newEdges, newNodes} = prepareDataForReactFlow(document, onNodeClick, selectedNode);
       // set the edges and nodes that can we display in reactflow..
-
-      console.log("edges", newEdges);
-      console.log("nodes", newNodes);
       setEdges(newEdges);
       setNodes(newNodes);
     }
@@ -95,7 +88,7 @@ function ReactFlowComponent() {
     },
     [setEdges],
   );
-  // console.log(nodes);
+
   const connectNewNode = (newNodeId, type, widgetName) => {
     setNodes((prev) => {
       return prev.concat({
@@ -177,13 +170,11 @@ function ReactFlowComponent() {
 
   const onPaneClick = async () => {
     const data11 = prepareDataForAPIs(edges, nodes, document);
-    console.log("data", data11);
-    // debugger;
     const res = await axios.put(
       `${import.meta.env.VITE_API_URL}/flow_document/${data11.id}`,
       data11
     );
-    console.log(res, 'res');
+    console.log('DataToSave', res);
   }
 
   return (

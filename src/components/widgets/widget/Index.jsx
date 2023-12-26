@@ -22,7 +22,6 @@ function WidgetComponent({ data, isConnectable }) {
   
   /* This executes every time the user wanted to add new widget. */
   useEffect(() => {
-    // console.log('selected component', data.sourceHandle);
     if (widget && data.sourceHandle === selectedComp) {
       // get the order 
       let widgetOrder = comp.length === 0 ? 1 : comp[comp.length-1].order + 1;
