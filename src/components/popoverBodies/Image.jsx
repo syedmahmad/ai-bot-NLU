@@ -30,6 +30,15 @@ function ImageBody({ comp, setComp, components}) {
     setComp(arr);
   }, [file]);
 
+  const deleteNode = () => {
+    if (components.length === 1) {
+      alert("Node should contain atleast 1 widget!");
+      return;
+    }
+    const newData = components.filter((data) => data.order !== comp.order);
+    setComp(newData);
+  }
+
   return(
     <>
       {file !== null ? (
@@ -88,11 +97,13 @@ function ImageBody({ comp, setComp, components}) {
               />
             </Box>
 
-            <Box>
+            <Box
+                cursor="pointer"
+                onClick={() => deleteNode()}
+            >
               <Icon
                   color='hsla(0, 0%, 85%, 1)'
                   icon="ic:outline-delete"
-                  onClick={() => alert('Coming Soon!')}
               />
             </Box>
           </Box>

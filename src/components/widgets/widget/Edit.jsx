@@ -6,7 +6,7 @@ import ImageBody from '../../popoverBodies/Image';
 import CalendarBody from '../../popoverBodies/Calender';
 import CarousalBody from '../../popoverBodies/Carousal';
 
-function EditComponent({ comps, setComp }) {
+function EditComponent({ comps, setComp, node }) {
   return (
     <Box>
       { 
@@ -22,6 +22,7 @@ function EditComponent({ comps, setComp }) {
                             comp={comp}
                             components={comps}
                             setComp={setComp}
+                            type={node.type}
                         />
                       </Box>
                     );

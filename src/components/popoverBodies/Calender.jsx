@@ -4,6 +4,7 @@ import {
   Select,
   Box
 } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 
 function CalendarBody({ comp, setComp, components}) {
   const [ selectionType, setSelectionType] = useState(comp?.props?.multiple ? 'multiple' : 'single');
@@ -22,6 +23,15 @@ function CalendarBody({ comp, setComp, components}) {
     });
     setComp(arr);
   }, [selectionType, calendarType]);
+
+  const deleteNode = () => {
+    if (components.length === 1) {
+      alert("Node should contain atleast 1 widget!");
+      return;
+    }
+    const newData = components.filter((data) => data.order !== comp.order);
+    setComp(newData);
+  }
 
   return(
     <Box
@@ -97,6 +107,16 @@ function CalendarBody({ comp, setComp, components}) {
           </option>
 
         </Select>
+      </Box>
+
+      <Box
+          cursor="pointer"
+          onClick={() => deleteNode()}
+      >
+        <Icon
+            color='hsla(0, 0%, 85%, 1)'
+            icon="ic:outline-delete"
+        />
       </Box>
     </Box>
   )

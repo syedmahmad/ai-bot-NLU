@@ -51,6 +51,15 @@ function CarousalBody({ comp, components, setComp }) {
     setComp(arr);
   }, [selectedCard, convertedContent]);
 
+  const deleteNode = () => {
+    if (components.length === 1) {
+      alert("Node should contain atleast 1 widget!");
+      return;
+    }
+    const newData = components.filter((data) => data.order !== comp.order);
+    setComp(newData);
+  }
+
   const handleChange = (e) => {
     const cardId = e.target.value;
     const card = comp?.props?.cards?.find(u => u.id === cardId);
@@ -225,12 +234,13 @@ function CarousalBody({ comp, components, setComp }) {
         </Box>
 
         <Box
+            cursor="pointer"
             marginTop="25px"
+            onClick={() => deleteNode()}
         >
           <Icon
               color='hsla(0, 0%, 85%, 1)'
               icon="ic:outline-delete"
-              onClick={() => alert('Coming Soon!')}
           />
         </Box>
       </Box>

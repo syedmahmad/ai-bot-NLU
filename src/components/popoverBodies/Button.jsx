@@ -24,6 +24,15 @@ function ButtonBody({ comp, setComp, components}) {
     });
     setComp(arr);
   }, [btnLabel, btnType]);
+
+  const deleteNode = () => {
+    if (components.length === 1) {
+      alert("Node should contain atleast 1 widget!");
+      return;
+    }
+    const newData = components.filter((data) => data.order !== comp.order);
+    setComp(newData);
+  }
   
   return(
     <Box
@@ -91,12 +100,13 @@ function ButtonBody({ comp, setComp, components}) {
       </Box>
 
       <Box
+          cursor="pointer"
           marginTop="25px"
+          onClick={() => deleteNode()}
       >
         <Icon
             color='hsla(0, 0%, 85%, 1)'
             icon="ic:outline-delete"
-            onClick={() => alert('Coming Soon!')}
         />
       </Box>
     </Box>

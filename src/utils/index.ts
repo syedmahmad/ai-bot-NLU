@@ -20,17 +20,18 @@ export const customerNodeValidations = (selectedNode) => {
         'Parent node not selected. Please select the node from where you wanted to create new node.',
       );
       return false;
-    } else if (selectedNode.data.type === "start") {
-      alert(
-        'You cannot start a flow with Customer Reponse. Bot will initiate the FLow.',
-      );
-      return false;
     } else if (selectedNode?.type === "customer_response_node") {
       alert(
         "Sorry! You're not able to create customer response form customer response. There should be bot response after customer response.",
       );
       return false;
-    }
+    } 
+    // else if (selectedNode.data.type === "start") {
+    //   alert(
+    //     'You cannot start a flow with Customer Reponse. Bot will initiate the FLow.',
+    //   );
+    //   return false;
+    // } 
     return true;
   }
 

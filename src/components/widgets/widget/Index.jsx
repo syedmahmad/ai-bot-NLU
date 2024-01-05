@@ -135,7 +135,7 @@ function WidgetComponent({ data, isConnectable }) {
           </PopoverHeader>
 
           <PopoverBody paddingBottom="30px">
-            <EditComponent comps={comp} setComp={setComp} />
+            <EditComponent comps={comp} setComp={setComp} node={data}/>
           </PopoverBody>
         </PopoverContent>
       </Popover>

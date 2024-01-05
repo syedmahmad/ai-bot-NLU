@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Checkbox,
-  Button
+  Button,
+  Text,
+  Input
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import { EditorState } from 'draft-js';
@@ -12,7 +14,7 @@ import {stateFromHTML} from 'draft-js-import-html';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-function TextBody({comp, components, setComp}) {
+function TextBody({comp, components, setComp, type}) {
   const [convertedContent, setConvertedContent] = useState(comp.props.value === 'Add something here' ? '' : comp.props.value);
   let contentState = stateFromHTML(convertedContent);
   const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
@@ -34,6 +36,15 @@ function TextBody({comp, components, setComp}) {
     });
     setComp(arr);
   }, [convertedContent]);
+
+  const deleteNode = () => {
+    if (components.length === 1) {
+      alert("Node should contain atleast 1 widget!");
+      return;
+    }
+    const newData = components.filter((data) => data.order !== comp.order);
+    setComp(newData);
+  }
   
   return(
     <>
@@ -85,7 +96,8 @@ function TextBody({comp, components, setComp}) {
         </Box>
 
         <Box
-            onClick={() => alert('Coming Soon!')}
+            cursor="pointer"
+            onClick={() => deleteNode()}
         >
           <Icon
               color='hsla(0, 0%, 85%, 1)'
@@ -105,10 +117,49 @@ function TextBody({comp, components, setComp}) {
         </Checkbox>
       </Box>
 
+      {type === "customer_response_node" ? <>
+        <Box
+            marginTop="10px"
+            width="93%"
+        >
+          <Text
+              color="text.body"
+              fontSize="xs"
+          >
+            Triggered Intent
+          </Text>
+
+          <Input
+              borderRadius="0.3125rem"
+              placeholder="Intent Name"
+              size="sm"
+          />
+        </Box>
+
+        <Box
+            marginTop="10px"
+            width="93%"
+        >
+          <Text
+              color="text.body"
+              fontSize="xs"
+          >
+            Add Entity
+          </Text>
+
+          <Input
+              borderRadius="0.3125rem"
+              placeholder="Entity name"
+              size="sm"
+          />
+        </Box>
+      </> : null}
+
       <Box
           display="flex"
           justifyContent="right"
-          width="92%"
+          marginTop="10px"
+          width="93%"
       >
         <Button
             _hover={{ backgroundColor: 'primary.90' }}
