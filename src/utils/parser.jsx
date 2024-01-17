@@ -161,8 +161,8 @@ export const prepareDataForReactFlow = (document, onNodeClick, selectedNode) => 
                           width: 184,
                           height: 82,
                           padding: '9px 10px',
-                          backgroundColor: 'hsla(205, 100%, 83%, 0.17)',
-                          borderColor: '#fff'
+                          backgroundColor: '#AADBFF',
+                          borderColor: '#ECECEC'
                         },
                       }
             default:

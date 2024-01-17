@@ -66,10 +66,17 @@
 
 .ant-table-thead > tr > th {
   background: transparent !important;
+  color: hsla(0, 0%, 15%, 1) !important;
+}
+
+tbody > tr > td {
+  color: #858585 !important;
 }
 
 .ant-table-cell {
   background-color: white;
+  font-weight: 400 !important;
+  font-family: Inter;
 }
 
 .slick-next:before {

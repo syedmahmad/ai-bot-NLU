@@ -4,6 +4,8 @@ import { Icon } from '@iconify/react';
 
 function WidgetsControl({ addCustomerNode, addBotNode }) {
   const [openWidget, setOpenWidget] = useState(false);
+  const [widgetSelected, setWidgetSelected] = useState(false);
+  const [selectedSubElement, setSelectedSubElement] = useState('');
 
   return (
     <>
@@ -26,7 +28,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
             justifyContent="center"
             onClick={addCustomerNode}
             padding="0.85rem 0.5rem"
-            width="3.5rem"
+            width="4rem"
         >
           <Box
               display="flex"
@@ -56,16 +58,38 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
             boxShadow="0px 4px 10px 0px rgba(0, 0, 0, 0.06)"
             padding="0.85rem 0px"
             paddingTop={0}
-            width="3.5rem"
+            width="4rem"
         >
           <Box
+              color="secondary.100"
+              fontFamily="Inter"
+              fontSize="6px"
+              fontStyle="normal"
+              fontWeight={500}
+              letterSpacing="0.3px"
+              lineHeight="24px"
+              textAlign="center"
+          >
+            Bot Response
+          </Box>
+
+          <Box
+              _hover={
+                {
+                  backgroundColor: '#F1F9FF'
+                }
+              }
               alignContent="center"
+              alignItems="center"
+              backgroundColor={widgetSelected ? '#F1F9FF' : ''}
+              borderRadius="7px"
               cursor="pointer"
               display="flex"
               flexDirection="column"
               height="fit-content"
               justifyContent="center"
-              onClick={() => setOpenWidget(!openWidget)}
+              margin="5px"
+              onClick={() => {setOpenWidget(!openWidget), setWidgetSelected(true)}}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -77,7 +101,10 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               <Icon icon="solar:widget-4-linear" />
             </Box>
 
-            <Box marginTop={2}>
+            <Box
+                marginBottom={2}
+                marginTop={2}
+            >
               <Text
                   align="center"
                   fontFamily="Inter"
@@ -90,12 +117,21 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
           </Box>
 
           <Box
+              _hover={
+                {
+                  backgroundColor: 'hsla(205, 100%, 83%, 0.17)'
+                }
+              }
               alignContent="center"
+              alignItems="center"
+              borderRadius="7px"
               cursor="pointer"
               display="flex"
               flexDirection="column"
               height="fit-content"
               justifyContent="center"
+              margin="5px"
+              onClick={() => setOpenWidget(!openWidget)}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -107,7 +143,10 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               <Icon icon="carbon:flow" />
             </Box>
 
-            <Box marginTop={2}>
+            <Box
+                marginBottom={2}
+                marginTop={2}
+            >
               <Text
                   align="center"
                   fontFamily="Inter"
@@ -120,12 +159,21 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
           </Box>
 
           <Box
+              _hover={
+                {
+                  backgroundColor: 'hsla(205, 100%, 83%, 0.17)'
+                }
+              }
               alignContent="center"
+              alignItems="center"
+              borderRadius="7px"
               cursor="pointer"
               display="flex"
               flexDirection="column"
               height="fit-content"
               justifyContent="center"
+              margin="5px"
+              onClick={() => setOpenWidget(!openWidget)}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -137,7 +185,10 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               <Icon icon="carbon:show-data-cards" />
             </Box>
 
-            <Box marginTop={2}>
+            <Box
+                marginBottom={2}
+                marginTop={2}
+            >
               <Text
                   align="center"
                   fontFamily="Inter"
@@ -150,12 +201,21 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
           </Box>
 
           <Box
+              _hover={
+                {
+                  backgroundColor: 'hsla(205, 100%, 83%, 0.17)'
+                }
+              }
               alignContent="center"
+              alignItems="center"
+              borderRadius="7px"
               cursor="pointer"
               display="flex"
               flexDirection="column"
               height="fit-content"
               justifyContent="center"
+              margin="5px"
+              onClick={() => setOpenWidget(!openWidget)}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -167,7 +227,10 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               <Icon icon="ant-design:node-index-outlined" />
             </Box>
 
-            <Box marginTop={2}>
+            <Box
+                marginBottom={2}
+                marginTop={2}
+            >
               <Text
                   align="center"
                   fontFamily="Inter"
@@ -180,12 +243,21 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
           </Box>
 
           <Box
+              _hover={
+                {
+                  backgroundColor: 'hsla(205, 100%, 83%, 0.17)'
+                }
+              }
               alignContent="center"
+              alignItems="center"
+              borderRadius="7px"
               cursor="pointer"
               display="flex"
               flexDirection="column"
               height="fit-content"
               justifyContent="center"
+              margin="5px"
+              onClick={() => setOpenWidget(!openWidget)}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -197,7 +269,10 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               <Icon icon="iconamoon:profile-light" />
             </Box>
 
-            <Box marginTop={2}>
+            <Box
+                marginBottom={2}
+                marginTop={2}
+            >
               <Text
                   align="center"
                   fontFamily="Inter"
@@ -214,158 +289,193 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
       {/*  */}
       {openWidget ? (
         <Box
-            height="23.4375rem"
+            backgroundColor="white"
+            borderRadius="0.3125rem"
+            boxShadow="0px 4px 10px 0px rgba(0, 0, 0, 0.06)"
+            padding="0.85rem 0px"
+            paddingTop={0}
             position="absolute"
-            right="135px"
+            right="85px"
             top="160px"
-            width="3.5rem"
+            width="6.625rem"
         >
           <Box
-              backgroundColor="white"
-              borderRadius="0.3125rem"
-              boxShadow="0px 4px 10px 0px rgba(0, 0, 0, 0.06)"
-              padding="0.85rem 0px"
-              paddingTop={0}
-              width="6.625rem"
+              _hover={
+                  {
+                    backgroundColor: '#F5F7F8'
+                  }
+                }
+              alignItems="center"
+              backgroundColor={selectedSubElement === 'text_widget' ? '#F5F7F8' : ''}
+              borderRadius="7px"
+              cursor="pointer"
+              display="flex"
+              height="30px"
+              margin="7px"
+              onClick={() => {addBotNode('text_widget'), setSelectedSubElement('text_widget')}}
+              padding="5px 1.06rem"
+              paddingBottom={0}
           >
             <Box
-                alignItems="center"
-                cursor="pointer"
                 display="flex"
-                height="fit-content"
-                onClick={() => addBotNode('text_widget')}
-                padding="0.85rem 1.06rem"
-                paddingBottom={0}
+                width="32px"
             >
-              <Box
-                  display="flex"
-                  width="32px"
-              >
-                <Icon icon="mdi:text" />
-              </Box>
-
-              <Box display="flex">
-                <Text
-                    align="center"
-                    fontFamily="Inter"
-                    fontSize="8px"
-                    fontWeight={400}
-                >
-                  Text
-                </Text>
-              </Box>
+              <Icon icon="mdi:text" />
             </Box>
 
-            <Box
-                alignItems="center"
-                cursor="pointer"
-                display="flex"
-                height="fit-content"
-                onClick={() => addBotNode('button_widget')}
-                padding="0.85rem 1.06rem"
-                paddingBottom={0}
-            >
-              <Box
-                  display="flex"
-                  width="32px"
+            <Box display="flex">
+              <Text
+                  align="center"
+                  fontFamily="Inter"
+                  fontSize="8px"
+                  fontWeight={400}
               >
-                <Icon icon="teenyicons:button-outline" />
-              </Box>
+                Text
+              </Text>
+            </Box>
+          </Box>
 
-              <Box display="flex">
-                <Text
-                    align="center"
-                    fontFamily="Inter"
-                    fontSize="8px"
-                    fontWeight={400}
-                >
-                  Button
-                </Text>
-              </Box>
+          <Box
+              _hover={
+                {
+                  backgroundColor: '#F5F7F8'
+                }
+              }
+              alignItems="center"
+              backgroundColor={selectedSubElement === 'button_widget' ? '#F5F7F8' : ''}
+              borderRadius="7px"
+              cursor="pointer"
+              display="flex"
+              height="30px"
+              margin="7px"
+              onClick={() => {addBotNode('button_widget'), setSelectedSubElement('button_widget')}}
+              padding="5px 1.06rem"
+              paddingBottom={0}
+          >
+            <Box
+                display="flex"
+                width="32px"
+            >
+              <Icon icon="teenyicons:button-outline" />
             </Box>
 
-            <Box
-                alignItems="center"
-                cursor="pointer"
-                display="flex"
-                height="fit-content"
-                onClick={() => addBotNode('image_widget')}
-                padding="0.85rem 1.06rem"
-                paddingBottom={0}
-            >
-              <Box
-                  display="flex"
-                  width="32px"
+            <Box display="flex">
+              <Text
+                  align="center"
+                  fontFamily="Inter"
+                  fontSize="8px"
+                  fontWeight={400}
               >
-                <Icon icon="ic:outline-image" />
-              </Box>
+                Button
+              </Text>
+            </Box>
+          </Box>
 
-              <Box display="flex">
-                <Text
-                    align="center"
-                    fontFamily="Inter"
-                    fontSize="8px"
-                    fontWeight={400}
-                >
-                  Image
-                </Text>
-              </Box>
+          <Box
+              _hover={
+                {
+                  backgroundColor: '#F5F7F8'
+                }
+              }
+              alignItems="center"
+              backgroundColor={selectedSubElement === 'image_widget' ? '#F5F7F8' : ''}
+              borderRadius="7px"
+              cursor="pointer"
+              display="flex"
+              height="30px"
+              margin="7px"
+              onClick={() => {addBotNode('image_widget'), setSelectedSubElement('image_widget')}}
+              padding="5px 1.06rem"
+              paddingBottom={0}
+          >
+            <Box
+                display="flex"
+                width="32px"
+            >
+              <Icon icon="ic:outline-image" />
             </Box>
 
-            <Box
-                alignItems="center"
-                cursor="pointer"
-                display="flex"
-                height="fit-content"
-                onClick={() => addBotNode('carousel_widget')}
-                padding="0.85rem 1.06rem"
-                paddingBottom={0}
-            >
-              <Box
-                  display="flex"
-                  width="32px"
+            <Box display="flex">
+              <Text
+                  align="center"
+                  fontFamily="Inter"
+                  fontSize="8px"
+                  fontWeight={400}
               >
-                <Icon icon="bi:card-text" />
-              </Box>
+                Image
+              </Text>
+            </Box>
+          </Box>
 
-              <Box display="flex">
-                <Text
-                    align="center"
-                    fontFamily="Inter"
-                    fontSize="8px"
-                    fontWeight={400}
-                >
-                  Carousel
-                </Text>
-              </Box>
+          <Box
+              _hover={
+                {
+                  backgroundColor: '#F5F7F8'
+                }
+              }
+              alignItems="center"
+              backgroundColor={selectedSubElement === 'carousel_widget' ? '#F5F7F8' : ''}
+              borderRadius="7px"
+              cursor="pointer"
+              display="flex"
+              height="30px"
+              margin="7px"
+              onClick={() => {addBotNode('carousel_widget'), setSelectedSubElement('carousel_widget')}}
+              padding="5px 1.06rem"
+              paddingBottom={0}
+          >
+            <Box
+                display="flex"
+                width="32px"
+            >
+              <Icon icon="bi:card-text" />
             </Box>
 
-            <Box
-                alignItems="center"
-                cursor="pointer"
-                display="flex"
-                height="fit-content"
-                onClick={() => addBotNode('calendar_widget')}
-                padding="0.85rem 1.06rem"
-                paddingBottom={0}
-            >
-              <Box
-                  display="flex"
-                  width="32px"
+            <Box display="flex">
+              <Text
+                  align="center"
+                  fontFamily="Inter"
+                  fontSize="8px"
+                  fontWeight={400}
               >
-                <Icon icon="octicon:calendar-24" />
-              </Box>
+                Carousel
+              </Text>
+            </Box>
+          </Box>
 
-              <Box display="flex">
-                <Text
-                    align="center"
-                    fontFamily="Inter"
-                    fontSize="8px"
-                    fontWeight={400}
-                >
-                  Calendar
-                </Text>
-              </Box>
+          <Box
+              _hover={
+                {
+                  backgroundColor: '#F5F7F8'
+                }
+              }
+              alignItems="center"
+              backgroundColor={selectedSubElement === 'calendar_widget' ? '#F5F7F8' : ''}
+              borderRadius="7px"
+              cursor="pointer"
+              display="flex"
+              height="30px"
+              margin="7px"
+              onClick={() => {addBotNode('calendar_widget'), setSelectedSubElement('calendar_widget')}}
+              padding="5px 1.06rem"
+              paddingBottom={0}
+          >
+            <Box
+                display="flex"
+                width="32px"
+            >
+              <Icon icon="octicon:calendar-24" />
+            </Box>
+
+            <Box display="flex">
+              <Text
+                  align="center"
+                  fontFamily="Inter"
+                  fontSize="8px"
+                  fontWeight={400}
+              >
+                Calendar
+              </Text>
             </Box>
           </Box>
         </Box>

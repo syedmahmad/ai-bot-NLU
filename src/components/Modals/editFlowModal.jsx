@@ -64,7 +64,7 @@ function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchDa
       <ModalContent
           alignSelf="center"
           display="flex"
-          padding="32px 0px"
+          padding="0px"
       >
         <ModalHeader>
           Edit Flow
@@ -73,7 +73,7 @@ function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchDa
         <ModalBody>
           <Text
               color="text.body"
-              fontSize="xs"
+              fontSize="md"
               fontWeight={400}
               margin="5px 0px"
           >
@@ -101,7 +101,7 @@ function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchDa
 
           <Text
               color="text.body"
-              fontSize="xs"
+              fontSize="md"
               fontWeight={400}
               margin="5px 0px"
           >
@@ -127,7 +127,7 @@ function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchDa
           <br />
 
           <Grid
-              gap={6}
+              gap={2}
               templateColumns="repeat(3, 1fr)"
           >
             <GridItem
@@ -163,7 +163,7 @@ function EditFlowModal({ isOpen, onClose, selectedItem, setSelectedItem, fetchDa
                   size="sm"
                   width="100%"
               >
-                Edit Flow
+                Save
               </Button>
             </GridItem>
           </Grid>

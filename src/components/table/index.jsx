@@ -22,7 +22,7 @@ function TableComponent() {
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 5, // Set your desired page size
+    pageSize: 6, // Set your desired page size
     total: 0,
   });
 
@@ -138,7 +138,6 @@ function TableComponent() {
   return (
     <>
       <CreateFlowModal
-          fetchData={fetchData}
           isOpen={createFlowOpen}
           onClose={createFlowOnClose}
       />

@@ -14,10 +14,12 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-function CreateFlowModal({ isOpen, onClose, fetchData }) {
+function CreateFlowModal({ isOpen, onClose }) {
   const [name, setName] = useState('');
+  const navigate = useNavigate();
   const [description, setDescription] = useState('');
 
   const mutation = useMutation({
@@ -35,7 +37,7 @@ function CreateFlowModal({ isOpen, onClose, fetchData }) {
         { name: name, description: description },
         {
           onSuccess: async (response) => {
-            fetchData();
+            navigate(`/flow/${response?.data?.id}`)
             toast.success(response.data.detail);
             setName('');
             setDescription('');
@@ -56,7 +58,7 @@ function CreateFlowModal({ isOpen, onClose, fetchData }) {
       <ModalContent
           alignSelf="center"
           display="flex"
-          padding="32px 0px"
+          padding="0px"
       >
         <ModalHeader>
           Create Flow
@@ -121,7 +123,7 @@ function CreateFlowModal({ isOpen, onClose, fetchData }) {
           <br />
 
           <Grid
-              gap={6}
+              gap={2}
               templateColumns="repeat(3, 1fr)"
           >
             <GridItem
