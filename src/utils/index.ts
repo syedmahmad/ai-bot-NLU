@@ -74,7 +74,7 @@ export const customerNodeValidations = (selectedNode) => {
                 id: mongoObjectId(),
                 label: 'card 1',
                 file: null,
-                text: "<h1>Hello <b>write something here</b></h1>"
+                text: "<h1>Add text here</h1>"
               }
             ]
           }

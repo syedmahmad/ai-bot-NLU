@@ -15,6 +15,8 @@ import { useWidgets } from '../../context/WidgetsContext';
 import ViewComponent from './View';
 import EditComponent from './Edit';
 import { createFields } from '../../../utils';
+import { BotIcon } from '../../../assets/BotIcon';
+import { CustomerIcon } from '../../../assets/CustomerIcon';
 
 function WidgetComponent({ data, isConnectable }) {
   const [comp, setComp] = useState(data?.components || []);
@@ -63,6 +65,23 @@ function WidgetComponent({ data, isConnectable }) {
     data.onNodeClick(event);
   };
 
+  const getPopOverHeading = (typeName) => {
+    switch (typeName) {
+      case 'text_widget':
+        return 'Text Input'
+      case 'button_widget':
+        return 'Button'
+      case 'image_widget':
+        return 'Image'
+      case 'calendar_widget':
+        return 'Calendar'
+      case 'carousel_widget':
+        return 'Carousel'
+      default:
+        return 'Text'
+    }
+  }
+
   return (
     <>
       {/* handle={type="target"} means
@@ -78,9 +97,10 @@ function WidgetComponent({ data, isConnectable }) {
 
       <Popover
           isLazy
-          placement="left-start"
+          placement={data.type === 'customer_response_node' ? "right-start" : "left-start"}
       >
         <PopoverTrigger>
+          <Box display='flex' flexDirection={data.type === 'customer_response_node' ? "row-reverse" : "row"} justifyContent='space-between' alignItems='center'>
           <Box
               onClick={handleClick}
               style={{
@@ -92,13 +112,13 @@ function WidgetComponent({ data, isConnectable }) {
           >
             <Box
                 background={data.type === 'customer_response_node' ? "#FCD8E0" : "#D1EAFE"}
-                borderRadius="17.487px 17.487px 0px 17.487px"
+                borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
                 padding={4}
                 width="100%"
             >
               <Box
                   background="#fff"
-                  borderRadius="17.487px 17.487px 0px 17.487px"
+                  borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
                   margin="6px 0px"
                   minHeight="68px"
                   width="100%"
@@ -107,12 +127,18 @@ function WidgetComponent({ data, isConnectable }) {
               </Box>
             </Box>
           </Box>
+          <Box width='35px' height='35px' marginLeft={data.type === 'customer_response_node' ? "0px" : "10px"} marginRight={data.type === 'customer_response_node' ? "10px" : "0px"}>
+              {data?.type !== 'customer_response_node' ? <BotIcon /> : <CustomerIcon /> }
+          </Box>
+          </Box>
         </PopoverTrigger>
 
         <PopoverContent
           // height="400px"
           // overflowY="auto"
           // overflowX={"hidden"}
+          border="1px solid #AADBFF !important"
+          boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.10)"
         >
           <PopoverArrow />
 
@@ -120,9 +146,10 @@ function WidgetComponent({ data, isConnectable }) {
               display="flex"
               justifyContent="space-between"
               padding="15px 10px 0px"
+              borderBottom='none'
           >
             <Box textTransform={'capitalize'}>
-              {comp[0]?.widgetName}
+              {getPopOverHeading(comp[0]?.type)}
             </Box>
 
             <Box>

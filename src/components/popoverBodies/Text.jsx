@@ -59,7 +59,7 @@ function TextBody({comp, components, setComp, type}) {
               editorClassName="editor-class"
               editorState={editorState}
               onEditorStateChange={setEditorState}
-              placeholder="Add something here"
+              placeholder="Add text here"
               toolbar={{
                   image: {
                     alt: { present: true, mandatory: false },

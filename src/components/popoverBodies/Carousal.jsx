@@ -147,10 +147,10 @@ function CarousalBody({ comp, components, setComp }) {
                         width="100%"
                     >
                       <Button
-                          _hover={{ backgroundColor: 'primary.90' }}
-                          backgroundColor="primary.100"
+                          _hover={{ backgroundColor: 'primary.90', color: "white" }}
+                          borderColor="primary.100"
                           borderRadius="0.25rem"
-                          color="white"
+                          color="primary.100"
                           height="1.75rem"
                           onClick={() => document.getElementById("file-carousal").click()}
                           width="7.375rem"

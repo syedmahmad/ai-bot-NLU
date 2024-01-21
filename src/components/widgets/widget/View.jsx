@@ -50,10 +50,13 @@ function ViewComponent({ comps }) {
                 case 'button_widget':
                     return (
                       <Box
+                          display="flex"
+                          justifyContent="row-start"
                           margin="10px 0px"
+                          width="100%"
                       >
                         <Button
-                            colorScheme='teal'
+                            colorScheme='primary'
                             variant={props?.variant}
                         >
                           {props?.label}
@@ -71,12 +74,12 @@ function ViewComponent({ comps }) {
                             src={props?.file}
                         />
                         ) : ( 
-                          <Text
+                          <Button
                               color="text.body"
                               fontSize="xs"
                           >
                             Upload Image
-                          </Text>
+                          </Button>
                       )}
 
                     </Box>);
