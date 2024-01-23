@@ -56,7 +56,7 @@ function ViewComponent({ comps }) {
                           width="100%"
                       >
                         <Button
-                            colorScheme='primary'
+                            colorScheme='pink'
                             variant={props?.variant}
                         >
                           {props?.label}
@@ -75,8 +75,10 @@ function ViewComponent({ comps }) {
                         />
                         ) : ( 
                           <Button
-                              color="text.body"
+                              _hover={{ backgroundColor: 'primary.90', color: "white" }}
+                              colorScheme='button'
                               fontSize="xs"
+                              variant="outline"
                           >
                             Upload Image
                           </Button>
