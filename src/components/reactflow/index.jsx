@@ -13,6 +13,8 @@ import ReactFlow, {
   useReactFlow,
   MarkerType,
   Controls,
+  useStore,
+  ControlButton,
   BackgroundVariant,
 } from 'reactflow';
 import RightSidebar from '../rightSidebar';
@@ -22,8 +24,14 @@ import { useWidgets } from '../context/WidgetsContext';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import { Flex } from 'antd';
 
 function ReactFlowComponent() {
+  const { zoomIn, zoomOut } = useReactFlow();
+  const zoomLevel = useStore((store) => store.transform[2]);
+  const isMaxZoom = useStore((store) => store.transform[2] === store.maxZoom);
+  const isMinZoom = useStore((store) => store.transform[2] === store.minZoom);
+ 
   const { addWidget, updateSelectedComp } = useWidgets();
   const {pathname} = useLocation();
   // once user click on specific node, we need to get that node hash,
@@ -224,7 +232,22 @@ function ReactFlowComponent() {
               onNodesChange={onNodesChange}
               onPaneClick={onPaneClick}
           >
-            <Controls />
+            <Controls showZoom={false} showInteractive={false} showFitView={false} 
+              style={{display: 'flex', width: '106px', height: '28px', borderRadius: '4px', boxShadow: 'none', border: '1px solid #ECECEC', background: '#FFFFFF'}}
+              className={[
+                isMaxZoom ? "zoom-in-disabled" : "",
+                isMinZoom ? "zoom-out-disabled" : ""
+              ].join(" ")}>
+              <ControlButton style={{ background: 'transparent' }} onClick={() => zoomIn()} disabled={isMaxZoom} className={`react-flow__controls-zoomin ${isMaxZoom ? 'zoom-in-disabled' : ''}`}>
+                +
+              </ControlButton>
+              <ControlButton style={{ background: 'hsla(203, 19%, 92%, 0.4)', width: '35px', height: '16px', margin: '6px', padding: 0, color: '#858585', textAlign: 'center', fontFamily: 'Inter', fontSize: '8px', fontWeight: 400 }}>
+                {`${Math.round(zoomLevel * 100)}%` } 
+              </ControlButton>
+              <ControlButton onClick={() => zoomOut()} style={{ background: 'transparent' }} disabled={isMinZoom} className={`react-flow__controls-zoomout ${isMinZoom ? 'zoom-out-disabled' : ''}`}>
+                -
+              </ControlButton>
+            </Controls>
             <Background
                 backgroundColor="hsla(220, 33%, 98%, 1)"
                 variant={BackgroundVariant.Dots}

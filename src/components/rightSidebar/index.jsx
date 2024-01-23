@@ -2,16 +2,18 @@
 import { Box, Text, Select, Input } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import {
-  MiniMap
+  MiniMap,
+  Controls
 } from 'reactflow';
 
 function RightSidebar() {
   const nodeColor = (node) => {
-    if (node.type === 'input') {
-        return '#D1EAFE';
-    }
-    switch (node.data.nodeType) {
-      case 'customer':
+    // if (node.type === 'input') {
+    //     return '#D1EAFE';
+    // }
+    // console.log("node.data.nodeType", node.data);
+    switch (node.data.type) {
+      case 'customer_response_node':
         return '#FCD8E0';
       default:
         return '#D1EAFE';
@@ -57,7 +59,7 @@ function RightSidebar() {
           <Icon
               color="hsla(0, 0%, 52%, 1)"
               icon="lucide:expand"
-          />
+          ><Controls showZoom={false} showFitView={false} /></Icon>
         </Box>
       </Box>
 
@@ -73,7 +75,7 @@ function RightSidebar() {
         <MiniMap
             nodeColor={nodeColor}
             nodeStrokeWidth={3}
-            pannable
+            fill="white"
             style={{
               top: "0",
               left: "0",
@@ -83,8 +85,8 @@ function RightSidebar() {
               height: '275',
               fill: 'white'
             }}
+            pannable
             zoomable
-            fill="white"
         />
       </Box>
 
