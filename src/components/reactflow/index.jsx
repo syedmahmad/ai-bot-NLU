@@ -28,6 +28,7 @@ import { Flex } from 'antd';
 
 function ReactFlowComponent() {
   const { zoomIn, zoomOut } = useReactFlow();
+  const [ randomOpr, setRandomOpr ] = useState('plus');
   const zoomLevel = useStore((store) => store.transform[2]);
   const isMaxZoom = useStore((store) => store.transform[2] === store.maxZoom);
   const isMinZoom = useStore((store) => store.transform[2] === store.minZoom);
@@ -98,11 +99,17 @@ function ReactFlowComponent() {
   );
 
   const connectNewNode = (newNodeId, type, widgetName) => {
+    console.log(selectedNode)
+    const position = { 
+      x: (randomOpr === 'plus') ? selectedNode.position.x + (Math.random()* 500) : selectedNode.position.x - (Math.random()* 500),
+      y: (selectedNode.height > selectedNode.position.y) ? selectedNode.height + Math.floor(Math.random()* (400)+200) : selectedNode.position.y + Math.floor(Math.random()* (400)+200)
+    };
+    console.log(position)
     setNodes((prev) => {
       return prev.concat({
         id: newNodeId,
         type: type,
-        position: { x: 700, y: selectedNode.position.y + 200 },
+        position: position,
         data: {
           // type: type === "bot" ? widgetName : type,
           type: type,
@@ -139,6 +146,14 @@ function ReactFlowComponent() {
     });
     // reset selected node.
     setSelectedNode({});
+    switch(randomOpr) {
+      case 'plus':
+        setRandomOpr('minus');
+        return;
+      default:
+        setRandomOpr('plus');
+        return;
+    }
   }
 
   // generate new node and connect this newly created node to other nodes via edges.

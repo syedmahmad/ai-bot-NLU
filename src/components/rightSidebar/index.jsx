@@ -8,10 +8,6 @@ import {
 
 function RightSidebar() {
   const nodeColor = (node) => {
-    // if (node.type === 'input') {
-    //     return '#D1EAFE';
-    // }
-    // console.log("node.data.nodeType", node.data);
     switch (node.data.type) {
       case 'customer_response_node':
         return '#FCD8E0';

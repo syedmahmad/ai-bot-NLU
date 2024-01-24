@@ -1,8 +1,10 @@
 import { Avatar, AvatarBadge } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react';
 import { XivaLogo } from '../../assets/XivaLogo';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <Box
         alignItems="center"
@@ -12,7 +14,11 @@ function Header() {
         justifyContent="space-between"
         w="100%"
     >
-      <Box padding="12px 32px">
+      <Box
+          cursor='pointer'
+          onClick={() => navigate('/')}
+          padding="12px 32px"
+      >
         <XivaLogo />
       </Box>
 
