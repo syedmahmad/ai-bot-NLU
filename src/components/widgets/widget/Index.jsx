@@ -67,6 +67,8 @@ function WidgetComponent({ data, isConnectable }) {
 
   const getPopOverHeading = (typeName) => {
     switch (typeName) {
+      case 'logic_widget':
+        return 'Logic'
       case 'text_widget':
         return 'Text Input'
       case 'button_widget':

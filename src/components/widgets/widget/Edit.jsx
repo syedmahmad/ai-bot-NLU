@@ -5,6 +5,7 @@ import ButtonBody from '../../popoverBodies/Button';
 import ImageBody from '../../popoverBodies/Image';
 import CalendarBody from '../../popoverBodies/Calender';
 import CarousalBody from '../../popoverBodies/Carousal';
+import LogicBody from '../../popoverBodies/Logic';
 
 function EditComponent({ comps, setComp, node }) {
   return (
@@ -12,6 +13,19 @@ function EditComponent({ comps, setComp, node }) {
       { 
         comps.map((comp) => {
             switch(comp.type) {
+                case 'logic_widget':
+                    return (
+                      <Box
+                          margin="10px 0px"
+                          width="100%"
+                      >
+                        <LogicBody
+                            comp={comp}
+                            components={comps}
+                            setComp={setComp}
+                        />
+                      </Box>
+                    );
                 case 'text_widget':
                     return (
                       <Box

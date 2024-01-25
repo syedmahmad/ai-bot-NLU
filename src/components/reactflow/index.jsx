@@ -19,7 +19,7 @@ import ReactFlow, {
 } from 'reactflow';
 import RightSidebar from '../rightSidebar';
 import WidgetControls from './Controls';
-import { botNodeValidations, customerNodeValidations } from '../../utils';
+import { botNodeValidations, customerNodeValidations, logicNodeValidations } from '../../utils';
 import { useWidgets } from '../context/WidgetsContext';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -46,7 +46,8 @@ function ReactFlowComponent() {
   const nodeTypes = useMemo(
     () => ({
       bot_response_node: BotComponent,
-      customer_response_node: BotComponent
+      customer_response_node: BotComponent,
+      logic_response_node: BotComponent
     }),
     [],
   );
@@ -99,12 +100,10 @@ function ReactFlowComponent() {
   );
 
   const connectNewNode = (newNodeId, type, widgetName) => {
-    console.log(selectedNode)
     const position = { 
       x: (randomOpr === 'plus') ? selectedNode.position.x + (Math.random()* 500) : selectedNode.position.x - (Math.random()* 500),
       y: (selectedNode.height > selectedNode.position.y) ? selectedNode.height + Math.floor(Math.random()* (400)+200) : selectedNode.position.y + Math.floor(Math.random()* (400)+200)
     };
-    console.log(position)
     setNodes((prev) => {
       return prev.concat({
         id: newNodeId,
@@ -180,6 +179,15 @@ function ReactFlowComponent() {
     }
   }
 
+  const addLogic = () => {
+    console.log("logic");
+    if (logicNodeValidations(selectedNode)) {
+      const newId = mongoObjectId();
+      // its default type is "TextNode", we may decide later if wanted to update it.
+      connectNewNode(newId, "logic_response_node", "logic_widget");
+    }
+  }
+
   // need to store selected node data, that's why needed this callback.
   const onNodeClick = useCallback(
     (event) => {
@@ -197,7 +205,6 @@ function ReactFlowComponent() {
       `${import.meta.env.VITE_API_URL}/flow_document/${data11.id}`,
       data11
     );
-    console.log('DataToSave', res);
   }
 
   return (
@@ -268,7 +275,11 @@ function ReactFlowComponent() {
                 variant={BackgroundVariant.Dots}
             />
           </ReactFlow>
-          <WidgetControls addCustomerNode={addCustomerNode} addBotNode={addBotNode} />
+          <WidgetControls 
+            addCustomerNode={addCustomerNode} 
+            addBotNode={addBotNode}
+            addLogic={addLogic} 
+            />
         </Box>
 
         <Box width="26.75rem">

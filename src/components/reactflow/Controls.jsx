@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
-function WidgetsControl({ addCustomerNode, addBotNode }) {
+function WidgetsControl({ addCustomerNode, addBotNode, addLogic }) {
   const [openWidget, setOpenWidget] = useState(false);
-  const [widgetSelected, setWidgetSelected] = useState(false);
+  const [openLogic, setOpenLogic] = useState(false);
+  const [widgetSelected, setWidgetSelected] = useState('');
   const [selectedSubElement, setSelectedSubElement] = useState('');
 
   return (
@@ -81,7 +82,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               }
               alignContent="center"
               alignItems="center"
-              backgroundColor={widgetSelected ? '#F1F9FF' : ''}
+              backgroundColor={widgetSelected === 'widgets' ? '#F1F9FF' : ''}
               borderRadius="7px"
               cursor="pointer"
               display="flex"
@@ -89,7 +90,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               height="fit-content"
               justifyContent="center"
               margin="5px"
-              onClick={() => {setOpenWidget(!openWidget), setWidgetSelected(true)}}
+              onClick={() => {setOpenLogic(false), setOpenWidget(!openWidget), setWidgetSelected('widgets')}}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -124,6 +125,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               }
               alignContent="center"
               alignItems="center"
+              backgroundColor={widgetSelected === 'logic' ? '#F1F9FF' : ''}
               borderRadius="7px"
               cursor="pointer"
               display="flex"
@@ -131,7 +133,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               height="fit-content"
               justifyContent="center"
               margin="5px"
-              onClick={() => setOpenWidget(!openWidget)}
+              onClick={() => {setOpenWidget(false), setOpenLogic(!openLogic), setWidgetSelected('logic')}}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -173,7 +175,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               height="fit-content"
               justifyContent="center"
               margin="5px"
-              onClick={() => setOpenWidget(!openWidget)}
+              onClick={() => alert('coming soon!')}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -215,7 +217,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               height="fit-content"
               justifyContent="center"
               margin="5px"
-              onClick={() => setOpenWidget(!openWidget)}
+              onClick={() => alert('coming soon!')}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -257,7 +259,7 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
               height="fit-content"
               justifyContent="center"
               margin="5px"
-              onClick={() => setOpenWidget(!openWidget)}
+              onClick={() => alert('coming soon!')}
               padding="0.85rem 0.5rem"
               paddingBottom={0}
           >
@@ -285,6 +287,57 @@ function WidgetsControl({ addCustomerNode, addBotNode }) {
           </Box>
         </Box>
       </Box>
+
+      {openLogic ? (
+        <Box
+            backgroundColor="white"
+            borderRadius="0.3125rem"
+            boxShadow="0px 4px 10px 0px rgba(0, 0, 0, 0.06)"
+            padding="0px"
+            paddingTop={0}
+            position="absolute"
+            right="85px"
+            top="230px"
+            width="6.625rem"
+        >
+          <Box
+              _hover={
+                {
+                  backgroundColor: '#F5F7F8'
+                }
+              }
+              alignItems="center"
+              backgroundColor={selectedSubElement === 'logic' ? '#F5F7F8' : ''}
+              borderRadius="7px"
+              cursor="pointer"
+              display="flex"
+              height="30px"
+              margin="7px"
+              onClick={() => {addLogic(), setSelectedSubElement('logic')}}
+              padding="5px 15px"
+              paddingBottom={0}
+              width="9  3px"
+          >
+            <Box
+                display="flex"
+                width="32px"
+            >
+              <Icon icon="mdi:text" />
+            </Box>
+
+            <Box display="flex">
+              <Text
+                  align="center"
+                  fontFamily="Inter"
+                  fontSize="8px"
+                  fontWeight={400}
+              >
+                Conditions
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+      ) : null}
 
       {/*  */}
       {openWidget ? (

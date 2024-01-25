@@ -14,6 +14,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function ViewComponent({ comps }) {
+  console.log('comps',comps);
+
   const settings = {
     infinite: true,
     slidesToShow: 1,
@@ -33,6 +35,19 @@ function ViewComponent({ comps }) {
         comps.map((comp) => {
             const props = comp?.props;
             switch(comp.type) {
+                case 'logic_widget':
+                  return (
+                    <Box
+                        margin="10px 0px"
+                        width="100%"
+                    >
+                      <Text
+                          align="center"
+                      >
+                        Click To Add Logic
+                      </Text>
+                    </Box>
+                  );
                 case 'text_widget':
                     return (
                       <Box

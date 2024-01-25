@@ -26,12 +26,17 @@ export const customerNodeValidations = (selectedNode) => {
       );
       return false;
     } 
-    // else if (selectedNode.data.type === "start") {
-    //   alert(
-    //     'You cannot start a flow with Customer Reponse. Bot will initiate the FLow.',
-    //   );
-    //   return false;
-    // } 
+    return true;
+  }
+
+export const logicNodeValidations = (selectedNode) => {
+    // return if there is no node selected and user clicks on wdiget.
+    if (!selectedNode || Object.keys(selectedNode).length === 0) {
+      alert(
+        'Parent node not selected. Please select the node from where you wanted to create new node.',
+      );
+      return false;
+    }
     return true;
   }
 
