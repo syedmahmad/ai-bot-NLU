@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -23,7 +24,7 @@ const initialCardState = {
 };
 
 function CarousalBody({ comp, components, setComp }) {
-  const [selectedCard, setSelectedCard] = useState(initialCardState);
+  const [selectedCard, setSelectedCard] = useState(comp?.props?.cards[0] || selectedCard);
   const [convertedContent, setConvertedContent] = useState(initialCardState.text);
   let contentState = stateFromHTML(convertedContent);
   const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
@@ -63,7 +64,12 @@ function CarousalBody({ comp, components, setComp }) {
   const handleChange = (e) => {
     const cardId = e.target.value;
     const card = comp?.props?.cards?.find(u => u.id === cardId);
-    setSelectedCard(card);
+    if (card) {
+      setSelectedCard(card);
+    } else {
+      setSelectedCard(initialCardState);
+    }
+    
   }
   return(
     <Box
@@ -164,7 +170,7 @@ function CarousalBody({ comp, components, setComp }) {
                     setSelectedCard({...selectedCard, file: URL.createObjectURL(e.target.files[0])})}
                           style={{display: "none"}}
                           type="file"
-                      />
+                      ></Input>
                     </Box>
                   </Box>
                 </Box>

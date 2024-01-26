@@ -14,8 +14,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function ViewComponent({ comps }) {
-  console.log('comps',comps);
-
   const settings = {
     infinite: true,
     slidesToShow: 1,
@@ -109,6 +107,7 @@ function ViewComponent({ comps }) {
                             onlyMonthPicker={props?.type === 'monthly' ? true : false}
                             onlyYearPicker={props?.type === 'yearly' ? true : false}
                             range={props?.multiple ? true : false}
+                            shadow={false}
                             value={props?.value}
                         />
                       </Box>
