@@ -24,9 +24,10 @@ import { useWidgets } from '../context/WidgetsContext';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { Flex } from 'antd';
+import MiniMap from './MiniMap';
 
 function ReactFlowComponent() {
+  const [ showMiniMap, setShowMiniMap ] = useState(false);
   const { zoomIn, zoomOut } = useReactFlow();
   const [ randomOpr, setRandomOpr ] = useState('plus');
   const zoomLevel = useStore((store) => store.transform[2]);
@@ -285,8 +286,13 @@ function ReactFlowComponent() {
         <Box width="26.75rem">
           <RightSidebar 
             edges={edges}
-            nodes={nodes} />
+            nodes={nodes}
+            setShowMiniMap={setShowMiniMap} />
         </Box>
+
+        <MiniMap 
+          showMiniMap={showMiniMap}
+          setShowMiniMap={setShowMiniMap} />
       </Box>
     </Box>
   );

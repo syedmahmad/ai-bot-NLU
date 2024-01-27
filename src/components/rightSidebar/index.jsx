@@ -3,10 +3,9 @@ import { Box, Text, Select, Input } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import {
   MiniMap,
-  Controls
 } from 'reactflow';
 
-function RightSidebar() {
+function RightSidebar(props) {
   const nodeColor = (node) => {
     switch (node.data.type) {
       case 'customer_response_node':
@@ -15,6 +14,7 @@ function RightSidebar() {
         return '#D1EAFE';
     }
   };
+
   return (
     <Box
         height="calc(100vh - 71px)"
@@ -51,11 +51,12 @@ function RightSidebar() {
             height="1.375rem"
             justifyContent="center"
             width="1.375rem"
+            onClick={() => props.setShowMiniMap(true)}
         >
           <Icon
               color="hsla(0, 0%, 52%, 1)"
               icon="lucide:expand"
-          ><Controls showZoom={false} showFitView={false} /></Icon>
+          ></Icon>
         </Box>
       </Box>
 
@@ -78,7 +79,7 @@ function RightSidebar() {
               margin: "0",
               padding: "0",
               width: '430',
-              height: '275',
+              height: '375',
               fill: 'white'
             }}
             pannable
