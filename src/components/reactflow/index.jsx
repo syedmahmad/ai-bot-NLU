@@ -224,8 +224,9 @@ function ReactFlowComponent() {
             alignItems="center"
             backgroundColor="white"
             display="flex"
-            height="26px"
+            height="47px"
             paddingLeft="14px"
+            paddingTop="10px"
             width="100%"
         >
           <Text

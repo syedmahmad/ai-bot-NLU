@@ -4,7 +4,8 @@ import {
   Checkbox,
   Button,
   Text,
-  Input
+  Input,
+  Divider
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import { EditorState } from 'draft-js';
@@ -154,6 +155,12 @@ function TextBody({comp, components, setComp, type}) {
           />
         </Box>
       </> : null}
+
+      <Divider
+          borderColor="#D8D8D8"
+          marginTop="10px"
+          width="93%"
+      />                
 
       <Box
           display="flex"

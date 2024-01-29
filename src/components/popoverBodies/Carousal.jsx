@@ -79,7 +79,10 @@ function CarousalBody({ comp, components, setComp }) {
             width="93%"
         >
 
-          <Accordion allowToggle>
+          <Accordion
+              allowToggle
+              defaultIndex={[0]}
+          >
             {
               cards?.map((card) => {
                 return(
@@ -190,7 +193,6 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
             cursor="pointer"
             display="flex"
             justifyContent="flex-end"
-            marginLeft="20px"
             onClick={() =>  deleteNode(card.id)}
             width="10%"
         >
