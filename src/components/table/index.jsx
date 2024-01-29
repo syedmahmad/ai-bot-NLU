@@ -172,7 +172,11 @@ function TableComponent() {
 
         <br />
 
-        <Box>
+        <Box style={{
+    height: "calc(100vh - 150px)",
+    overflow: "auto"
+  }}
+        >
           <Table
               columns={columns}
               dataSource={data}
@@ -184,6 +188,7 @@ function TableComponent() {
                 };
               }}
               pagination={false} 
+              sticky
               // pagination={{ 
               //   simple: true,
               //   total: pagination.total,
@@ -194,7 +199,7 @@ function TableComponent() {
               style={{
                 borderTopRightRadius: '0.625rem',
                 borderTopLeftRadius: '0.625rem',
-                border: '1px solid #D8D8D8'
+                border: '1px solid #D8D8D8',
               }}
           />
         </Box>
