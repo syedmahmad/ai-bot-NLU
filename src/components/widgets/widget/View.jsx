@@ -53,10 +53,12 @@ function ViewComponent({ comps }) {
                           width="100%"
                       >
                         <Text
-                            align="center"
+                            align="left"
+                            color="#858585"
                             dangerouslySetInnerHTML={{
                               __html: DOMPurify.sanitize(props?.value),
                             }}
+                            fontSize="14px"
                         />
                       </Box>
                     );
