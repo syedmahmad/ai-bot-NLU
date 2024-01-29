@@ -20,15 +20,19 @@ function TableComponent() {
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
   const [data, setData] = useState([]);
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 6, // Set your desired page size
-    total: 0,
-  });
+  // const [pagination, setPagination] = useState({
+  //   current: 1,
+  //   pageSize: 6, // Set your desired page size
+  //   total: 0,
+  // });
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [pagination.current, pagination.pageSize]);
 
   useEffect(() => {
     fetchData();
-  }, [pagination.current, pagination.pageSize]);
+  }, []);
 
 
   // delete flow mutation
@@ -47,6 +51,7 @@ function TableComponent() {
         onError: async () => {
           await fetchData()
           toast.success("Flow deleted successfully");
+          document.getElementsByClassName("chakra-popover__close-btn")[0].click();
           setSelectedItem(null);
         }
       },
@@ -54,15 +59,16 @@ function TableComponent() {
   }
 
   const fetchData = async () => {
-    await axios.get(`${import.meta.env.VITE_API_URL}/flow_document/?include_deleted=false&page=${pagination.current}&size=${pagination.pageSize}`).then((response) => {
+    // await axios.get(`${import.meta.env.VITE_API_URL}/flow_document/?include_deleted=false&page=${pagination.current}&size=${pagination.pageSize}`).then((response) => {
+    await axios.get(`${import.meta.env.VITE_API_URL}/flow_document/?include_deleted=false`).then((response) => {
       const arr = createTableData(response);
       setData(arr);
-      setPagination({
-        ...pagination,
-        total: response.data.total,
-        current: response.data.page,
-        pageSize: response.data.size
-      });
+      // setPagination({
+      //   ...pagination,
+      //   total: response.data.total,
+      //   current: response.data.page,
+      //   pageSize: response.data.size
+      // });
     });
   }
 
@@ -127,13 +133,13 @@ function TableComponent() {
     },
   ];
 
-  const handleTableButtonClick = (page, pageSize) => {
-    setPagination({
-      ...pagination,
-      current: page,
-      pageSize: pageSize
-    });
-  }
+  // const handleTableButtonClick = (page, pageSize) => {
+  //   setPagination({
+  //     ...pagination,
+  //     current: page,
+  //     pageSize: pageSize
+  //   });
+  // }
 
   return (
     <>
@@ -177,13 +183,14 @@ function TableComponent() {
                   },
                 };
               }}
-              pagination={{ 
-                simple: true,
-                total: pagination.total,
-                pageSize: pagination.pageSize,
-                position: ["bottomCenter"],
-                onChange: handleTableButtonClick
-              }}
+              pagination={false} 
+              // pagination={{ 
+              //   simple: true,
+              //   total: pagination.total,
+              //   pageSize: pagination.pageSize,
+              //   position: ["bottomCenter"],
+              //   onChange: handleTableButtonClick
+              // }}
               style={{
                 borderTopRightRadius: '0.625rem',
                 borderTopLeftRadius: '0.625rem',

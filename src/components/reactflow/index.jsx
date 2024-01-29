@@ -208,6 +208,9 @@ function ReactFlowComponent() {
     );
   }
 
+  // this will remove the watermark
+  const proOptions = { hideAttribution: true };
+
   return (
     <Box
         style={{ width: 'calc(100vw - 10.90rem)', height: 'calc(100vh - 71px)' }}
@@ -254,6 +257,7 @@ function ReactFlowComponent() {
               onNodeClick={onNodeClick}
               onNodesChange={onNodesChange}
               onPaneClick={onPaneClick}
+              proOptions={proOptions}
           >
             <Controls showZoom={false} showInteractive={false} showFitView={false} 
               style={{display: 'flex', width: '106px', height: '28px', borderRadius: '4px', boxShadow: 'none', border: '1px solid #ECECEC', background: '#FFFFFF'}}

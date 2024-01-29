@@ -7,13 +7,16 @@ import {
   List,
   ListItem,
   Divider,
-  Box
+  Box,
+  PopoverCloseButton
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
 function TablePopover({ setSelectedItem, editModalOnOpen, item, deleteFlow}) {
   return(
-    <Popover placement="bottom-end">
+    <Popover
+        placement="bottom-end"
+    >
       <Box
           cursor="pointer"
           display="flex"
@@ -30,6 +33,8 @@ function TablePopover({ setSelectedItem, editModalOnOpen, item, deleteFlow}) {
 
       <PopoverContent width="6.8125rem">
         <PopoverBody>
+          <PopoverCloseButton style={{display: 'none'}} />
+
           <List spacing={3}>
             <ListItem
                 cursor="pointer"
@@ -45,7 +50,7 @@ function TablePopover({ setSelectedItem, editModalOnOpen, item, deleteFlow}) {
 
             <ListItem
                 cursor="pointer"
-                onClick={() => deleteFlow(item)}
+                onClick={() => { deleteFlow(item)}}
                 textAlign="left"
             >
               Delete
@@ -55,6 +60,7 @@ function TablePopover({ setSelectedItem, editModalOnOpen, item, deleteFlow}) {
 
             <ListItem
                 cursor="pointer"
+                onClick={() => alert("Coming Soon!")}
                 textAlign="left"
             >
               Duplicate
