@@ -10,6 +10,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  PopoverCloseButton
 } from '@chakra-ui/react';
 import { useWidgets } from '../../context/WidgetsContext';
 import ViewComponent from './View';
@@ -19,6 +20,9 @@ import { BotIcon } from '../../../assets/BotIcon';
 import { CustomerIcon } from '../../../assets/CustomerIcon';
 
 function WidgetComponent({ data, isConnectable }) {
+  // needed this state to capture Text Editor ref so it will help us to close the editor
+  // properly on blur event.
+  const initialFocusRef = React.useRef(null);
   const [comp, setComp] = useState(data?.components || []);
   const { widget, addWidget, selectedComp } = useWidgets();
   
@@ -60,9 +64,18 @@ function WidgetComponent({ data, isConnectable }) {
   }, [data]);
 
   const handleClick = (event) => {
+    console.log("handleClick", initialFocusRef.current);
     // saving node id to use it later when user try to create new ndoe
     event.target.setAttribute('data-id', data.sourceHandle);
     data.onNodeClick(event);
+
+    // on reactflow panel popover does not close properly so that is little hack otherwise.
+    // you will see Editor buttons always there.
+    if (initialFocusRef.current) {
+      setTimeout(() => {
+        document.getElementsByClassName('chakra-popover__close-btn')[0].click();
+      }, 50);
+    }
   };
 
   const getPopOverHeading = (typeName) => {
@@ -83,6 +96,7 @@ function WidgetComponent({ data, isConnectable }) {
         return 'Text'
     }
   }
+
 
   return (
     <>
@@ -142,6 +156,7 @@ function WidgetComponent({ data, isConnectable }) {
           border="1px solid #AADBFF !important"
           boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.10)"
         >
+          <PopoverCloseButton style={{display: 'none'}}/>
           <PopoverArrow />
 
           <PopoverHeader
@@ -164,7 +179,7 @@ function WidgetComponent({ data, isConnectable }) {
           </PopoverHeader>
 
           <PopoverBody paddingBottom="30px">
-            <EditComponent comps={comp} setComp={setComp} node={data}/>
+            <EditComponent initialRef={initialFocusRef} comps={comp} setComp={setComp} node={data}/>
           </PopoverBody>
         </PopoverContent>
       </Popover>

@@ -15,11 +15,12 @@ import {stateFromHTML} from 'draft-js-import-html';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-function TextBody({comp, components, setComp, type}) {
+// eslint-disable-next-line react/display-name
+const TextBody = React.forwardRef((props, ref) => {
+  const {comp, components, setComp, type} = props;
   const [convertedContent, setConvertedContent] = useState(comp.props.value === 'Add something here' ? '' : comp.props.value);
   let contentState = stateFromHTML(convertedContent);
   const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
-  
   useEffect(() => {
     let html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);
@@ -47,6 +48,12 @@ function TextBody({comp, components, setComp, type}) {
     setComp(newData);
   }
   
+  useEffect(() => {
+    if (ref) {
+      ref.current.focusEditor();
+    }
+  }, [ref]);
+
   return(
     <>
       <Box
@@ -61,6 +68,7 @@ function TextBody({comp, components, setComp, type}) {
               editorState={editorState}
               onEditorStateChange={setEditorState}
               placeholder="Add text here"
+              ref={ref}
               toolbar={{
                   image: {
                     alt: { present: true, mandatory: false },
@@ -181,6 +189,6 @@ function TextBody({comp, components, setComp, type}) {
       </Box>
     </>
   )
-}
+});
 
 export default TextBody;
