@@ -26,6 +26,7 @@ import axios from 'axios';
 import MiniMap from './MiniMap';
 
 function ReactFlowComponent() {
+  const [currentNode, setCurrentNode] = useState(null);
   const [ showMiniMap, setShowMiniMap ] = useState(false);
   const { zoomIn, zoomOut } = useReactFlow();
   const [ randomOpr, setRandomOpr ] = useState('plus');
@@ -58,11 +59,12 @@ function ReactFlowComponent() {
 
   const fetchDocument = async () => {
     const result = await fetch(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`);
-    const document = await result.json();
-    if (document?.edges?.length === 0 && document?.nodes?.length === 0) {
+    const res = await result.json();
+    if (res?.edges?.length === 0 && res?.nodes?.length === 0) {
       return 
     };
-    const {newEdges, newNodes} = prepareDataForReactFlow(document, onNodeClick, selectedNode);
+    setCurrentNode(res);
+    const {newEdges, newNodes} = prepareDataForReactFlow(res, onNodeClick, selectedNode);
     // set the edges and nodes that can we display in reactflow..
     setEdges(newEdges);
     setNodes(newNodes);
@@ -197,7 +199,8 @@ function ReactFlowComponent() {
   );
 
   const onPaneClick = async () => {
-    const data11 = prepareDataForAPIs(edges, nodes, document);
+    debugger;
+    const data11 = prepareDataForAPIs(edges, nodes, currentNode);
     const res = await axios.put(
       `${import.meta.env.VITE_API_URL}/flow_document/${data11.id}`,
       data11
@@ -231,7 +234,7 @@ function ReactFlowComponent() {
               fontSize="lg"
               fontWeight={300}
           >
-            {document?.name}
+            {currentNode?.name}
           </Text>
         </Box>
       </Box>
