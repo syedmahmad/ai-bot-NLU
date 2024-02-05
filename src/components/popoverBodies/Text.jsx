@@ -122,7 +122,7 @@ const TextBody = React.forwardRef((props, ref) => {
             iconSize='1rem'
             onChange={() => alert('Coming Soon!')}
         >
-          Question
+          {type === "customer_response_node" ?  "Capture response" :  "Question"}
         </Checkbox>
       </Box>
 

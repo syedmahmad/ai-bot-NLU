@@ -64,7 +64,6 @@ function WidgetComponent({ data, isConnectable }) {
   }, [data]);
 
   const handleClick = (event) => {
-    console.log("handleClick", initialFocusRef.current);
     // saving node id to use it later when user try to create new ndoe
     event.target.setAttribute('data-id', data.sourceHandle);
     data.onNodeClick(event);

@@ -23,7 +23,6 @@ import { botNodeValidations, customerNodeValidations, logicNodeValidations } fro
 import { useWidgets } from '../context/WidgetsContext';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 import MiniMap from './MiniMap';
 
 function ReactFlowComponent() {
@@ -52,23 +51,22 @@ function ReactFlowComponent() {
     }),
     [],
   );
-  const { data: document } = useQuery({
-    queryFn: () => axios
-    .get(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`)
-    .then((res) => res.data),
-  });
 
   useEffect(() => {
-    if (document) {
-      if (document?.edges?.length === 0 && document?.nodes?.length === 0) {
-        return 
-      };
-      const {newEdges, newNodes} = prepareDataForReactFlow(document, onNodeClick, selectedNode);
-      // set the edges and nodes that can we display in reactflow..
-      setEdges(newEdges);
-      setNodes(newNodes);
-    }
-  }, [document]);
+    fetchDocument();
+  }, []);
+
+  const fetchDocument = async () => {
+    const result = await fetch(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`);
+    const document = await result.json();
+    if (document?.edges?.length === 0 && document?.nodes?.length === 0) {
+      return 
+    };
+    const {newEdges, newNodes} = prepareDataForReactFlow(document, onNodeClick, selectedNode);
+    // set the edges and nodes that can we display in reactflow..
+    setEdges(newEdges);
+    setNodes(newNodes);
+  }
 
   const id = mongoObjectId();
   const [nodes, setNodes, onNodesChange] = useNodesState([
@@ -91,7 +89,6 @@ function ReactFlowComponent() {
   ]);
   // in the start, there will be no edge.
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
   // this will allow user to interact with graph and execute once user add new node and connect it.
   const onConnect = useCallback(
     (params) => {
@@ -181,7 +178,6 @@ function ReactFlowComponent() {
   }
 
   const addLogic = () => {
-    console.log("logic");
     if (logicNodeValidations(selectedNode)) {
       const newId = mongoObjectId();
       // its default type is "TextNode", we may decide later if wanted to update it.
