@@ -2,25 +2,12 @@
 import React from "react";
 import {
   Box, Input, Text, Select, Textarea,
+  InputRightElement, InputGroup, Divider 
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
-
-
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 function LogicBody({comp, components, setComp}) {
-//   useEffect(() => {
-//     const arr = components?.map((item) => {
-//       if (item.order === comp.order) {
-//         item.props = {
-//           ...item.props,
-//           value: convertedContent
-//         }
-//       }
-//       return item
-//     });
-//     setComp(arr);
-//   }, [convertedContent]);
 
   const deleteNode = () => {
     if (components.length === 1) {
@@ -33,63 +20,46 @@ function LogicBody({comp, components, setComp}) {
   
   return(
     <>
-      <Box
-          display="flex"
-          justifyContent="space-between"
-      >
-        <Box
-            width="93%"
-        />
-
-        <Box
-            cursor="pointer"
-            onClick={() => deleteNode()}
-        >
-          <Icon
-              color='hsla(0, 0%, 85%, 1)'
-              icon="ic:outline-delete"
-          />
-        </Box>
-      </Box>
 
       <Box
           display="flex"
           justifyContent="right"
           marginTop="10px"
-          width="93%"
+          width="100%"
       >
-        
-
         <Box
           width="100%"
         > 
           <Box
-          display="flex"
-          justifyContent="space-between"
-          marginBottom="15px"
+            display="flex"
+            justifyContent="space-between"
+            marginBottom="15px"
            >
-            <Text>
+            <Text marginLeft="5px">
               Condition 1
             </Text>
             <Icon
               color='hsla(0, 0%, 85%, 1)'
-              icon="ic:outline-delete"
+              icon="ri:arrow-drop-down-line"
+              fontSize={30}
           />
-          </Box>
+        </Box>
 
           <Box>
             <Text 
-            color="text.body"
-            fontSize="xs"
-            fontWeight={400}
-            margin="5px 0px"
+              color="text.body"
+              fontSize="xs"
+              fontWeight={400}
+              margin="5px 0px"
+              marginLeft="5px"
             >
              Condition Label
             </Text>
           </Box>
           <Input
-              width='100%'
+              width='93%'
               size='lg'
+              height="32px"
           /> 
 
 
@@ -100,88 +70,133 @@ function LogicBody({comp, components, setComp}) {
           >
             <Text
              color="text.body"
-             fontSize="medium"
+             fontSize="sm"
              fontWeight={400}
              margin="5px 0px"
             >
               IF
             </Text> 
-            <Input width="60px" placeholder="user_Id" size="md" />
-            <Select width="109px" placeholder="is greater than">
+            <InputGroup width="79px">
+              <Input padding="0px 10px" borderRadius="3px" height="28px" placeholder="user_Id" size="xs" />
+              <InputRightElement marginTop="-5px">
+                <Icon
+                  icon="fxemoji:cancellationx"
+                  fontSize={10}
+                  fontWeight={600}
+                />
+              </InputRightElement>
+            </InputGroup>
+            <Select width="109px" height="28px" size="xs" placeholder="is greater than" borderRadius="3px">
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
             </Select> 
-              <Input width="60px" placeholder="Value" size="md"/> 
-              <Icon
-              color='hsla(0, 0%, 85%, 1)'
-              icon="ic:outline-delete"
-          />
+            <InputGroup width="79px">
+              <Input padding="0px 10px" borderRadius="3px" height="28px" placeholder="value" size="xs" />
+              <InputRightElement marginTop="-5px">
+                <Icon
+                  icon="fxemoji:cancellationx"
+                  fontSize={10}
+                  fontWeight={600}
+                />
+              </InputRightElement>
+            </InputGroup>
           </Box>
           <Box
             display="flex"
-            justifyContent="space-evenly"
             marginTop="20px"
+            width="54%"
+            justifyContent="space-between"
           >
-              <Select width="73px" placeholder="AND">
+              <Select width="73px" placeholder="AND" size="xs" height="28px" borderRadius="3px">
                 <option value='option1'>Option 1</option>
                 <option value='option2'>Option 2</option>
                 <option value='option3'>Option 3</option>
-            </Select> 
-              <Input width="79px" placeholder="Value"/> 
+              </Select> 
+            <InputGroup width="79px">
+              <Input padding="0px 10px" height="28px" placeholder="value" size="xs" borderRadius="3px" />
+              <InputRightElement marginTop="-5px">
+                <Icon
+                  icon="fxemoji:cancellationx"
+                  fontSize={10}
+                  fontWeight={600}
+                />
+              </InputRightElement>
+            </InputGroup>
           </Box>
-
-          <Box 
-            marginTop="20px"
-            border="1px dotted #D8D8D8"
-            padding="20px"
-          >
-            <Box display="flex" justifyContent="space-between">
-            <Text 
-            color="text.body"
-            fontSize="medium"
-            fontWeight={400}>
-              IF
-            </Text>
-            <Input width="auto" placeholder="is greater than 45" size="md" />
-            </Box>
-            <Box display="flex" justifyContent="space-between" marginTop="20px">
-            <Text
-            color="text.body"
-            fontSize="medium"
-            fontWeight={400}
+          <Box display="flex" justifyContent="space-between">
+            <Box 
+              marginTop="20px"
+              border="1px dotted #D8D8D8"
+              padding="20px"
+              width="93%"
             >
-              OR
-            </Text>
-            <Input width="auto" placeholder="is greater than 45" size="md" />
+              <Box display="flex" justifyContent="space-between">
+              <Text 
+              color="text.body"
+              fontSize="medium"
+              fontWeight={400}>
+                IF
+              </Text>
+              <Input width="auto" placeholder="is greater than 45" size="md" />
+              </Box>
+              <Box display="flex" justifyContent="space-between" marginTop="20px">
+              <Text
+              color="text.body"
+              fontSize="medium"
+              fontWeight={400}
+              >
+                OR
+              </Text>
+              <Input width="auto" placeholder="is greater than 45" size="md" />
+              </Box>
+              <Box
+              marginTop="10px" 
+              >
+              <Text
+              color="primary.100"
+              fontSize="sm"
+              fontWeight={600}
+              >Add a condition</Text>
             </Box>
-            <Box
-            marginTop="10px" 
-            >
-            <Text
-             color="primary.100"
-             fontSize="sm"
-             fontWeight={400}
-            >Add a condition</Text>
+            </Box>
+            <Box marginTop="20px">
+              <Icon
+                color='hsla(0, 0%, 85%, 1)'
+                icon="ic:outline-delete"
+              />
+            </Box>
           </Box>
-          </Box>
-
           <Box>
-          <Box
-            display="flex"
-            justifyContent="space-evenly"
-            marginTop="20px"
-          >
-              <Select width="73px" placeholder="AND">
-                <option value='option1'>Option 1</option>
-                <option value='option2'>Option 2</option>
-                <option value='option3'>Option 3</option>
-            </Select> 
-              <Input width="126px" placeholder="Name is not Soma"/> 
+          <Box display="flex" justifyContent="space-between">
+            <Box
+              display="flex"
+              marginTop="20px"
+              width="70%"
+              justifyContent="space-between"
+            >
+                <Select width="73px" height="28px" placeholder="AND" borderRadius="3px">
+                  <option value='option1'>Option 1</option>
+                  <option value='option2'>Option 2</option>
+                  <option value='option3'>Option 3</option>
+                </Select> 
+                <InputGroup width="124px">
+                  <Input padding="0px 10px" height="28px" placeholder="Name is not soma" size="xs" borderRadius="3px" />
+                  <InputRightElement marginTop="-5px">
+                    <Icon
+                      icon="fxemoji:cancellationx"
+                      fontSize={10}
+                      fontWeight={600}
+                    />
+                  </InputRightElement>
+                </InputGroup>
+            </Box>
+            <Box marginTop="20px">
               <Icon
-              color='hsla(0, 0%, 85%, 1)'
-              icon="ic:outline-delete"
-          />
+                color='hsla(0, 0%, 85%, 1)'
+                icon="ic:outline-delete"
+              />
+            </Box>
           </Box>
           <Box
             marginTop="10px" 
@@ -189,10 +204,12 @@ function LogicBody({comp, components, setComp}) {
             <Text
              color="primary.100"
              fontSize="sm"
-             fontWeight={400}
+             fontWeight={600}
             >Add a condition</Text>
           </Box>
           </Box>
+
+          <Divider marginTop="20px"  />
 
         <Box 
         marginTop="20px" 
@@ -204,6 +221,8 @@ function LogicBody({comp, components, setComp}) {
           <Textarea placeholder='Condition Successful' resize={false}/>
           </Box>
         </Box>
+
+        <Divider marginTop="20px"  />
           
         <Box 
         marginTop="20px" 
