@@ -163,8 +163,8 @@ function WidgetComponent({ data, isConnectable }) {
           <PopoverHeader
               display="flex"
               justifyContent="space-between"
-              padding="15px 10px 0px"
-              borderBottom='none'
+              padding="15px 10px 10px"
+              borderBottom={getPopOverHeading(comp[0]?.type) === 'Conditions' ? '1px solid #D8D8D8' : 'none'}
           >
             <Box textTransform={'capitalize'}>
               {getPopOverHeading(comp[0]?.type)}

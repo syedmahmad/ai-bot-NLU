@@ -81,7 +81,7 @@ export const logicNodeValidations = (selectedNode) => {
                 id: mongoObjectId(),
                 label: 'card 1',
                 file: null,
-                text: "<h1>Add text here</h1>",
+                text: "<p></p>",
                 buttonProps: {
                   label: "new button",
                   variant: "solid"

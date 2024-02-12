@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Divider, Heading } from '@chakra-ui/react';
 import TextBody from '../../popoverBodies/Text';
 import ButtonBody from '../../popoverBodies/Button';
 import ImageBody from '../../popoverBodies/Image';
 import CalendarBody from '../../popoverBodies/Calender';
 import CarousalBody from '../../popoverBodies/Carousal';
 import LogicBody from '../../popoverBodies/Logic';
+import { Icon } from '@iconify/react';
 
 function EditComponent({ initialRef, comps, setComp, node }) {
   return (
@@ -28,73 +29,211 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                     );
                 case 'text_widget':
                     return (
-                      <Box
-                          margin="10px 0px"
-                          width="100%"
-                      >
-                        <TextBody
-                            comp={comp}
-                            components={comps}
-                            ref={initialRef}
-                            setComp={setComp}
-                            type={node.type}
-                        />
-                      </Box>
+                      <>
+                        <Box
+                            margin="10px auto"
+                            width="100%"
+                        >
+                          <Box
+                              alignItems="center"
+                              display="flex"
+                              justifyContent="space-between"
+                          >
+                            <Heading
+                                color="text.card"
+                                fontSize="lg"
+                                fontWeight={600}
+                                lineHeight="20px"
+                                margin="10px"
+                            >
+                              Text
+                            </Heading>
+
+                            <Box>
+                              <Icon
+                                  color='hsla(0, 0%, 85%, 1)'
+                                  icon="bi:three-dots-vertical"
+                                  onClick={() => alert('Coming Soon!')}
+                              />
+                            </Box>
+                          </Box>
+
+                          <TextBody
+                              comp={comp}
+                              components={comps}
+                              ref={initialRef}
+                              setComp={setComp}
+                              type={node.type}
+                          />
+                        </Box>
+
+                        <Divider />
+                      </>
                     );
                 case 'button_widget':
                     return (
-                      <Box
-                          margin="10px 0px"
-                          width="100%"
-                      >
-                        <ButtonBody
-                            comp={comp}
-                            components={comps}
-                            setComp={setComp}
-                        />
-                      </Box>
+                      <>
+                        <Box
+                            margin="10px 0px"
+                            width="100%"
+                        >
+
+                          <Box
+                              alignItems="center"
+                              display="flex"
+                              justifyContent="space-between"
+                          >
+                            <Heading
+                                color="text.card"
+                                fontSize="lg"
+                                fontWeight={600}
+                                lineHeight="20px"
+                                margin="10px"
+                            >
+                              Button
+                            </Heading>
+
+                            <Box>
+                              <Icon
+                                  color='hsla(0, 0%, 85%, 1)'
+                                  icon="bi:three-dots-vertical"
+                                  onClick={() => alert('Coming Soon!')}
+                              />
+                            </Box>
+                          </Box>
+
+                          <ButtonBody
+                              comp={comp}
+                              components={comps}
+                              setComp={setComp}
+                          />
+                        </Box>
+
+                        <Divider width="100%" />
+                      </>
                     );
                 case 'image_widget':
                     return (
-                      <Box
-                          margin="10px 0px"
-                          width="100%"
-                      >
-                        {/* components: contains all compoennts in single bot response.
-                         if we wanted to add/delete any component, we will used this array
-                         and after addition/deletion via setComp, we update them again.*/}
-                        <ImageBody
-                            comp={comp}
-                            components={comps}
-                            setComp={setComp}
-                        />
-                      </Box>
+                      <>
+                        <Box
+                            margin="10px 0px"
+                            width="100%"
+                        >
+                          <Box
+                              alignItems="center"
+                              display="flex"
+                              justifyContent="space-between"
+                          >
+                            <Heading
+                                color="text.card"
+                                fontSize="lg"
+                                fontWeight={600}
+                                lineHeight="20px"
+                                margin="10px"
+                            >
+                              Image
+                            </Heading>
+
+                            <Box>
+                              <Icon
+                                  color='hsla(0, 0%, 85%, 1)'
+                                  icon="bi:three-dots-vertical"
+                                  onClick={() => alert('Coming Soon!')}
+                              />
+                            </Box>
+                          </Box>
+
+                          <ImageBody
+                              comp={comp}
+                              components={comps}
+                              setComp={setComp}
+                          />
+                        </Box>
+
+                        <Divider width="100%" />
+                      </>
                     );
                 case 'calendar_widget':
                     return  (
-                      <Box
-                          margin="10px 0px"
-                          width="100%"
-                      >
-                        <CalendarBody
-                            comp={comp}
-                            components={comps}
-                            setComp={setComp}
-                        />
-                      </Box>
+                      <>
+                        <Box
+                            margin="10px 0px"
+                            width="100%"
+                        >
+                          <Box
+                              alignItems="center"
+                              display="flex"
+                              justifyContent="space-between"
+                          >
+                            <Heading
+                                color="text.card"
+                                fontSize="lg"
+                                fontWeight={600}
+                                lineHeight="20px"
+                                margin="10px"
+                            >
+                              Calendar
+                            </Heading>
+
+                            <Box>
+                              <Icon
+                                  color='hsla(0, 0%, 85%, 1)'
+                                  icon="bi:three-dots-vertical"
+                                  onClick={() => alert('Coming Soon!')}
+                              />
+                            </Box>
+                          </Box>
+
+                          <CalendarBody
+                              comp={comp}
+                              components={comps}
+                              setComp={setComp}
+                          />
+                        </Box>
+
+                        <Divider width="100%" />
+                      </>
                     );
                 case 'carousel_widget':
                     return (
-                      <Box
-                          margin="10px 0px"
-                          width="100%"
-                      >
-                        <CarousalBody
-                            comp={comp}
-                            components={comps}
-                            setComp={setComp}
-                        />
-                      </Box>
+                      <>
+                        <Box
+                            margin="10px 0px"
+                            width="100%"
+                        >
+                          <Box
+                              alignItems="center"
+                              display="flex"
+                              justifyContent="space-between"
+                          >
+                            <Heading
+                                color="text.card"
+                                fontSize="lg"
+                                fontWeight={600}
+                                lineHeight="20px"
+                                margin="10px"
+                            >
+                              Carousel
+                            </Heading>
+
+                            <Box>
+                              <Icon
+                                  color='hsla(0, 0%, 85%, 1)'
+                                  icon="bi:three-dots-vertical"
+                                  onClick={() => alert('Coming Soon!')}
+                              />
+                            </Box>
+                          </Box>
+
+                          <CarousalBody
+                              comp={comp}
+                              components={comps}
+                              setComp={setComp}
+                          />
+                        </Box>
+
+                        <Divider width="100%" />
+                      </>
                     );
                 default:
                     return null;

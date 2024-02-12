@@ -111,6 +111,7 @@ function CalendarBody({ comp, setComp, components}) {
 
       <Box
           cursor="pointer"
+          marginTop="32px"
           onClick={() => deleteNode()}
       >
         <Icon

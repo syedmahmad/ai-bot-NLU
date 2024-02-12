@@ -273,21 +273,6 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
               color="text.body"
               fontSize="xs"
           >
-            Add Link
-          </Text>
-
-          <Input
-              borderRadius="0.3125rem"
-              onChange={(e) => {setSelectedCard({...selectedCard, file: e.target.value})}}
-              placeholder="Add url here"
-              size="sm"
-              value={selectedCard.file}
-          />
-
-          <Text
-              color="text.body"
-              fontSize="xs"
-          >
             Title
           </Text>
 
@@ -305,7 +290,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
               fontSize="xs"
               margin="10px 0px 0px"
           >
-            Add Text
+            Description
           </Text>
 
           <Editor

@@ -124,12 +124,21 @@ function ViewComponent({ comps }) {
                             shadow={false}
                             value={props?.value}
                         />
+
+                        <Text
+                            color="#858585"
+                            fontFamily="Inter"
+                            fontSize="lg"
+                            fontWeight={400}
+                            margin="10px 0px"
+                        >
+                          Select date on which you want to see your transaction details
+                        </Text>
                       </Box>
                     );
                 case 'carousel_widget':
                     return (<Box
                         margin="10px 0px"
-                        padding="0px 20px"
                         width="94%"
                             >
                       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -160,7 +169,6 @@ function ViewComponent({ comps }) {
                             <br />
 
                             <Text
-                                align="center"
                                 dangerouslySetInnerHTML={{
                                     __html: DOMPurify.sanitize(card?.text),
                                 }}
