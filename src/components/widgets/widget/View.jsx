@@ -86,18 +86,30 @@ function ViewComponent({ comps }) {
                         <Image
                             alt="Preview"
                             borderRadius="0.3125rem"
-                            src={props?.file}
+                            // src={props?.file}
+                            // src={`data:image/png;base64,${props?.file}`}
+                            src={props?.link !== null ? props?.link : `data:image/png;base64,${props?.file}`}
                         />
-                        ) : ( 
-                          <Button
-                              _hover={{ backgroundColor: 'primary.90', color: "white" }}
-                              colorScheme='button'
-                              fontSize="xs"
-                              variant="outline"
-                          >
-                            Upload Image
-                          </Button>
-                      )}
+                        ) : null }
+
+                      { props?.link !== null ? (
+                        <Image
+                            alt="Preview"
+                            borderRadius="0.3125rem"
+                            src={props?.link}
+                        />
+                        ) : null}
+
+                      {props?.link === null && props?.file === null ? ( 
+                        <Button
+                            _hover={{ backgroundColor: 'primary.90', color: "white" }}
+                            colorScheme='button'
+                            fontSize="xs"
+                            variant="outline"
+                        >
+                          Upload Image
+                        </Button>
+                      ) : null}
 
                     </Box>);
                 case 'calendar_widget':

@@ -60,6 +60,9 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           margin="10px 0px"
                           width="100%"
                       >
+                        {/* components: contains all compoennts in single bot response.
+                         if we wanted to add/delete any component, we will used this array
+                         and after addition/deletion via setComp, we update them again.*/}
                         <ImageBody
                             comp={comp}
                             components={comps}

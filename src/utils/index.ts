@@ -61,7 +61,9 @@ export const logicNodeValidations = (selectedNode) => {
           props: {
             file: null,
             link: null
-          } 
+          },
+          image_url: null,
+          image_base64: null
         }
       case 'calendar_widget':
         return {

@@ -44,6 +44,8 @@ function ReactFlowComponent() {
   const [selectedNode, setSelectedNode] = useState({});
 
   // building our custom components type and pass this type to reactFlow
+  // Everytime we decided to add new custom node, we need to add here the types.
+  // Otherwise, reactFlow does not understand our new node.
   const nodeTypes = useMemo(
     () => ({
       bot_response_node: BotComponent,
@@ -53,6 +55,7 @@ function ReactFlowComponent() {
     [],
   );
 
+  // onpage load, reading the exsitng flow.
   useEffect(() => {
     fetchDocument();
   }, []);
@@ -71,6 +74,12 @@ function ReactFlowComponent() {
   }
 
   const id = mongoObjectId();
+  // this is the node structure that reactflow accpet so make sure, all custom nodes 
+  // should have the same kind of structure. 
+  // Fortunately, in the below obj, you can see "data" attribute, which is customizeable
+  // in this data object, we can create any structure, we would like to create.
+  // you may see this *connectNewNode* function, here we are passing multiple things in
+  // data obj, these all properties we can access in our custom node to do numerous oprations.
   const [nodes, setNodes, onNodesChange] = useNodesState([
     {
       id: id,
@@ -100,15 +109,28 @@ function ReactFlowComponent() {
   );
 
   const connectNewNode = (newNodeId, type, widgetName) => {
+    // calculating dynamic postion of new node so there will be miminum overlaping occure.
     const position = { 
       x: (randomOpr === 'plus') ? selectedNode.position.x + (Math.random()* 500) : selectedNode.position.x - (Math.random()* 500),
       y: (selectedNode.height > selectedNode.position.y) ? selectedNode.height + Math.floor(Math.random()* (400)+200) : selectedNode.position.y + Math.floor(Math.random()* (400)+200)
     };
+    // concatinating new node with previous node
     setNodes((prev) => {
       return prev.concat({
         id: newNodeId,
         type: type,
         position: position,
+        // in this data obj, we can pass any properties to our custom node, all other properties
+        // will not pass that's why we need type and other properties.
+        // type: used for styling
+        // type : bot_response_node: BotComponent,
+        //        customer_response_node: BotComponent,
+        //        logic_response_node: BotComponent
+        // sourceHandle: used to connect old nodes with new nodes.
+        // onNodeClick: need to collect current selected node data.
+        // widgetName: In bot response, we can have multiple types of widgets.
+        // components: One bot node, can have multiple widgets, so we are maintaining the array
+        // in custom node
         data: {
           // type: type === "bot" ? widgetName : type,
           type: type,
@@ -190,17 +212,21 @@ function ReactFlowComponent() {
   // need to store selected node data, that's why needed this callback.
   const onNodeClick = useCallback(
     (event) => {
-      updateSelectedComp(reactFlowInstance.getNode(event?.target?.getAttribute('data-id')).id);
-      setSelectedNode(
-        reactFlowInstance.getNode(event?.target?.getAttribute('data-id')),
-      );
+      // if (event?.target?.getAttribute('data-id')) {
+        updateSelectedComp(reactFlowInstance.getNode(event?.target?.getAttribute('data-id'))?.id);
+        setSelectedNode(
+          reactFlowInstance.getNode(event?.target?.getAttribute('data-id')),
+        );
+      // }
     },
     [reactFlowInstance],
   );
 
   const onPaneClick = async () => {
-    debugger;
     const data11 = prepareDataForAPIs(edges, nodes, currentNode);
+    setTimeout(() => {
+      document.getElementsByClassName('chakra-popover__close-btn')[0].click();
+    }, 50);
     const res = await axios.put(
       `${import.meta.env.VITE_API_URL}/flow_document/${data11.id}`,
       data11

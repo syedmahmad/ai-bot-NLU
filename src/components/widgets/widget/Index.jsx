@@ -26,7 +26,9 @@ function WidgetComponent({ data, isConnectable }) {
   const [comp, setComp] = useState(data?.components || []);
   const { widget, addWidget, selectedComp } = useWidgets();
   
-  /* This executes every time the user wanted to add new widget. */
+  /* Via Context API, This executes every time the user wanted to add new widget.
+      and add that new node in the same node components array, we are maintaining.
+   */
   useEffect(() => {
     if (widget && data.sourceHandle === selectedComp) {
       // get the order 

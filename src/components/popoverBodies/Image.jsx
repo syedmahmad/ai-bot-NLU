@@ -13,21 +13,37 @@ function ImageBody({ comp, setComp, components}) {
   const [file, setFile] = useState(comp?.props?.file);
 
   useEffect(() => {
-    setFile(url);
+    if (url) {
+      const arr = components?.map((item) => {
+        if (item.order === comp.order) {
+          item.props = {
+            link: url,
+            file: null
+          };
+          item.image_base64 = null;
+          item.image_url = url;
+        }
+        return item
+      });
+      setComp(arr);
+    }
   }, [url]);
 
   useEffect(() => {
-    const arr = components?.map((item) => {
-      if (item.order === comp.order) {
-        item.props = {
-          ...item.props,
-          link: url,
-          file: file
+    if (file) {
+      const arr = components?.map((item) => {
+        if (item.order === comp.order) {
+          item.props = {
+            link: null,
+            file: file
+          };
+          item.image_base64 = file;
+          item.image_url = null;
         }
-      }
-      return item
-    });
-    setComp(arr);
+        return item
+      });
+      setComp(arr);
+    }
   }, [file]);
 
   const deleteNode = () => {
@@ -39,18 +55,50 @@ function ImageBody({ comp, setComp, components}) {
     setComp(newData);
   }
 
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    const convertedFile = base64?.replace(/^data:image\/[a-z]+;base64,/, "");
+    setFile(convertedFile);
+    setUrl(null);
+  };
+
   return(
     <>
       {file !== null ? (
         <Image
             alt="Preview"
             borderRadius="0.3125rem"
-            src={file}
+            // src={file}
+            src={`data:image/png;base64,${file}`}
             width="93%"
         />
         ) : null}
 
-      {file !== null ? null : (
+      {url !== null ? (
+        <Image
+            alt="Preview"
+            borderRadius="0.3125rem"
+            // src={file}
+            src={url}
+            width="93%"
+        />
+        ) : null}
+
+      {file === null && url === null ? (
         <>
           <Text
               color="text.body"
@@ -90,9 +138,11 @@ function ImageBody({ comp, setComp, components}) {
               </Button>
 
               <Input
+                  accept=".jpeg, .png, .jpg"
                   id="file"
-                  onChange={(e) =>
-                  setFile(URL.createObjectURL(e.target.files[0]))}
+                  // onChange={(e) =>
+                  // setFile(URL.createObjectURL(e.target.files[0]))}
+                  onChange={(e) => handleFileUpload(e)}
                   style={{display: "none"}}
                   type="file"
               />
@@ -109,7 +159,7 @@ function ImageBody({ comp, setComp, components}) {
             </Box>
           </Box>
         </>
-            )}
+            ) : null}
 
       <Text
           color="text.body"
@@ -120,7 +170,7 @@ function ImageBody({ comp, setComp, components}) {
 
       <Input
           borderRadius="0.3125rem"
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(e) => {setFile(null); setUrl(e.target.value)}}
           placeholder="Add url here"
           size="sm"
           width="93%"
