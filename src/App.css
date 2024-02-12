@@ -1,9 +1,16 @@
+*{
+  user-select: text;
+}
 .editor-class {
   /* border: 2px solid red !important; */
   min-height: 108px;
   border-radius: 5px;
   padding-left: 12px;
   width: 18.0625rem;
+  /* user-select: text !important; */
+  /* position: relative; */
+  /* z-index: 1000 !important; */
+  /* cursor: progress; */
 }
 
 .wrapper-class {
@@ -89,4 +96,18 @@ tbody > tr > td {
 
 .public-DraftStyleDefault-ltr{
   width: 88%;
+}
+.rdw-link-modal {
+  position: absolute;
+  top: 35px;
+  left: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 235px;
+  height: fit-content;
+  border: 1px solid #F1F1F1;
+  padding: 15px;
+  border-radius: 2px;
+  z-index: 100;
+  background: white;
 }
