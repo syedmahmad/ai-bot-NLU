@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   Image,
@@ -19,6 +18,7 @@ function ViewComponent({ comps }) {
     slidesToShow: 1,
     slidesToScroll: 1
   };
+
   return (
     <Box
         alignItems="center"

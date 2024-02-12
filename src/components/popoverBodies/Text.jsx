@@ -23,10 +23,15 @@ const TextBody = React.forwardRef((props, ref) => {
     const contentState = stateFromHTML(convertedContent);
     return EditorState.createWithContent(contentState);
   });
-  // ref to manually add focus on the Box...
-  const boxRef = useRef(null);
 
   useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    contentState.getBlockMap().forEach(block => {
+      const text = block.getText();
+      const inlineStyles = block.getInlineStyleAt(0).toJS();
+      console.log('Block Text:', text);
+      console.log('Inline Styles:', inlineStyles);
+    });
     const html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);
   }, [editorState]);
@@ -39,6 +44,7 @@ const TextBody = React.forwardRef((props, ref) => {
           value: convertedContent
         };
       }
+      console.log('item', item);
       return item;
     });
     setComp(arr);
@@ -154,13 +160,15 @@ const TextBody = React.forwardRef((props, ref) => {
   };
 
 
+  console.log('convertedContent', convertedContent);
+
   useEffect(() => {
     const contentState = stateFromHTML(convertedContent);
     const newEditorState = EditorState.createWithContent(contentState);
     const editorStateWithSelection = moveSelectionToEnd(newEditorState);
 
     setEditorState(editorStateWithSelection);
-  }, [convertedContent]);
+  }, []);
 
   useEffect(() => {
     if (ref) {
@@ -168,14 +176,88 @@ const TextBody = React.forwardRef((props, ref) => {
     }
   }, [ref]);
   
-  
-  useEffect(() => {
-    // Focus the box element when the component mounts
-    if (boxRef.current) {
-      boxRef.current.focus();
-    }
-  }, []);
 
+  useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    let html = '';
+
+    contentState.getBlockMap().forEach(block => {
+        let blockHtml = '';
+        let entityRanges = [];
+        let styleRanges = [];
+
+        block.findEntityRanges(
+            (character) => {
+                const entityKey = character.getEntity();
+                return entityKey !== null;
+            },
+            (start, end) => {
+                entityRanges.push({ start, end });
+            }
+        );
+
+        block.findStyleRanges(
+            (character) => {
+                return (
+                    character.getStyle().has('STRIKETHROUGH') ||
+                    character.getStyle().has('BOLD') ||
+                    character.getStyle().has('ITALIC') ||
+                    character.getStyle().has('UNDERLINE')
+                );
+            },
+            (start, end) => {
+                styleRanges.push({ start, end });
+            }
+        );
+
+        let lastIndex = 0;
+        styleRanges.forEach(styleRange => {
+            // Add text before the style range
+            blockHtml += block.getText().slice(lastIndex, styleRange.start);
+
+            // Apply styles
+            const text = block.getText().slice(styleRange.start, styleRange.end);
+            const inlineStyles = block.getInlineStyleAt(styleRange.start);
+            let styledText = text;
+            if (inlineStyles.has('STRIKETHROUGH')) {
+                styledText = `<s>${styledText}</s>`;
+            }
+            if (inlineStyles.has('BOLD')) {
+                styledText = `<strong>${styledText}</strong>`;
+            }
+            if (inlineStyles.has('ITALIC')) {
+                styledText = `<em>${styledText}</em>`;
+            }
+            if (inlineStyles.has('UNDERLINE')) {
+                styledText = `<u>${styledText}</u>`;
+            }
+
+            blockHtml += styledText;
+            lastIndex = styleRange.end;
+        });
+
+        // Add remaining text after the last style range
+        blockHtml += block.getText().slice(lastIndex);
+
+        // Add entities
+        entityRanges.forEach(entityRange => {
+            const entityKey = block.getEntityAt(entityRange.start);
+            const entity = contentState.getEntity(entityKey);
+            if (entity && entity.getType() === 'LINK') {
+                const { url } = entity.getData();
+                const text = block.getText().slice(entityRange.start, entityRange.end);
+                blockHtml = blockHtml.replace(
+                    text,
+                    `<a href="${url}">${text}</a>`
+                );
+            }
+        });
+
+        html += `<p>${blockHtml}</p>`;
+    });
+
+    setConvertedContent(html);
+}, [editorState]);
 
   return (
     <>
@@ -186,13 +268,6 @@ const TextBody = React.forwardRef((props, ref) => {
       >
         <Box
           width="93%"
-          position= "relative"
-          // z-index="99999999"
-          // autoFocus
-          // ref={boxRef}
-          // tabIndex={0}
-          // style={{ cursor: 'auto' }} 
-          // onClick={moveCursorToEnd} 
         >
           <Editor
             ref={ref}
@@ -208,7 +283,6 @@ const TextBody = React.forwardRef((props, ref) => {
                 inputAccept: 'svg',
               },
               options: ['inline', 'link'],
-              // options: ['inline', 'link', 'customText'],
               inline: {
                 inDropdown: false,
                 options: ['bold', 'italic', 'underline', 'strikethrough'],
@@ -325,3 +399,5 @@ const TextBody = React.forwardRef((props, ref) => {
 });
 
 export default TextBody;
+
+
