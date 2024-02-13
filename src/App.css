@@ -107,3 +107,9 @@ tbody > tr > td {
   z-index: 100;
   background: white;
 }
+
+/* TODO */
+/* .rdw-option-active{
+  box-shadow: 1px 1px 0px #010101 inset !important;
+  background: #544d4d5c !important;
+} */

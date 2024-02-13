@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Checkbox,
@@ -174,109 +174,76 @@ const TextBody = React.forwardRef((props, ref) => {
     if (ref) {
       ref.current.focusEditor();
     }
-  }, [ref]);
+  }, [ref, convertedContent]);
   
 
-  useEffect(() => {
-    const contentState = editorState.getCurrentContent();
-    let html = '';
+useEffect(() => {
+  const contentState = editorState.getCurrentContent();
+  let html = '';
 
-    contentState.getBlockMap().forEach(block => {
-        let blockHtml = '';
-        let entityRanges = [];
-        let styleRanges = [];
+  contentState.getBlockMap().forEach(block => {
+    let blockHtml = '';
 
-        block.findEntityRanges(
-            (character) => {
-                const entityKey = character.getEntity();
-                return entityKey !== null;
-            },
-            (start, end) => {
-                entityRanges.push({ start, end });
-            }
-        );
+    // Get block text
+    const text = block.getText();
 
-        block.findStyleRanges(
-            (character) => {
-                return (
-                    character.getStyle().has('STRIKETHROUGH') ||
-                    character.getStyle().has('BOLD') ||
-                    character.getStyle().has('ITALIC') ||
-                    character.getStyle().has('UNDERLINE')
-                );
-            },
-            (start, end) => {
-                styleRanges.push({ start, end });
-            }
-        );
-
-        let lastIndex = 0;
-        styleRanges.forEach(styleRange => {
-            // Add text before the style range
-            blockHtml += block.getText().slice(lastIndex, styleRange.start);
-
-            // Apply styles
-            const text = block.getText().slice(styleRange.start, styleRange.end);
-            const inlineStyles = block.getInlineStyleAt(styleRange.start);
-            let styledText = text;
-            if (inlineStyles.has('STRIKETHROUGH')) {
-                styledText = `<s>${styledText}</s>`;
-            }
-            if (inlineStyles.has('BOLD')) {
-                styledText = `<strong>${styledText}</strong>`;
-            }
-            if (inlineStyles.has('ITALIC')) {
-                styledText = `<em>${styledText}</em>`;
-            }
-            if (inlineStyles.has('UNDERLINE')) {
-                styledText = `<u>${styledText}</u>`;
-            }
-
-            blockHtml += styledText;
-            lastIndex = styleRange.end;
+    // Check if block has any inline styles
+    if (block.getInlineStyleAt(0).size !== 0) {
+      // Apply inline styles
+      blockHtml += text.split('').map((char, index) => {
+        const styles = block.getInlineStyleAt(index);
+        let styledChar = char;
+        styles.forEach(style => {
+          switch (style) {
+            case 'BOLD':
+              styledChar = `<strong>${styledChar}</strong>`;
+              break;
+            case 'ITALIC':
+              styledChar = `<em>${styledChar}</em>`;
+              break;
+            case 'UNDERLINE':
+              styledChar = `<u>${styledChar}</u>`;
+              break;
+            case 'STRIKETHROUGH':
+              styledChar = `<s>${styledChar}</s>`;
+              break;
+            default:
+              break;
+          }
         });
+        return styledChar;
+      }).join('');
+    } else {
+      // No inline styles, use plain text
+      blockHtml = text;
+    }
 
-        // Add remaining text after the last style range
-        blockHtml += block.getText().slice(lastIndex);
+    html += `<p>${blockHtml}</p>`;
+  });
 
-        // Add entities
-        entityRanges.forEach(entityRange => {
-            const entityKey = block.getEntityAt(entityRange.start);
-            const entity = contentState.getEntity(entityKey);
-            if (entity && entity.getType() === 'LINK') {
-                const { url } = entity.getData();
-                const text = block.getText().slice(entityRange.start, entityRange.end);
-                blockHtml = blockHtml.replace(
-                    text,
-                    `<a href="${url}">${text}</a>`
-                );
-            }
-        });
-
-        html += `<p>${blockHtml}</p>`;
-    });
-
-    setConvertedContent(html);
+  html = replaceEmptyPTagWithBrTa(html);
+  setConvertedContent(html);
 }, [editorState]);
+
 
   return (
     <>
       <Box
-        display="flex"
-        justifyContent="space-between"
+          display="flex"
+          justifyContent="space-between"
        
       >
         <Box
-          width="93%"
+            width="93%"
         >
           <Editor
-            ref={ref}
-            tabIndex={0}
-            editorClassName="editor-class"
-            editorState={editorState}
-            onEditorStateChange={setEditorState}
-            placeholder="Add text here"
-            toolbar={{
+              editorClassName="editor-class"
+              editorState={editorState}
+              onEditorStateChange={setEditorState}
+              placeholder="Add text here"
+              ref={ref}
+              tabIndex={0}
+              toolbar={{
               image: {
                 alt: { present: true, mandatory: false },
                 previewImage: true,
@@ -292,42 +259,42 @@ const TextBody = React.forwardRef((props, ref) => {
                 options: ['link'],
               },
             }}
-            toolbarClassName="toolbar-class"
-            toolbarCustomButtons={[
-              <div style={{
+              toolbarClassName="toolbar-class"
+              toolbarCustomButtons={[
+                <div style={{
                 display: 'flex',
                 alignItems: 'center'
               }}
-              >
-                <div
-                  className="insert-entity"
-                  onClick={() => alert('Coming Soon!')}
                 >
-                  Insert Entity
-                </div>
-              </div>,
+                  <div
+                      className="insert-entity"
+                      onClick={() => alert('Coming Soon!')}
+                  >
+                    Insert Entity
+                  </div>
+                </div>,
             ]}
-            wrapperClassName="wrapper-class"
+              wrapperClassName="wrapper-class"
           />
         </Box>
 
         <Box
-          cursor="pointer"
-          onClick={() => deleteNode()}
+            cursor="pointer"
+            onClick={() => deleteNode()}
         >
           <Icon
-            color='hsla(0, 0%, 85%, 1)'
-            icon="ic:outline-delete"
+              color='hsla(0, 0%, 85%, 1)'
+              icon="ic:outline-delete"
           />
         </Box>
       </Box>
 
       <Box marginTop="10px">
         <Checkbox
-          color="text.body"
-          iconColor='blue.400'
-          iconSize='1rem'
-          onChange={() => alert('Coming Soon!')}
+            color="text.body"
+            iconColor='blue.400'
+            iconSize='1rem'
+            onChange={() => alert('Coming Soon!')}
         >
           {type === "customer_response_node" ?  "Capture response" :  "Question"}
         </Checkbox>
@@ -335,61 +302,61 @@ const TextBody = React.forwardRef((props, ref) => {
 
       {type === "customer_response_node" ? <>
         <Box
-          marginTop="10px"
-          width="93%"
+            marginTop="10px"
+            width="93%"
         >
           <Text
-            color="text.body"
-            fontSize="xs"
+              color="text.body"
+              fontSize="xs"
           >
             Triggered Intent
           </Text>
 
           <Input
-            borderRadius="0.3125rem"
-            placeholder="Intent Name"
-            size="sm"
+              borderRadius="0.3125rem"
+              placeholder="Intent Name"
+              size="sm"
           />
         </Box>
 
         <Box
-          marginTop="10px"
-          width="93%"
+            marginTop="10px"
+            width="93%"
         >
           <Text
-            color="text.body"
-            fontSize="xs"
+              color="text.body"
+              fontSize="xs"
           >
             Add Entity
           </Text>
 
           <Input
-            borderRadius="0.3125rem"
-            placeholder="Entity name"
-            size="sm"
+              borderRadius="0.3125rem"
+              placeholder="Entity name"
+              size="sm"
           />
         </Box>
       </> : null}
 
       <Divider
-        borderColor="#D8D8D8"
-        marginTop="10px"
-        width="93%"
+          borderColor="#D8D8D8"
+          marginTop="10px"
+          width="93%"
       />
 
       <Box
-        display="flex"
-        justifyContent="right"
-        marginTop="10px"
-        width="93%"
+          display="flex"
+          justifyContent="right"
+          marginTop="10px"
+          width="93%"
       >
         <Button
-          _hover={{ backgroundColor: 'primary.90' }}
-          backgroundColor="primary.100"
-          color="white"
-          onClick={() => alert('Coming Soon!')}
-          size="sm"
-          width="118px"
+            _hover={{ backgroundColor: 'primary.90' }}
+            backgroundColor="primary.100"
+            color="white"
+            onClick={() => alert('Coming Soon!')}
+            size="sm"
+            width="118px"
         >
           Add Variant
         </Button>
@@ -401,3 +368,17 @@ const TextBody = React.forwardRef((props, ref) => {
 export default TextBody;
 
 
+// function to add linrBreaks ...
+function replaceEmptyPTagWithBrTa(htmlString) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, 'text/html');
+  const paragraphs = doc.querySelectorAll('p');
+
+  paragraphs.forEach(paragraph => {
+    if (!paragraph.textContent.trim()) {
+      paragraph.innerHTML = '<br>';
+    }
+  });
+
+  return doc.body.innerHTML;
+}
