@@ -63,10 +63,10 @@ function ReactFlowComponent() {
   const fetchDocument = async () => {
     const result = await fetch(`${import.meta.env.VITE_API_URL}/flow_document/${pathname.split('/')[2]}`);
     const res = await result.json();
+    setCurrentNode(res);
     if (res?.edges?.length === 0 && res?.nodes?.length === 0) {
       return 
     };
-    setCurrentNode(res);
     const {newEdges, newNodes} = prepareDataForReactFlow(res, onNodeClick, selectedNode);
     // set the edges and nodes that can we display in reactflow..
     setEdges(newEdges);
