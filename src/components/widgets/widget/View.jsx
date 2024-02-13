@@ -178,12 +178,12 @@ function ViewComponent({ comps }) {
                                 }}
                             />
 
-                            {card?.buttonProps.show ? <Box
+                            {card?.buttonProps?.show ? <Box
                                 display="flex"
                                 justifyContent="row-start"
                                 margin="10px 0px"
                                 width="100%"
-                                                      >
+                                                       >
                               <Button
                                   colorScheme='pink'
                                   variant={card?.buttonProps?.variant}

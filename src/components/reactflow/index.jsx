@@ -236,6 +236,7 @@ function ReactFlowComponent() {
   // this will remove the watermark
   const proOptions = { hideAttribution: true };
 
+  console.log(nodes, edges);
   return (
     <Box
         style={{ width: 'calc(100vw - 10.90rem)', height: 'calc(100vh - 71px)' }}
@@ -274,7 +275,7 @@ function ReactFlowComponent() {
             position="relative"
             width="calc(100% - 26.75rem)"
         >
-          <ReactFlow
+          {showMiniMap === false && (<><ReactFlow
               edges={edges}
               nodeTypes={nodeTypes}
               nodes={nodes}
@@ -310,20 +311,20 @@ function ReactFlowComponent() {
             addCustomerNode={addCustomerNode} 
             addBotNode={addBotNode}
             addLogic={addLogic} 
-            />
+            /></>)}
+          
         </Box>
 
         <Box width="26.75rem">
           <RightSidebar 
             setShowMiniMap={setShowMiniMap} />
         </Box>
-
-        <MiniMap 
+        {showMiniMap == true && <MiniMap 
           edges={edges}
           nodes={nodes}
           nodeTypes={nodeTypes}
           showMiniMap={showMiniMap}
-          setShowMiniMap={setShowMiniMap} />
+          setShowMiniMap={setShowMiniMap} />}
       </Box>
     </Box>
   );

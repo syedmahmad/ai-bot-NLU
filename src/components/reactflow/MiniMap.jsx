@@ -57,8 +57,7 @@ import {
                   nodeTypes={nodeTypes}
                   nodes={nodes}
                   nodesConnectable={false}
-                  nodesDraggable={false}
-                  onElementClick={false}
+                  nodesDraggable={false}  
                   onPaneClick={false}
                   onPaneScroll={false}
                   panOnDrag={false}
