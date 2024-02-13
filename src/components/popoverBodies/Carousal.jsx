@@ -5,7 +5,9 @@ import {
   Button,
   Box,
   Image,
+  Checkbox,
   Accordion,
+  Select,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
@@ -20,9 +22,14 @@ import {stateFromHTML} from 'draft-js-import-html';
 const initialCardState = () => {
   return {
   id: mongoObjectId(),
-  label: '',
+  label: 'new card',
   file: null,
-  text: ""
+  text: "<p></p>",
+  buttonProps: {
+    label: "new button",
+    variant: "solid",
+    show: false
+  } 
 }
 };
 
@@ -66,7 +73,8 @@ function CarousalBody({ comp, components, setComp }) {
       const newCards = cards.filter((data) => data.id !== id)
       setCards(newCards);
     }
-  }
+  };
+
   return(
     <Box
         width="100%"
@@ -129,6 +137,26 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
   const [convertedContent, setConvertedContent] = useState(card.text);
   let contentState = stateFromHTML(convertedContent);
   const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    const convertedFile = base64?.replace(/^data:image\/[a-z]+;base64,/, "");
+    setSelectedCard({...selectedCard, file: convertedFile})
+  };
 
   useEffect(() => {
     let html = convertToHTML(editorState.getCurrentContent());
@@ -206,6 +234,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
       <AccordionPanel
           pb={4}
           px={0}
+          width="91%"
       >
         <Box>
           {card.file !== null && card.file !== '' ? (
@@ -214,7 +243,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
                 borderRadius="0.3125rem"
                 height="300px"
                 objectFit="contain"
-                src={card.file}
+                src={`data:image/png;base64,${card.file}`}
                 width="100%"
             />
                       ) : null}
@@ -260,7 +289,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
 
                   <Input
                       id="file-carousal"
-                      onChange={(e) => {setSelectedCard({...selectedCard, file: URL.createObjectURL(e.target.files[0])})}}
+                      onChange={(e) => handleFileUpload(e)}
                       style={{display: "none"}}
                       type="file"
                   />
@@ -331,6 +360,90 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
                         ]}
               wrapperClassName="wrapper-class"
           />
+
+          <br />
+
+          <Box>
+            <Checkbox
+                color="text.body"
+                iconColor='blue.400'
+                iconSize='1rem'
+                isChecked={selectedCard.buttonProps.show}
+                onChange={() => setSelectedCard({...selectedCard, buttonProps: {
+                  ...selectedCard.buttonProps, show: !selectedCard.buttonProps.show
+                }})}
+            >
+              Add Buttons
+            </Checkbox>
+          </Box>
+
+          <br />
+
+          <Box
+              width="100%"
+          >
+            <Text
+                color="text.body"
+                fontSize="xs"
+                marginBottom="5px"
+            >
+              Button Label
+            </Text>
+
+            <Input
+                borderRadius="0.3125rem"
+                marginBottom="10px"
+                onChange={(e) => setSelectedCard({...selectedCard, buttonProps: {
+                  ...selectedCard.buttonProps,
+                  label: e.target.value
+                }})}
+                placeholder="Type here"
+                size="sm"
+                value={selectedCard.buttonProps.label}
+            />
+
+            <Text
+                color="text.body"
+                fontSize="xs"
+                marginBottom="5px"
+            >
+              Button Type
+            </Text>
+
+            <Select
+                marginBottom="10px"
+                onChange={(e) => setSelectedCard({...selectedCard, buttonProps: {
+                  ...selectedCard.buttonProps,
+                  variant: e.target.value
+                }})}
+                placeholder='Button Type'
+                size="md"
+                value={selectedCard.buttonProps.variant}
+            >
+              <option
+                  selected
+                  value='outline'
+              >
+                Outlined Button
+              </option>
+
+              <option value='ghost'>
+                Text Button
+              </option>
+
+              <option
+                  selected
+                  value='solid'
+              >
+                Filled Button
+              </option>
+
+              <option value='link'>
+                FAB Button
+              </option>
+
+            </Select>
+          </Box>
         </Box>
 
       </AccordionPanel>

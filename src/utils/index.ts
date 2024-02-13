@@ -84,7 +84,8 @@ export const logicNodeValidations = (selectedNode) => {
                 text: "<p></p>",
                 buttonProps: {
                   label: "new button",
-                  variant: "solid"
+                  variant: "solid",
+                  show: false
                 } 
               }
             ]

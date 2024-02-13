@@ -155,15 +155,19 @@ function ViewComponent({ comps }) {
                               <Image
                                   alt="Preview"
                                   borderRadius="0.3125rem"
-                                  src={card?.file}
+                                  height="300px"
+                                  objectFit="contain"
+                                  src={`data:image/png;base64,${card.file}`}
                               />
                             ) : ( 
-                              <Text
-                                  align="center"
-                                  color="text.body"
-                              >
-                                Upload Image
-                              </Text>
+                              <Image 
+                                  alt="Preview"
+                                  borderRadius="0.3125rem"
+                                  height="300px"
+                                  objectFit="contain"
+                                  src="/jpgs/dummy-image-square.jpeg"
+                                  width="100%"
+                              />
                           )}
 
                             <br />
@@ -173,6 +177,20 @@ function ViewComponent({ comps }) {
                                     __html: DOMPurify.sanitize(card?.text),
                                 }}
                             />
+
+                            {card?.buttonProps.show ? <Box
+                                display="flex"
+                                justifyContent="row-start"
+                                margin="10px 0px"
+                                width="100%"
+                                                      >
+                              <Button
+                                  colorScheme='pink'
+                                  variant={card?.buttonProps?.variant}
+                              >
+                                {card?.buttonProps?.label}
+                              </Button>
+                            </Box> : null}
                           </Box>
                         ))}
                       </Slider>
