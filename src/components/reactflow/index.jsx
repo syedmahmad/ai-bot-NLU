@@ -315,12 +315,13 @@ function ReactFlowComponent() {
 
         <Box width="26.75rem">
           <RightSidebar 
-            edges={edges}
-            nodes={nodes}
             setShowMiniMap={setShowMiniMap} />
         </Box>
 
         <MiniMap 
+          edges={edges}
+          nodes={nodes}
+          nodeTypes={nodeTypes}
           showMiniMap={showMiniMap}
           setShowMiniMap={setShowMiniMap} />
       </Box>

@@ -8,30 +8,25 @@ import {
     Button
   } from '@chakra-ui/react';
   import {
-    MiniMap,
+    ReactFlow,
   } from 'reactflow';
   
-  function MiniMapModal({ showMiniMap, setShowMiniMap }) {
-    const nodeColor = (node) => {
-        switch (node.data.type) {
-          case 'customer_response_node':
-            return '#FCD8E0';
-          default:
-            return '#D1EAFE';
-        }
-      };
+  function MiniMapModal(props) {
+    const { showMiniMap, setShowMiniMap, nodes, edges, nodeTypes } = props;
     
     return (
       <Modal
           isOpen={showMiniMap}
           onClose={!showMiniMap}
           size="full"
+          style={{ cursor: "none" }}
       >
         <ModalOverlay />
   
         <ModalContent
             alignSelf="center"
             display="flex"
+            maxW="1200px"
             padding="0px"
         >
   
@@ -54,23 +49,24 @@ import {
                 position="relative"
                 width="100%"
             >
-              <MiniMap
-                  fill="white"
-                  nodeColor={nodeColor}
-                  nodeStrokeWidth={3}
-                  pannable
-                  style={{
-                    top: "0",
-                    left: "0",
-                    margin: "0",
-                    padding: "0",
-                    border: '1px solid red',
-                    width: '1440',
-                    height: '1000',
-                    fill: 'white',
-                    
-                    }}
-                  zoomable
+              <ReactFlow
+                  edges={edges}
+                  elementsSelectable={false}
+                  fitView
+                  free={false}
+                  nodeTypes={nodeTypes}
+                  nodes={nodes}
+                  nodesConnectable={false}
+                  nodesDraggable={false}
+                  onElementClick={false}
+                  onPaneClick={false}
+                  onPaneScroll={false}
+                  panOnDrag={false}
+                  panOnScroll={false}
+                  panOnScrollMode={false}
+                  proOptions={{ hideAttribution: true }}
+                  zoomOnDoubleClick={false}
+                  zoomOnScroll={false}
               />
             </Box>
 

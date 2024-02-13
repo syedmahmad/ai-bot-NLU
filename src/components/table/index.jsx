@@ -49,9 +49,11 @@ function TableComponent() {
       { id: item.id },
       {
         onError: async () => {
+          setTimeout(() => {
+            document.getElementsByClassName("chakra-popover__close-btn")[0].click();
+          }, 50);
           await fetchData()
           toast.success("Flow deleted successfully");
-          document.getElementsByClassName("chakra-popover__close-btn")[0].click();
           setSelectedItem(null);
         }
       },
