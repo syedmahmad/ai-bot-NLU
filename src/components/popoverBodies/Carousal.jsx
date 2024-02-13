@@ -191,7 +191,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
             _hover={{ background: 'transparent'}}
             justifyContent="space-between"
             padding="0"
-            width="100%"
+            width="93%"
         >
           <Box
               background="#F9FAFC"
@@ -222,7 +222,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
             display="flex"
             justifyContent="flex-end"
             onClick={() =>  deleteNode(card.id)}
-            width="10%"
+            width="7%"
         >
           <Icon
               color='hsla(0, 0%, 85%, 1)'
@@ -234,7 +234,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
       <AccordionPanel
           pb={4}
           px={0}
-          width="91%"
+          width="94%"
       >
         <Box>
           {card.file !== null && card.file !== '' ? (
@@ -379,9 +379,9 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
 
           <br />
 
-          <Box
+          {selectedCard.buttonProps.show === true ? <Box
               width="100%"
-          >
+                                                    >
             <Text
                 color="text.body"
                 fontSize="xs"
@@ -443,7 +443,8 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
               </option>
 
             </Select>
-          </Box>
+          </Box> : null}
+          
         </Box>
 
       </AccordionPanel>

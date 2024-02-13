@@ -6,7 +6,7 @@
   min-height: 108px;
   border-radius: 5px;
   padding-left: 12px;
-  width: 18.0625rem;
+  width: 17.0625rem;
 }
 
 .wrapper-class {
@@ -27,7 +27,6 @@
 .insert-entity {
   width: 4.375rem;
   height: 0.9375rem;
-  margin-left: 18px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -123,7 +123,7 @@ function WidgetComponent({ data, isConnectable }) {
               style={{
                 background: 'transparent',
                 height: 'fit-content',
-                width: '300px',
+                width: '325px',
                 marginTop: '10px' 
               }}
           >
