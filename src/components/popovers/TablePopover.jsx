@@ -33,7 +33,10 @@ function TablePopover({ setSelectedItem, editModalOnOpen, item, deleteFlow}) {
 
       <PopoverContent width="6.8125rem">
         <PopoverBody>
-          <PopoverCloseButton style={{display: 'none'}} />
+          <PopoverCloseButton
+              id="delete-popup"
+              style={{display: 'none',}}
+          />
 
           <List spacing={3}>
             <ListItem
@@ -50,7 +53,7 @@ function TablePopover({ setSelectedItem, editModalOnOpen, item, deleteFlow}) {
 
             <ListItem
                 cursor="pointer"
-                onClick={() => { deleteFlow(item)}}
+                onClick={(event) => { deleteFlow( event, item )}}
                 textAlign="left"
             >
               Delete

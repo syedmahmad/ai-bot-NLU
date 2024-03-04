@@ -29,8 +29,6 @@ const TextBody = React.forwardRef((props, ref) => {
     contentState.getBlockMap().forEach(block => {
       const text = block.getText();
       const inlineStyles = block.getInlineStyleAt(0).toJS();
-      console.log('Block Text:', text);
-      console.log('Inline Styles:', inlineStyles);
     });
     const html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);
@@ -44,7 +42,6 @@ const TextBody = React.forwardRef((props, ref) => {
           value: convertedContent
         };
       }
-      console.log('item', item);
       return item;
     });
     setComp(arr);
@@ -158,9 +155,6 @@ const TextBody = React.forwardRef((props, ref) => {
 
     return editorState;
   };
-
-
-  console.log('convertedContent', convertedContent);
 
   useEffect(() => {
     const contentState = stateFromHTML(convertedContent);

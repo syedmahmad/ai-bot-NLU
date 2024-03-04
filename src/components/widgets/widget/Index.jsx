@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import { Icon } from '@iconify/react';
@@ -25,6 +24,13 @@ function WidgetComponent({ data, isConnectable }) {
   const initialFocusRef = React.useRef(null);
   const [comp, setComp] = useState(data?.components || []);
   const { widget, addWidget, selectedComp } = useWidgets();
+
+  // need to delete/update the actual data.components array too.
+  useEffect(() => {
+    if (comp.length) {
+      data.components = comp;
+    }
+  }, [comp]);
   
   /* Via Context API, This executes every time the user wanted to add new widget.
       and add that new node in the same node components array, we are maintaining.
@@ -117,36 +123,47 @@ function WidgetComponent({ data, isConnectable }) {
           placement={data.type === 'customer_response_node' ? "right-start" : "left-start"}
       >
         <PopoverTrigger>
-          <Box display='flex' flexDirection={data.type === 'customer_response_node' ? "row-reverse" : "row"} justifyContent='space-between' alignItems='center'>
           <Box
-              onClick={handleClick}
-              style={{
+              alignItems='center'
+              display='flex'
+              flexDirection={data.type === 'customer_response_node' ? "row-reverse" : "row"}
+              justifyContent='space-between'
+          >
+            <Box
+                onClick={handleClick}
+                style={{
                 background: 'transparent',
                 height: 'fit-content',
                 width: '325px',
                 marginTop: '10px' 
               }}
-          >
-            <Box
-                background={data.type === 'customer_response_node' ? "#FCD8E0" : "#D1EAFE"}
-                borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
-                padding={4}
-                width="100%"
             >
               <Box
-                  background="#fff"
+                  background={data.type === 'customer_response_node' ? "#FCD8E0" : "#D1EAFE"}
                   borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
-                  margin="6px 0px"
-                  minHeight="68px"
+                  padding={4}
                   width="100%"
-              > 
-                <ViewComponent comps={comp} />
+              >
+                <Box
+                    background="#fff"
+                    borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
+                    margin="6px 0px"
+                    minHeight="68px"
+                    width="100%"
+                > 
+                  <ViewComponent comps={comp} />
+                </Box>
               </Box>
             </Box>
-          </Box>
-          <Box width='35px' height='35px' marginLeft={data.type === 'customer_response_node' ? "0px" : "10px"} marginRight={data.type === 'customer_response_node' ? "10px" : "0px"}>
+
+            <Box
+                height='35px'
+                marginLeft={data.type === 'customer_response_node' ? "0px" : "10px"}
+                marginRight={data.type === 'customer_response_node' ? "10px" : "0px"}
+                width='35px'
+            >
               {data?.type !== 'customer_response_node' ? <BotIcon /> : <CustomerIcon /> }
-          </Box>
+            </Box>
           </Box>
         </PopoverTrigger>
 
@@ -154,19 +171,20 @@ function WidgetComponent({ data, isConnectable }) {
           // height="400px"
           // overflowY="auto"
           // overflowX={"hidden"}
-          border="1px solid #AADBFF !important"
-          boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.10)"
+            border="1px solid #AADBFF !important"
+            boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.10)"
         >
-          <PopoverCloseButton style={{display: 'none'}}/>
+          <PopoverCloseButton style={{display: 'none'}} />
+
           <PopoverArrow />
 
           <PopoverHeader
+              borderBottom={getPopOverHeading(comp[0]?.type) === 'Conditions' ? '1px solid #D8D8D8' : 'none'}
               display="flex"
               justifyContent="space-between"
               padding="15px 10px 10px"
-              borderBottom={getPopOverHeading(comp[0]?.type) === 'Conditions' ? '1px solid #D8D8D8' : 'none'}
           >
-            <Box textTransform={'capitalize'}>
+            <Box textTransform="capitalize">
               {getPopOverHeading(comp[0]?.type)}
             </Box>
 
@@ -180,7 +198,12 @@ function WidgetComponent({ data, isConnectable }) {
           </PopoverHeader>
 
           <PopoverBody paddingBottom="30px">
-            <EditComponent initialRef={initialFocusRef} comps={comp} setComp={setComp} node={data}/>
+            <EditComponent
+                comps={comp}
+                initialRef={initialFocusRef}
+                node={data}
+                setComp={setComp}
+            />
           </PopoverBody>
         </PopoverContent>
       </Popover>

@@ -1,5 +1,6 @@
 import ReactFlowComponent from '../components/reactflow';
 import { Box } from '@chakra-ui/react';
+import { ReactFlowProvider } from 'reactflow';
 
 function FlowPage() {
   return (
@@ -8,7 +9,9 @@ function FlowPage() {
         overflow="hidden"
         width="100%"
     >
-      <ReactFlowComponent />
+      <ReactFlowProvider>
+        <ReactFlowComponent />
+      </ReactFlowProvider>
     </Box>
   );
 }
