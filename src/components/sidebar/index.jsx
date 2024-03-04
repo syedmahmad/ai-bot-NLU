@@ -5,7 +5,7 @@ import { sideBarItems } from './sidebarConfig';
 function Sidebar() {
   return (
     <Box
-        backgroundColor="background.menu"
+        backgroundColor="#F1F4F7"
         borderRight="1px solid hsla(0, 0%, 93%, 1)"
         height="calc(100vh - 3.1875rem)"
         padding="4rem 1.25rem"

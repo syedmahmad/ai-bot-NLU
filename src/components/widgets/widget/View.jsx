@@ -101,14 +101,25 @@ function ViewComponent({ comps }) {
                         ) : null}
 
                       {props?.link === null && props?.file === null ? ( 
-                        <Button
-                            _hover={{ backgroundColor: 'primary.90', color: "white" }}
-                            colorScheme='button'
-                            fontSize="xs"
-                            variant="outline"
-                        >
-                          Upload Image
-                        </Button>
+                        <>
+                          <Image 
+                              alt="Preview"
+                              borderRadius="0.3125rem"
+                              height="300px"
+                              objectFit="contain"
+                              src="/jpgs/dummy-image-square.jpeg"
+                              width="100%"
+                          />
+
+                          <Button
+                              _hover={{ backgroundColor: 'primary.90', color: "white" }}
+                              colorScheme='button'
+                              fontSize="xs"
+                              variant="outline"
+                          >
+                            Upload Image
+                          </Button>
+                        </>
                       ) : null}
 
                     </Box>);

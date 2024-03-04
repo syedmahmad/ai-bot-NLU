@@ -46,7 +46,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                                 lineHeight="20px"
                                 margin="10px"
                             >
-                              Text
+                              {node.type === "customer_response_node" ? "Customer Response" : "Text"}
                             </Heading>
 
                             <Box>

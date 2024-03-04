@@ -62,6 +62,12 @@
   fill: white;
 }
 
+.ant-table, .ant-table-container, .ant-table-header, .ant-table-wrapper {
+  border-radius: 10px 10px 0px 0px !important;
+  border-start-start-radius: 10px !important;
+  border-start-end-radius: 10px !important;
+}
+
 .ant-table-thead {
   background-color: hsla(0, 0%, 92%, 0.5);
 }
@@ -69,6 +75,7 @@
 .ant-table-thead > tr > th {
   background: transparent !important;
   color: hsla(0, 0%, 15%, 1) !important;
+  font-weight: 600 !important;
 }
 
 tbody > tr > td {

@@ -338,29 +338,33 @@ useEffect(() => {
         </Box>
       </> : null}
 
-      <Divider
-          borderColor="#D8D8D8"
-          marginTop="10px"
-          width="93%"
-      />
+      {type !== "customer_response_node" && (
+        <>
+        <Divider
+            borderColor="#D8D8D8"
+            marginTop="10px"
+            width="93%"
+        />
 
-      <Box
-          display="flex"
-          justifyContent="right"
-          marginTop="10px"
-          width="93%"
-      >
-        <Button
-            _hover={{ backgroundColor: 'primary.90' }}
-            backgroundColor="primary.100"
-            color="white"
-            onClick={() => alert('Coming Soon!')}
-            size="sm"
-            width="118px"
+        <Box
+            display="flex"
+            justifyContent="right"
+            marginTop="10px"
+            width="93%"
         >
-          Add Variant
-        </Button>
-      </Box>
+          <Button
+              _hover={{ backgroundColor: 'primary.90' }}
+              backgroundColor="primary.100"
+              color="white"
+              onClick={() => alert('Coming Soon!')}
+              size="sm"
+              width="118px"
+          >
+            Add Variant
+          </Button>
+        </Box>
+        </>
+      )}
     </>
   )
 });

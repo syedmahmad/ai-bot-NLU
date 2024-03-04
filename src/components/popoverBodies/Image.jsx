@@ -78,25 +78,32 @@ function ImageBody({ comp, setComp, components}) {
 
   return(
     <>
-      {file !== null ? (
-        <Image
-            alt="Preview"
-            borderRadius="0.3125rem"
+      <Box
+          display="flex"
+          justifyContent="space-between"
+          width="100%"
+      >
+        {file !== null ? (
+          <Image
+              alt="Preview"
+              borderRadius="0.3125rem"
             // src={file}
-            src={`data:image/png;base64,${file}`}
-            width="93%"
-        />
+              src={`data:image/png;base64,${file}`}
+              width="93%"
+          />
         ) : null}
 
-      {url !== null ? (
-        <Image
-            alt="Preview"
-            borderRadius="0.3125rem"
+        {url !== null ? (
+          <Image
+              alt="Preview"
+              borderRadius="0.3125rem"
             // src={file}
-            src={url}
-            width="93%"
-        />
+              src={url}
+              width="93%"
+          />
         ) : null}
+
+      </Box>
 
       {file === null && url === null ? (
         <>
@@ -173,6 +180,7 @@ function ImageBody({ comp, setComp, components}) {
           onChange={(e) => {setFile(null); setUrl(e.target.value)}}
           placeholder="Add url here"
           size="sm"
+          value={url}
           width="93%"
       />
     </>

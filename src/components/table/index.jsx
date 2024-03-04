@@ -160,7 +160,7 @@ function TableComponent() {
         />) : null}
 
       <Box
-          padding="104px 28px"
+          padding="84px 28px"
           width="100%"
       >
         <Heading

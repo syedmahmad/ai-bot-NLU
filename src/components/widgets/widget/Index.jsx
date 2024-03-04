@@ -80,6 +80,7 @@ function WidgetComponent({ data, isConnectable }) {
   };
 
   const getPopOverHeading = (typeName) => {
+    console.log(typeName);
     switch (typeName) {
       case 'logic_widget':
         return 'Conditions'
@@ -144,9 +145,15 @@ function WidgetComponent({ data, isConnectable }) {
               </Box>
             </Box>
           </Box>
-          <Box width='35px' height='35px' marginLeft={data.type === 'customer_response_node' ? "0px" : "10px"} marginRight={data.type === 'customer_response_node' ? "10px" : "0px"}>
-              {data?.type !== 'customer_response_node' ? <BotIcon /> : <CustomerIcon /> }
-          </Box>
+          {data.type === 'customer_response_node' ? (
+            <Box width='35px'  height='35px' position="absolute" bottom="2" left={"-12"} marginLeft={"0px"} marginRight={"10px"}>
+              <CustomerIcon /> 
+            </Box>
+          ) : (
+            <Box width='35px'  position="absolute" bottom="2" right={"-12"}  height='35px' marginLeft={"10px"} marginRight={"0px"}>
+              <BotIcon />
+            </Box>
+          )}
           </Box>
         </PopoverTrigger>
 
@@ -159,25 +166,6 @@ function WidgetComponent({ data, isConnectable }) {
         >
           <PopoverCloseButton style={{display: 'none'}}/>
           <PopoverArrow />
-
-          <PopoverHeader
-              display="flex"
-              justifyContent="space-between"
-              padding="15px 10px 10px"
-              borderBottom={getPopOverHeading(comp[0]?.type) === 'Conditions' ? '1px solid #D8D8D8' : 'none'}
-          >
-            <Box textTransform={'capitalize'}>
-              {getPopOverHeading(comp[0]?.type)}
-            </Box>
-
-            <Box>
-              <Icon
-                  color='hsla(0, 0%, 85%, 1)'
-                  icon="bi:three-dots-vertical"
-                  onClick={() => alert('Coming Soon!')}
-              />
-            </Box>
-          </PopoverHeader>
 
           <PopoverBody paddingBottom="30px">
             <EditComponent initialRef={initialFocusRef} comps={comp} setComp={setComp} node={data}/>

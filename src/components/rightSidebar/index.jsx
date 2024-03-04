@@ -122,6 +122,7 @@ function RightSidebar(props) {
                 backgroundColor="white"
                 color="text.menu"
                 height="1.75rem"
+                fontSize="8px"
                 marginTop="-3px"
                 placeholder="Select Channel"
                 width="10.75rem"

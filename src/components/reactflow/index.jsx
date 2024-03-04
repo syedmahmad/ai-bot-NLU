@@ -55,6 +55,17 @@ function ReactFlowComponent() {
     [],
   );
 
+  useEffect(() => {
+    // Find the parent element by its data-testid
+    var parentElement = document.querySelector('[data-testid="rf__minimap"]');
+
+    // Find the SVG element within the parent
+    var svgElement = parentElement.querySelector('svg');
+
+    // Change the height attribute
+    svgElement.setAttribute('height', 'inherit'); 
+  }, []);
+
   // onpage load, reading the exsitng flow.
   useEffect(() => {
     fetchDocument();
@@ -92,8 +103,9 @@ function ReactFlowComponent() {
       style: {
         width: 184,
         height: 82,
+        borderRadius: '6px',
         padding: '9px 10px',
-        backgroundColor: '#AADBFF',
+        backgroundColor: 'rgb(170, 219, 255, 0.20)',
         borderColor: '#ECECEC'
       },
     },
@@ -244,7 +256,7 @@ function ReactFlowComponent() {
       <Box
           alignItems="center"
           display="flex"
-          height="26px"
+          height="47px"
       >
         <Box
             alignItems="center"
@@ -252,7 +264,6 @@ function ReactFlowComponent() {
             display="flex"
             height="47px"
             paddingLeft="14px"
-            paddingTop="10px"
             width="100%"
         >
           <Text
@@ -319,7 +330,8 @@ function ReactFlowComponent() {
           <RightSidebar 
             setShowMiniMap={setShowMiniMap} />
         </Box>
-        {showMiniMap == true && <MiniMap 
+        {showMiniMap == true && <MiniMap
+          id="my-mini-svg" 
           edges={edges}
           nodes={nodes}
           nodeTypes={nodeTypes}
