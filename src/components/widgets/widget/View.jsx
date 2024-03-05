@@ -82,25 +82,32 @@ function ViewComponent({ comps }) {
                     return (<Box
                         margin="10px 0px"
                             >
-                      { props?.file !== null ? (
-                        <Image
-                            alt="Preview"
-                            borderRadius="0.3125rem"
+                      <Box
+                          alignItems="center"
+                          display="flex"
+                          flexDirection="column"
+                          justifyContent="center"
+                      >
+                        { props?.file !== null ? (
+                          <Image
+                              alt="Preview"
+                              borderRadius="0.3125rem"
                             // src={props?.file}
                             // src={`data:image/png;base64,${props?.file}`}
-                            src={`data:image/png;base64,${props?.file}`}
-                        />
+                              src={`data:image/png;base64,${props?.file}`}
+                          />
                         ) : null }
 
-                      <br />
+                        <br />
 
-                      { props?.link !== null ? (
-                        <Image
-                            alt="Preview"
-                            borderRadius="0.3125rem"
-                            src={props?.link}
-                        />
+                        { props?.link !== null ? (
+                          <Image
+                              alt="Preview"
+                              borderRadius="0.3125rem"
+                              src={props?.link}
+                          />
                         ) : null}
+                      </Box>
 
                       {props?.link === null && props?.file === null ? ( 
                         <>
