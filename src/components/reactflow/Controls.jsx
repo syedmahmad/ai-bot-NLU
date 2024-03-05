@@ -4,7 +4,7 @@ import { Box, Text } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
 function WidgetsControl({ addCustomerNode, addBotNode, addLogic }) {
-  const [openWidgetControl, setOpenWidgetControl] = useState(false);
+  const [openWidgetControl, setOpenWidgetControl] = useState(true);
   const [openWidget, setOpenWidget] = useState(false);
   const [openLogic, setOpenLogic] = useState(false);
   const [widgetSelected, setWidgetSelected] = useState('');

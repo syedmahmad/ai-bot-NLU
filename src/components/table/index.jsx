@@ -44,13 +44,13 @@ function TableComponent() {
     },
   });
   // delete flow function
-  const deleteFlow = (item) => {
+  const deleteFlow = (event, item) => {
     mutation.mutate(
       { id: item.id },
       {
-        onError: async () => {
+        onError: async () => {   
           setTimeout(() => {
-            document.getElementsByClassName("chakra-popover__close-btn")[0].click();
+            event.target.parentNode.parentElement.firstElementChild.click();
           }, 50);
           await fetchData()
           toast.success("Flow deleted successfully");

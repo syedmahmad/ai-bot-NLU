@@ -8,12 +8,11 @@ import {
     Button
   } from '@chakra-ui/react';
   import {
-    ReactFlow,
+    ReactFlow, ReactFlowProvider
   } from 'reactflow';
   
   function MiniMapModal(props) {
     const { showMiniMap, setShowMiniMap, nodes, edges, nodeTypes } = props;
-    
     return (
       <Modal
           isOpen={showMiniMap}
@@ -49,24 +48,26 @@ import {
                 position="relative"
                 width="100%"
             >
-              <ReactFlow
-                  edges={edges}
-                  elementsSelectable={false}
-                  fitView
-                  free={false}
-                  nodeTypes={nodeTypes}
-                  nodes={nodes}
-                  nodesConnectable={false}
-                  nodesDraggable={false}  
-                  onPaneClick={false}
-                  onPaneScroll={false}
-                  panOnDrag={false}
-                  panOnScroll={false}
-                  panOnScrollMode={false}
-                  proOptions={{ hideAttribution: true }}
-                  zoomOnDoubleClick={false}
-                  zoomOnScroll={false}
-              />
+              <ReactFlowProvider>
+                <ReactFlow
+                    edges={edges}
+                    elementsSelectable={false}
+                    fitView
+                    free={false}
+                    nodeTypes={nodeTypes}
+                    nodes={nodes}
+                    nodesConnectable={false}
+                    nodesDraggable={false}  
+                    onPaneClick={false}
+                    onPaneScroll={false}
+                    panOnDrag={false}
+                    panOnScroll={false}
+                    panOnScrollMode={false}
+                    proOptions={{ hideAttribution: true }}
+                    zoomOnDoubleClick={false}
+                    zoomOnScroll={false}
+                />
+              </ReactFlowProvider>
             </Box>
 
             <Button

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import { prepareDataForAPIs, prepareDataForReactFlow } from '../../utils/parser';
 import { mongoObjectId } from '../../utils/index';
@@ -15,7 +14,7 @@ import ReactFlow, {
   Controls,
   useStore,
   ControlButton,
-  BackgroundVariant,
+  BackgroundVariant
 } from 'reactflow';
 import RightSidebar from '../rightSidebar';
 import WidgetControls from './Controls';
@@ -77,7 +76,7 @@ function ReactFlowComponent() {
     setCurrentNode(res);
     if (res?.edges?.length === 0 && res?.nodes?.length === 0) {
       return 
-    };
+    }
     const {newEdges, newNodes} = prepareDataForReactFlow(res, onNodeClick, selectedNode);
     // set the edges and nodes that can we display in reactflow..
     setEdges(newEdges);
@@ -97,7 +96,24 @@ function ReactFlowComponent() {
       type: 'input',
       position: { x: 700, y: 10 },
       data: { 
-        label: <Box data-id={id} fontFamily={"Inter"} fontSize={"21px"} fontWeight={400} color={"text.body"} border={"1px solid"} borderColor={"secondary.20"} borderRadius={"5px"} backgroundColor={"white"} width={164} height={54} display={"flex"} justifyContent={"center"} alignItems={"center"}>Start Flow</Box>,
+        label: <Box
+            alignItems="center"
+            backgroundColor="white"
+            border="1px solid"
+            borderColor="secondary.20"
+            borderRadius="5px"
+            color="text.body"
+            data-id={id}
+            display="flex"
+            fontFamily="Inter"
+            fontSize="21px"
+            fontWeight={400}
+            height={54}
+            justifyContent="center"
+            width={164}
+               >
+          Start Flow
+        </Box>,
         type: 'start',
      },
       style: {
@@ -239,7 +255,7 @@ function ReactFlowComponent() {
     setTimeout(() => {
       document.getElementsByClassName('chakra-popover__close-btn')[0].click();
     }, 50);
-    const res = await axios.put(
+    await axios.put(
       `${import.meta.env.VITE_API_URL}/flow_document/${data11.id}`,
       data11
     );
@@ -247,8 +263,6 @@ function ReactFlowComponent() {
 
   // this will remove the watermark
   const proOptions = { hideAttribution: true };
-
-  console.log(nodes, edges);
   return (
     <Box
         style={{ width: 'calc(100vw - 10.90rem)', height: 'calc(100vh - 71px)' }}
@@ -286,7 +300,7 @@ function ReactFlowComponent() {
             position="relative"
             width="calc(100% - 26.75rem)"
         >
-          {showMiniMap === false && (<><ReactFlow
+          <ReactFlow
               edges={edges}
               nodeTypes={nodeTypes}
               nodes={nodes}
@@ -297,46 +311,67 @@ function ReactFlowComponent() {
               onPaneClick={onPaneClick}
               proOptions={proOptions}
           >
-            <Controls showZoom={false} showInteractive={false} showFitView={false} 
-              style={{display: 'flex', width: '106px', height: '28px', borderRadius: '4px', boxShadow: 'none', border: '1px solid #ECECEC', background: '#FFFFFF'}}
-              className={[
+            <Controls
+                className={[
                 isMaxZoom ? "zoom-in-disabled" : "",
                 isMinZoom ? "zoom-out-disabled" : ""
-              ].join(" ")}>
-              <ControlButton style={{ background: 'transparent' }} onClick={() => zoomIn()} disabled={isMaxZoom} className={`react-flow__controls-zoomin ${isMaxZoom ? 'zoom-in-disabled' : ''}`}>
+              ].join(" ")}
+                showFitView={false}
+                showInteractive={false} 
+                showZoom={false}
+                style={{display: 'flex', width: '106px', height: '28px', borderRadius: '4px', boxShadow: 'none', border: '1px solid #ECECEC', background: '#FFFFFF'}}
+            >
+              <ControlButton
+                  className={`react-flow__controls-zoomin ${isMaxZoom ? 'zoom-in-disabled' : ''}`}
+                  disabled={isMaxZoom}
+                  onClick={() => zoomIn()}
+                  style={{ background: 'transparent' }}
+              >
                 +
               </ControlButton>
+
               <ControlButton style={{ background: 'hsla(203, 19%, 92%, 0.4)', width: '35px', height: '16px', margin: '6px', padding: 0, color: '#858585', textAlign: 'center', fontFamily: 'Inter', fontSize: '8px', fontWeight: 400 }}>
                 {`${Math.round(zoomLevel * 100)}%` } 
               </ControlButton>
-              <ControlButton onClick={() => zoomOut()} style={{ background: 'transparent' }} disabled={isMinZoom} className={`react-flow__controls-zoomout ${isMinZoom ? 'zoom-out-disabled' : ''}`}>
+
+              <ControlButton
+                  className={`react-flow__controls-zoomout ${isMinZoom ? 'zoom-out-disabled' : ''}`}
+                  disabled={isMinZoom}
+                  onClick={() => zoomOut()}
+                  style={{ background: 'transparent' }}
+              >
                 -
               </ControlButton>
             </Controls>
+
             <Background
                 backgroundColor="hsla(220, 33%, 98%, 1)"
                 variant={BackgroundVariant.Dots}
             />
           </ReactFlow>
+
           <WidgetControls 
-            addCustomerNode={addCustomerNode} 
-            addBotNode={addBotNode}
-            addLogic={addLogic} 
-            /></>)}
+              addBotNode={addBotNode} 
+              addCustomerNode={addCustomerNode}
+              addLogic={addLogic}
+          />
           
         </Box>
 
         <Box width="26.75rem">
           <RightSidebar 
-            setShowMiniMap={setShowMiniMap} />
+              setShowMiniMap={setShowMiniMap}
+          />
         </Box>
-        {showMiniMap == true && <MiniMap
-          id="my-mini-svg" 
-          edges={edges}
-          nodes={nodes}
-          nodeTypes={nodeTypes}
-          showMiniMap={showMiniMap}
-          setShowMiniMap={setShowMiniMap} />}
+
+        <MiniMap 
+            edges={edges} 
+            id="my-mini-svg"
+            nodeTypes={nodeTypes}
+            nodes={nodes}
+            setShowMiniMap={setShowMiniMap}
+            showMiniMap={showMiniMap}
+        />
       </Box>
     </Box>
   );
