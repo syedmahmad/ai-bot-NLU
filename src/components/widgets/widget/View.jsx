@@ -88,7 +88,7 @@ function ViewComponent({ comps }) {
                             borderRadius="0.3125rem"
                             // src={props?.file}
                             // src={`data:image/png;base64,${props?.file}`}
-                            src={props?.link !== null ? props?.link : `data:image/png;base64,${props?.file}`}
+                            src={`data:image/png;base64,${props?.file}`}
                         />
                         ) : null }
 
