@@ -34,7 +34,6 @@ function TableComponent() {
     fetchData();
   }, []);
 
-
   // delete flow mutation
   const mutation = useMutation({
     mutationFn: async (data) => {
@@ -43,6 +42,7 @@ function TableComponent() {
       );
     },
   });
+  
   // delete flow function
   const deleteFlow = (event, item) => {
     mutation.mutate(

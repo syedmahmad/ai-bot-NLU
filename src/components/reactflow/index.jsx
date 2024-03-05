@@ -140,7 +140,7 @@ function ReactFlowComponent() {
     // calculating dynamic postion of new node so there will be miminum overlaping occure.
     const position = { 
       x: (randomOpr === 'plus') ? selectedNode.position.x + (Math.random()* 500) : selectedNode.position.x - (Math.random()* 500),
-      y: (selectedNode.height > selectedNode.position.y) ? selectedNode.height + Math.floor(Math.random()* (400)+200) : selectedNode.position.y + Math.floor(Math.random()* (400)+200)
+      y: (selectedNode.height + selectedNode.position.y) + Math.floor(Math.random()* (400-200+1)+200)
     };
     // concatinating new node with previous node
     setNodes((prev) => {

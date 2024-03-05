@@ -25,6 +25,13 @@ function WidgetComponent({ data, isConnectable }) {
   const initialFocusRef = React.useRef(null);
   const [comp, setComp] = useState(data?.components || []);
   const { widget, addWidget, selectedComp } = useWidgets();
+
+  // updating original components which are saving in db.
+  useEffect(() => {
+    if(comp.length) {
+      data.components = comp;
+    }
+  }, [comp]);
   
   /* Via Context API, This executes every time the user wanted to add new widget.
       and add that new node in the same node components array, we are maintaining.
