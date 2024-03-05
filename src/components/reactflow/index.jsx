@@ -319,7 +319,7 @@ function ReactFlowComponent() {
                 showFitView={false}
                 showInteractive={false} 
                 showZoom={false}
-                style={{display: 'flex', width: '106px', height: '28px', borderRadius: '4px', boxShadow: 'none', border: '1px solid #ECECEC', background: '#FFFFFF'}}
+                style={{display: 'flex', width: '106px', height: '28px', borderRadius: '4px', bottom: '25px', boxShadow: 'none', border: '1px solid #ECECEC', background: '#FFFFFF'}}
             >
               <ControlButton
                   className={`react-flow__controls-zoomin ${isMaxZoom ? 'zoom-in-disabled' : ''}`}
