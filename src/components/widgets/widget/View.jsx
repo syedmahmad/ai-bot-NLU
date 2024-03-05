@@ -92,6 +92,8 @@ function ViewComponent({ comps }) {
                         />
                         ) : null }
 
+                      <br />
+
                       { props?.link !== null ? (
                         <Image
                             alt="Preview"

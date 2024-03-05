@@ -76,23 +76,32 @@ function ImageBody({ comp, setComp, components}) {
   return(
     <Box
         display="flex"
+        flexDirection="column"
         justifyContent="space-between"
         width="100%"
     >
       {file !== null ? (
-        <>
-          <span onClick={() => setFile(null)}>
-            &#10060;
-          </span>
+        <Box
+            display="flex"
+            justifyContent="space-between"
+            width="100%"
+        >
 
           <Image
               alt="Preview"
               borderRadius="0.3125rem"
             // src={file}
               src={`data:image/png;base64,${file}`}
-              width="93%"
+              width="85%"
           />
-        </>
+
+          <span
+              onClick={() => setFile(null)}
+              style={{width: '10%', fontSize: '12px', cursor: "pointer"}}
+          >
+            &#10060;
+          </span>
+        </Box>
         ) :   <>
           <Text
               color="text.body"
@@ -154,19 +163,30 @@ function ImageBody({ comp, setComp, components}) {
           </Box>
         </>}
 
-      {url !== null ? (<>
-        <span onClick={() => setUrl(null)}>
-          &#10060;
-        </span>
+      <br />
 
-        <Image
-            alt="Preview"
-            borderRadius="0.3125rem"
+      {url !== null ? (
+        <Box 
+            display="flex"
+            justifyContent="space-between"
+            width="100%"
+        >
+          <Image
+              alt="Preview"
+              borderRadius="0.3125rem"
             // src={file}
-            src={url}
-            width="93%"
-        />
-      </>
+              src={url}
+              width="85%"
+          />
+
+          <span
+              onClick={() => setUrl(null)}
+              style={{width: '10%', fontSize: '12px', cursor: "pointer"}}
+          >
+            &#10060;
+          </span>
+
+        </Box>
         ) : <> 
           {' '}
 
@@ -179,7 +199,7 @@ function ImageBody({ comp, setComp, components}) {
 
           <Input
               borderRadius="0.3125rem"
-              onChange={(e) => {setFile(null); setUrl(e.target.value)}}
+              onChange={(e) => {setUrl(e.target.value)}}
               placeholder="Add url here"
               size="sm"
               value={url}
