@@ -103,6 +103,7 @@ function ButtonBody({ comp, setComp, components}) {
           cursor="pointer"
           marginTop="25px"
           onClick={() => deleteNode()}
+          style={{height: 'fit-content'}}
       >
         <Icon
             color='hsla(0, 0%, 85%, 1)'

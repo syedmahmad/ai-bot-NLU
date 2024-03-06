@@ -154,6 +154,7 @@ function ImageBody({ comp, setComp, components}) {
             <Box
                 cursor="pointer"
                 onClick={() => deleteNode()}
+                style={{height: 'fit-content'}}
             >
               <Icon
                   color='hsla(0, 0%, 85%, 1)'

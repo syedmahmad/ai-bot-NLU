@@ -225,35 +225,35 @@ useEffect(() => {
       <Box
           display="flex"
           justifyContent="space-between"
-       
+          position="relative"
       >
         <Box
             width="93%"
         >
           <Editor
-              editorClassName="editor-class"
+              editorClassName="editor-class nopan nodrag"
               editorState={editorState}
               onEditorStateChange={setEditorState}
               placeholder="Add text here"
               ref={ref}
               tabIndex={0}
               toolbar={{
-              image: {
-                alt: { present: true, mandatory: false },
-                previewImage: true,
-                inputAccept: 'svg',
-              },
-              options: ['inline', 'link'],
-              inline: {
-                inDropdown: false,
-                options: ['bold', 'italic', 'underline', 'strikethrough'],
-              },
-              link: {
-                inDropdown: false,
-                options: ['link'],
-              },
-            }}
-              toolbarClassName="toolbar-class"
+                image: {
+                  alt: { present: true, mandatory: false },
+                  previewImage: true,
+                  inputAccept: 'svg',
+                },
+                options: ['inline', 'link'],
+                inline: {
+                  inDropdown: false,
+                  options: ['bold', 'italic', 'underline', 'strikethrough'],
+                },
+                link: {
+                  inDropdown: false,
+                  options: ['link'],
+                },
+              }}
+              toolbarClassName="toolbar-class nopan nodrag"
               toolbarCustomButtons={[
                 <div style={{
                 display: 'flex',
@@ -275,6 +275,7 @@ useEffect(() => {
         <Box
             cursor="pointer"
             onClick={() => deleteNode()}
+            style={{height: 'fit-content'}}
         >
           <Icon
               color='hsla(0, 0%, 85%, 1)'

@@ -113,6 +113,7 @@ function CalendarBody({ comp, setComp, components}) {
           cursor="pointer"
           marginTop="32px"
           onClick={() => deleteNode()}
+          style={{height: 'fit-content'}}
       >
         <Icon
             color='hsla(0, 0%, 85%, 1)'
