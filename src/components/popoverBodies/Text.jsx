@@ -17,6 +17,7 @@ import { stateFromHTML } from 'draft-js-import-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const TextBody = React.forwardRef((props, ref) => {
+  const [showCaptureResponse, setShowCaptureResponse] = useState(false);
   const { comp, components, setComp, type } = props;
   const [convertedContent, setConvertedContent] = useState(comp.props.value === 'Add something here' ? '' : comp.props.value);
   const [editorState, setEditorState] = useState(() => {
@@ -290,15 +291,16 @@ useEffect(() => {
             color="text.body"
             iconColor='blue.400'
             iconSize='1rem'
-            onChange={() => alert('Coming Soon!')}
+            onChange={() => {setShowCaptureResponse(!showCaptureResponse);}}
         >
           {type === "customer_response_node" ?  "Capture response" :  "Question"}
         </Checkbox>
       </Box>
 
-      {type === "customer_response_node" ? <>
+      {type === "customer_response_node" && showCaptureResponse ? <>
         <Box
             marginTop="10px"
+            marginLeft="10px"
             width="93%"
         >
           <Text
@@ -317,6 +319,7 @@ useEffect(() => {
 
         <Box
             marginTop="10px"
+            marginLeft="10px"
             width="93%"
         >
           <Text
