@@ -60,12 +60,13 @@ import {
                     nodesDraggable={false}  
                     onPaneClick={false}
                     onPaneScroll={false}
-                    panOnDrag={false}
-                    panOnScroll={false}
-                    panOnScrollMode={false}
+                    panOnDrag
+                    panOnScroll
                     proOptions={{ hideAttribution: true }}
-                    zoomOnDoubleClick={false}
+                    selectionOnDrag
                     zoomOnScroll={false}
+                    // zoomOnDoubleClick={false}
+                    // panOnScrollMode={false}
                 />
               </ReactFlowProvider>
             </Box>

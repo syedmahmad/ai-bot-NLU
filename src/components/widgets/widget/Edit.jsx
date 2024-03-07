@@ -67,7 +67,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        <Divider />
+                        {comps.length !== 1 ? <Divider /> : null}
                       </>
                     );
                 case 'button_widget':
@@ -109,7 +109,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        <Divider width="100%" />
+                        {comps.length !== 1 ? <Divider width="100%" /> : null}
                       </>
                     );
                 case 'image_widget':
@@ -150,7 +150,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        <Divider width="100%" />
+                        {comps.length !== 1 ? <Divider width="100%" /> : null}
                       </>
                     );
                 case 'calendar_widget':
@@ -191,7 +191,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        <Divider width="100%" />
+                        {comps.length !== 1 ? <Divider width="100%" /> : null}
                       </>
                     );
                 case 'carousel_widget':
@@ -232,7 +232,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        <Divider width="100%" />
+                        {comps.length !== 1 ? <Divider width="100%" /> : null}
                       </>
                     );
                 default:
