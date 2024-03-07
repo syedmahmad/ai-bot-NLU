@@ -12,7 +12,7 @@ function Header() {
         display="flex"
         height="3.1875rem"
         justifyContent="space-between"
-        position="sticky"
+        position="fixed"
         w="100%"
     >
       <Box

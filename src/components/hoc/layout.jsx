@@ -11,6 +11,8 @@ function Layout() {
 
       <Box
           display="flex"
+          marginTop="50px"
+          position="fixed"
           width="100%"
       >
         <Sidebar />
