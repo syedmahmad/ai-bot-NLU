@@ -145,7 +145,7 @@ function ViewComponent({ comps }) {
                             value={props?.value}
                         />
 
-                        <Text
+                        {/* <Text
                             color="#858585"
                             fontFamily="Inter"
                             fontSize="lg"
@@ -153,7 +153,7 @@ function ViewComponent({ comps }) {
                             margin="10px 0px"
                         >
                           Select date on which you want to see your transaction details
-                        </Text>
+                        </Text> */}
                       </Box>
                     );
                 case 'carousel_widget':

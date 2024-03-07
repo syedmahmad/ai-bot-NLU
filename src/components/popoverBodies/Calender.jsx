@@ -39,6 +39,7 @@ function CalendarBody({ comp, setComp, components}) {
         justifyContent="space-between"
     >
       <Box
+          marginLeft="10px"
           width="93%"
       >
 

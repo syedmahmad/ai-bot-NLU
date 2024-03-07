@@ -190,7 +190,6 @@ function TableComponent() {
                 };
               }}
               pagination={false} 
-              sticky
               // pagination={{ 
               //   simple: true,
               //   total: pagination.total,

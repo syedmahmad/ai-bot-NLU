@@ -119,9 +119,9 @@ function WidgetComponent({ data, isConnectable }) {
           style={{ top: 'auto', visibility: 'hidden' }}
           type="target"
       />
-
       <Popover
           isLazy
+          variant="responsive"
           placement={data.type === 'customer_response_node' ? "right-start" : "left-start"}
       >
         <PopoverTrigger>
@@ -165,21 +165,20 @@ function WidgetComponent({ data, isConnectable }) {
         </PopoverTrigger>
 
         <PopoverContent
-          // height="400px"
-          // overflowY="auto"
-          // overflowX={"hidden"}
+          rootProps={{style: {right: 0}}}
           border="1px solid #AADBFF !important"
           boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.10)"
         >
           <PopoverCloseButton style={{display: 'none'}}/>
           <PopoverArrow />
 
-          <PopoverBody paddingBottom="30px">
+          <PopoverBody
+            paddingBottom="30px"
+          >
             <EditComponent initialRef={initialFocusRef} comps={comp} setComp={setComp} node={data}/>
           </PopoverBody>
         </PopoverContent>
       </Popover>
-
       {/* handle={type="source"} means
           (isConnectableStart?) Dictates whether a connection can start from this handle.
       */}

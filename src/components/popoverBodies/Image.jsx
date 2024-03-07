@@ -78,6 +78,7 @@ function ImageBody({ comp, setComp, components}) {
         display="flex"
         flexDirection="column"
         justifyContent="space-between"
+        marginLeft="10px"
         width="100%"
     >
       {file !== null ? (

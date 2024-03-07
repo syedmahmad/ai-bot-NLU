@@ -228,6 +228,7 @@ useEffect(() => {
           position="relative"
       >
         <Box
+            marginLeft="10px"
             width="93%"
         >
           <Editor
@@ -284,7 +285,7 @@ useEffect(() => {
         </Box>
       </Box>
 
-      <Box marginTop="10px">
+      <Box marginTop="10px" marginLeft="10px">
         <Checkbox
             color="text.body"
             iconColor='blue.400'
@@ -338,6 +339,7 @@ useEffect(() => {
         <Divider
             borderColor="#D8D8D8"
             marginTop="10px"
+            marginLeft="10px"
             width="93%"
         />
 
