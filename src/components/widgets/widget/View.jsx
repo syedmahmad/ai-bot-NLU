@@ -110,25 +110,14 @@ function ViewComponent({ comps }) {
                       </Box>
 
                       {props?.link === null && props?.file === null ? ( 
-                        <>
-                          <Image 
-                              alt="Preview"
-                              borderRadius="0.3125rem"
-                              height="300px"
-                              objectFit="contain"
-                              src="/jpgs/dummy-image-square.jpeg"
-                              width="100%"
-                          />
-
-                          <Button
-                              _hover={{ backgroundColor: 'primary.90', color: "white" }}
-                              colorScheme='button'
-                              fontSize="xs"
-                              variant="outline"
-                          >
-                            Upload Image
-                          </Button>
-                        </>
+                        <Image 
+                            alt="Preview"
+                            borderRadius="0.3125rem"
+                            height="300px"
+                            objectFit="contain"
+                            src="/jpgs/dummy-image-square.jpeg"
+                            width="100%"
+                        />
                       ) : null}
 
                     </Box>);
@@ -145,15 +134,6 @@ function ViewComponent({ comps }) {
                             value={props?.value}
                         />
 
-                        {/* <Text
-                            color="#858585"
-                            fontFamily="Inter"
-                            fontSize="lg"
-                            fontWeight={400}
-                            margin="10px 0px"
-                        >
-                          Select date on which you want to see your transaction details
-                        </Text> */}
                       </Box>
                     );
                 case 'carousel_widget':
