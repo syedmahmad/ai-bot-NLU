@@ -1,14 +1,11 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { Handle, Position } from 'reactflow';
-import { Icon } from '@iconify/react';
 import {
   Box,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
-  PopoverHeader,
   PopoverTrigger,
   PopoverCloseButton
 } from '@chakra-ui/react';
@@ -86,25 +83,24 @@ function WidgetComponent({ data, isConnectable }) {
     }
   };
 
-  const getPopOverHeading = (typeName) => {
-    console.log(typeName);
-    switch (typeName) {
-      case 'logic_widget':
-        return 'Conditions'
-      case 'text_widget':
-        return 'Text Input'
-      case 'button_widget':
-        return 'Button'
-      case 'image_widget':
-        return 'Image'
-      case 'calendar_widget':
-        return 'Calendar'
-      case 'carousel_widget':
-        return 'Carousel'
-      default:
-        return 'Text'
-    }
-  }
+  // const getPopOverHeading = (typeName) => {
+  //   switch (typeName) {
+  //     case 'logic_widget':
+  //       return 'Conditions'
+  //     case 'text_widget':
+  //       return 'Text Input'
+  //     case 'button_widget':
+  //       return 'Button'
+  //     case 'image_widget':
+  //       return 'Image'
+  //     case 'calendar_widget':
+  //       return 'Calendar'
+  //     case 'carousel_widget':
+  //       return 'Carousel'
+  //     default:
+  //       return 'Text'
+  //   }
+  // }
 
 
   return (
@@ -119,45 +115,68 @@ function WidgetComponent({ data, isConnectable }) {
           style={{ top: 'auto', visibility: 'hidden' }}
           type="target"
       />
+
       <Popover
           isLazy
-          variant="responsive"
           placement={data.type === 'customer_response_node' ? "right-start" : "left-start"}
+          variant="responsive"
       >
         <PopoverTrigger>
-          <Box display='flex' flexDirection={data.type === 'customer_response_node' ? "row-reverse" : "row"} justifyContent='space-between' alignItems='center'>
           <Box
-              onClick={handleClick}
-              style={{
+              alignItems='center'
+              display='flex'
+              flexDirection={data.type === 'customer_response_node' ? "row-reverse" : "row"}
+              justifyContent='space-between'
+          >
+            <Box
+                onClick={handleClick}
+                style={{
                 background: 'transparent',
                 height: 'fit-content',
                 width: '325px',
                 marginTop: '10px' 
               }}
-          >
-            <Box
-                background={data.type === 'customer_response_node' ? "#FCD8E0" : "#D1EAFE"}
-                borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
-                padding={4}
-                width="100%"
             >
               <Box
-                  background="#fff"
+                  background={data.type === 'customer_response_node' ? "#FCD8E0" : "#D1EAFE"}
                   borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
-                  margin="6px 0px"
-                  minHeight="68px"
+                  padding={4}
                   width="100%"
-              > 
-                <ViewComponent comps={comp} />
+              >
+                <Box
+                    background="#fff"
+                    borderRadius={data.type === 'customer_response_node' ?  "17.487px 17.487px 17.487px 0px" : "17.487px 17.487px 0px 17.487px"}
+                    margin="6px 0px"
+                    minHeight="68px"
+                    width="100%"
+                > 
+                  <ViewComponent comps={comp} />
+                </Box>
               </Box>
             </Box>
-          </Box>
-          {data.type === 'customer_response_node' ? (
-            <Box width='35px'  height='35px' position="absolute" bottom="2" left={"-12"} marginLeft={"0px"} marginRight={"10px"}>
-              <CustomerIcon /> 
-            </Box>
+
+            {data.type === 'customer_response_node' ? (
+              <Box
+                  bottom="2"
+                  height='35px'
+                  left="-12"
+                  marginLeft="0px"
+                  marginRight="10px"
+                  position="absolute"
+                  width='35px'
+              >
+                <CustomerIcon /> 
+              </Box>
           ) : (
-            <Box width='35px'  position="absolute" bottom="2" right={"-12"}  height='35px' marginLeft={"10px"} marginRight={"0px"}>
+            <Box
+                bottom="2"
+                height='35px'
+                marginLeft="10px"
+                marginRight="0px"
+                position="absolute"
+                right="-12"
+                width='35px'
+            >
               <BotIcon />
             </Box>
           )}
@@ -165,20 +184,27 @@ function WidgetComponent({ data, isConnectable }) {
         </PopoverTrigger>
 
         <PopoverContent
-          rootProps={{style: {right: 0}}}
-          border="1px solid #AADBFF !important"
-          boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.10)"
+            border="1px solid #AADBFF !important"
+            boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.10)"
+            rootProps={{style: {right: 0}}}
         >
-          <PopoverCloseButton style={{display: 'none'}}/>
+          <PopoverCloseButton style={{display: 'none'}} />
+
           <PopoverArrow />
 
           <PopoverBody
-            paddingBottom="30px"
+              paddingBottom="30px"
           >
-            <EditComponent initialRef={initialFocusRef} comps={comp} setComp={setComp} node={data}/>
+            <EditComponent
+                comps={comp}
+                initialRef={initialFocusRef}
+                node={data}
+                setComp={setComp}
+            />
           </PopoverBody>
         </PopoverContent>
       </Popover>
+
       {/* handle={type="source"} means
           (isConnectableStart?) Dictates whether a connection can start from this handle.
       */}

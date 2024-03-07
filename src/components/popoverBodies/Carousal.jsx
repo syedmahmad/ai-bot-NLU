@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -85,7 +84,7 @@ function CarousalBody({ comp, components, setComp }) {
           justifyContent="space-between"
       >
         <Box
-            width="93%"
+            width="97%"
         >
 
           <Accordion
@@ -110,11 +109,10 @@ function CarousalBody({ comp, components, setComp }) {
         </Box>
       </Box>
 
-      <br />
-
       <Box 
           display="flex"
           justifyContent="right"
+          marginRight="15px"
       >
         <Button
             _hover={{ backgroundColor: 'primary.90' }}
@@ -164,8 +162,8 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
   useEffect(() => {
     const contentState = editorState.getCurrentContent();
     contentState.getBlockMap().forEach(block => {
-      const text = block.getText();
-      const inlineStyles = block.getInlineStyleAt(0).toJS();
+      block.getText();
+      block.getInlineStyleAt(0).toJS();
     });
     const html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);
@@ -446,7 +444,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
               >
                 <Box
                     alignItems="center"
-                    backgroundColor="background.flowDiagram"
+                    backgroundColor="white"
                     border="0.5px solid"
                     borderColor="stroke.table"
                     borderRadius="0.3125rem"
@@ -463,6 +461,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
                       color="primary.100"
                       height="1.75rem"
                       onClick={() => document.getElementById("file-carousal").click()}
+                      variant="outline"
                       width="7.375rem"
                   >
                     Upload
@@ -545,7 +544,7 @@ function AccordionChildItems({cards, setCards, card, setSelectedCard, selectedCa
 
           <br />
 
-          <Box>
+          <Box marginLeft="5px">
             <Checkbox
                 color="text.body"
                 iconColor='blue.400'

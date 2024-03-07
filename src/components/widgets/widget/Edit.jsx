@@ -67,7 +67,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        {comps.length !== 1 ? <Divider /> : null}
+                        {comps[comps.length-1].type === comp.type ? null : <Divider /> }
                       </>
                     );
                 case 'button_widget':
@@ -109,7 +109,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        {comps.length !== 1 ? <Divider width="100%" /> : null}
+                        {comps[comps.length-1].type === comp.type ? null : <Divider width="100%" /> }
                       </>
                     );
                 case 'image_widget':
@@ -150,7 +150,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        {comps.length !== 1 ? <Divider width="100%" /> : null}
+                        {comps[comps.length-1].type === comp.type ? null : <Divider width="100%" /> }
                       </>
                     );
                 case 'calendar_widget':
@@ -191,7 +191,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        {comps.length !== 1 ? <Divider width="100%" /> : null}
+                        {comps[comps.length-1].type === comp.type ? null : <Divider width="100%" /> }
                       </>
                     );
                 case 'carousel_widget':
@@ -232,7 +232,7 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           />
                         </Box>
 
-                        {comps.length !== 1 ? <Divider width="100%" /> : null}
+                        {comps[comps.length-1].type === comp.type ? null : <Divider width="100%" /> }
                       </>
                     );
                 default:

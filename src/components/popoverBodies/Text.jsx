@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -16,6 +15,7 @@ import { stateFromHTML } from 'draft-js-import-html';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
+/* eslint-disable react/display-name */
 const TextBody = React.forwardRef((props, ref) => {
   const [showCaptureResponse, setShowCaptureResponse] = useState(false);
   const { comp, components, setComp, type } = props;
@@ -28,8 +28,8 @@ const TextBody = React.forwardRef((props, ref) => {
   useEffect(() => {
     const contentState = editorState.getCurrentContent();
     contentState.getBlockMap().forEach(block => {
-      const text = block.getText();
-      const inlineStyles = block.getInlineStyleAt(0).toJS();
+      block.getText();
+      block.getInlineStyleAt(0).toJS();
     });
     const html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);
@@ -286,7 +286,10 @@ useEffect(() => {
         </Box>
       </Box>
 
-      <Box marginTop="10px" marginLeft="10px">
+      <Box
+          marginLeft="10px"
+          marginTop="10px"
+      >
         <Checkbox
             color="text.body"
             iconColor='blue.400'
@@ -299,8 +302,8 @@ useEffect(() => {
 
       {type === "customer_response_node" && showCaptureResponse ? <>
         <Box
-            marginTop="10px"
             marginLeft="10px"
+            marginTop="10px"
             width="93%"
         >
           <Text
@@ -318,8 +321,8 @@ useEffect(() => {
         </Box>
 
         <Box
-            marginTop="10px"
             marginLeft="10px"
+            marginTop="10px"
             width="93%"
         >
           <Text
@@ -339,30 +342,30 @@ useEffect(() => {
 
       {type !== "customer_response_node" && (
         <>
-        <Divider
-            borderColor="#D8D8D8"
-            marginTop="10px"
-            marginLeft="10px"
-            width="93%"
-        />
+          <Divider
+              borderColor="#D8D8D8"
+              marginLeft="10px"
+              marginTop="10px"
+              width="93%"
+          />
 
-        <Box
-            display="flex"
-            justifyContent="right"
-            marginTop="10px"
-            width="93%"
-        >
-          <Button
-              _hover={{ backgroundColor: 'primary.90' }}
-              backgroundColor="primary.100"
-              color="white"
-              onClick={() => alert('Coming Soon!')}
-              size="sm"
-              width="118px"
+          <Box
+              display="flex"
+              justifyContent="right"
+              marginTop="10px"
+              width="93%"
           >
-            Add Variant
-          </Button>
-        </Box>
+            <Button
+                _hover={{ backgroundColor: 'primary.90' }}
+                backgroundColor="primary.100"
+                color="white"
+                onClick={() => alert('Coming Soon!')}
+                size="sm"
+                width="118px"
+            >
+              Add Variant
+            </Button>
+          </Box>
         </>
       )}
     </>

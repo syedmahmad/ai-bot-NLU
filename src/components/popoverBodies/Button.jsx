@@ -53,6 +53,7 @@ function ButtonBody({ comp, setComp, components}) {
 
         <Input
             borderRadius="0.3125rem"
+            height="40px"
             marginBottom="10px"
             onChange={(e) => setBtnLabel(e.target.value)}
             placeholder="Type here"

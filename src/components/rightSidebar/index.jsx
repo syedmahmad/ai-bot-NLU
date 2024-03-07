@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Box, Text, Select, Input } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import {
@@ -6,6 +5,7 @@ import {
 } from 'reactflow';
 
 function RightSidebar(props) {
+  const { setShowMiniMap } = props;
   const nodeColor = (node) => {
     switch (node.data.type) {
       case 'customer_response_node':
@@ -50,13 +50,13 @@ function RightSidebar(props) {
             display="flex"
             height="1.375rem"
             justifyContent="center"
+            onClick={() => setShowMiniMap(true)}
             width="1.375rem"
-            onClick={() => props.setShowMiniMap(true)}
         >
           <Icon
               color="hsla(0, 0%, 52%, 1)"
               icon="lucide:expand"
-          ></Icon>
+          />
         </Box>
       </Box>
 
@@ -70,9 +70,10 @@ function RightSidebar(props) {
 
       >
         <MiniMap
+            fill="white"
             nodeColor={nodeColor}
             nodeStrokeWidth={3}
-            fill="white"
+            pannable
             style={{
               top: "0",
               left: "0",
@@ -82,7 +83,6 @@ function RightSidebar(props) {
               height: '375',
               fill: 'white'
             }}
-            pannable
             zoomable
         />
       </Box>
@@ -121,8 +121,8 @@ function RightSidebar(props) {
             <Select
                 backgroundColor="white"
                 color="text.menu"
-                height="1.75rem"
                 fontSize="8px"
+                height="1.75rem"
                 marginTop="-3px"
                 placeholder="Select Channel"
                 width="10.75rem"

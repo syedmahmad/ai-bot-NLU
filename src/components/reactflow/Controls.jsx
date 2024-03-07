@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
@@ -27,15 +26,26 @@ function WidgetsControl({ addCustomerNode, addBotNode, addLogic }) {
           top={300}
           width="3.5rem"
       >
-        {openWidgetControl ? <Box _hover={{ cursor: 'pointer'}} onClick={() => handlelCloseAll()}><Icon icon="tdesign:chevron-right-double" /></Box> : <Box _hover={{ cursor: 'pointer'}} onClick={() => setOpenWidgetControl(true)}><Icon icon="tdesign:chevron-left-double"/></Box> }
+        {openWidgetControl ? <Box
+            _hover={{ cursor: 'pointer'}}
+            onClick={() => handlelCloseAll()}
+                             >
+          <Icon icon="tdesign:chevron-right-double" />
+        </Box> : <Box
+            _hover={{ cursor: 'pointer'}}
+            onClick={() => setOpenWidgetControl(true)}
+                 >
+          <Icon icon="tdesign:chevron-left-double" />
+        </Box> }
       </Box>
-      {openWidgetControl && (<Box
+
+      {openWidgetControl ? <Box
           height="23.4375rem"
           position="absolute"
           right={10}
           top={10}
           width="3.5rem"
-      >
+                           >
         <Box
             alignContent="center"
             backgroundColor="white"
@@ -305,7 +315,7 @@ function WidgetsControl({ addCustomerNode, addBotNode, addLogic }) {
             </Box>
           </Box>
         </Box>
-      </Box>)}
+      </Box> : null}
 
       {openWidgetControl && openLogic ? (
         <Box
