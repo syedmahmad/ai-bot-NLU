@@ -64,7 +64,7 @@ function ReactFlowComponent() {
     // Change the height attribute
     svgElement.setAttribute('height', 'inherit'); 
     if (navigator.userAgent.indexOf("Firefox") != -1) {
-      svgElement.style.maxHeight = '175px';
+      svgElement.style.maxHeight = '150px';
     } else {
       svgElement.style.maxHeight = '285px';
     }
