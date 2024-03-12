@@ -79,7 +79,7 @@ function WidgetComponent({ data, isConnectable }) {
     if (initialFocusRef.current) {
       setTimeout(() => {
         document.getElementsByClassName('chakra-popover__close-btn')[0].click();
-      }, 50);
+      }, 10);
     }
   };
 
