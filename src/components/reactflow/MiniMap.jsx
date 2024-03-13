@@ -8,11 +8,14 @@ import {
     Button
   } from '@chakra-ui/react';
   import {
-    ReactFlow, ReactFlowProvider
+    ReactFlow, useReactFlow
   } from 'reactflow';
   
   function MiniMapModal(props) {
+    const { setViewport } = useReactFlow();
     const { showMiniMap, setShowMiniMap, nodes, edges, nodeTypes } = props;
+
+
     return (
       <Modal
           isOpen={showMiniMap}
@@ -25,7 +28,7 @@ import {
         <ModalContent
             alignSelf="center"
             display="flex"
-            maxW="1200px"
+            maxW="1400px"
             padding="0px"
         >
   
@@ -43,32 +46,30 @@ import {
                 backgroundColor="white"
                 border="1px solid"
                 borderColor="stroke.menuOrCard"
-                height="80vh"
+                height="85vh"
                 overflow="hidden"
                 position="relative"
                 width="100%"
             >
-              <ReactFlowProvider>
-                <ReactFlow
-                    edges={edges}
-                    elementsSelectable={false}
-                    fitView
-                    free={false}
-                    nodeTypes={nodeTypes}
-                    nodes={nodes}
-                    nodesConnectable={false}
-                    nodesDraggable={false}  
-                    onPaneClick={false}
-                    onPaneScroll={false}
-                    panOnDrag
-                    panOnScroll
-                    proOptions={{ hideAttribution: true }}
-                    selectionOnDrag
-                    zoomOnScroll={false}
-                    // zoomOnDoubleClick={false}
-                    // panOnScrollMode={false}
-                />
-              </ReactFlowProvider>
+              <ReactFlow
+                  edges={edges}
+                  elementsSelectable={false}
+                  fitView
+                  free={false}
+                  nodeTypes={nodeTypes}
+                  nodes={nodes}
+                  nodesConnectable={false}
+                  nodesDraggable={false}
+                  onInit={() => setViewport({ x: 400, y: 10, zoom: 0.35 }, { duration: 100 })}
+                  onPaneClick={() => {}}
+                  onPaneScroll={() => {}}
+                  panOnDrag={false}
+                  panOnScroll={false}
+                  proOptions={{ hideAttribution: true }}
+                  selectionOnDrag
+                  zoomOnScroll={false}  
+                  // onMove={handleMove}
+              />
             </Box>
 
             <Button

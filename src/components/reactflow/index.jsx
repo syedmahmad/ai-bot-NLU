@@ -14,7 +14,8 @@ import ReactFlow, {
   Controls,
   useStore,
   ControlButton,
-  BackgroundVariant
+  BackgroundVariant,
+  ReactFlowProvider
 } from 'reactflow';
 import RightSidebar from '../rightSidebar';
 import WidgetControls from './Controls';
@@ -369,14 +370,16 @@ function ReactFlowComponent() {
           />
         </Box>
 
-        <MiniMap 
-            edges={edges} 
-            id="my-mini-svg"
-            nodeTypes={nodeTypes}
-            nodes={nodes}
-            setShowMiniMap={setShowMiniMap}
-            showMiniMap={showMiniMap}
-        />
+        <ReactFlowProvider>
+          <MiniMap 
+              edges={edges} 
+              id="my-mini-svg"
+              nodeTypes={nodeTypes}
+              nodes={nodes}
+              setShowMiniMap={setShowMiniMap}
+              showMiniMap={showMiniMap}
+          />
+        </ReactFlowProvider>
       </Box>
     </Box>
   );
