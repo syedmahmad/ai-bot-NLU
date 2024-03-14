@@ -64,14 +64,22 @@ const TextBody = React.forwardRef((props, ref) => {
           marginLeft="10px"
           marginTop="10px"
       >
-        <Checkbox
+        {type === "customer_response_node" ? <Checkbox
             color="text.body"
             iconColor='blue.400'
             iconSize='1rem'
             onChange={() => {setShowCaptureResponse(!showCaptureResponse);}}
         >
-          {type === "customer_response_node" ?  "Capture response" :  "Question"}
+          Capture response
+        </Checkbox> : <Checkbox
+            color="text.body"
+            iconColor='blue.400'
+            iconSize='1rem'
+            onChange={() => alert("fdsafdasfasf")}
+        >
+          Question
         </Checkbox>
+        }
       </Box>
 
       {type === "customer_response_node" && showCaptureResponse ? <>
