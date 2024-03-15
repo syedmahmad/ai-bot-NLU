@@ -22,7 +22,6 @@ function ViewComponent({ comps }) {
   return (
     <Box
         alignItems="center"
-        className='nopan nodrag'
         display="flex"
         flexDirection="column"
         // height="300px"

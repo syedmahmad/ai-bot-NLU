@@ -49,7 +49,30 @@ const TextBody = (props) => {
          editorList={editorList}
 
          />)}
-        <br/>
+          <Box
+          marginTop={"10px"}
+          >
+            {type === "customer_response_node" ? <Checkbox
+                color="text.body"
+                iconColor='blue.400'
+                iconSize='1rem'
+                onChange={() => {setShowCaptureResponse(!showCaptureResponse);}}
+            >
+              Capture response
+            </Checkbox> : <Checkbox
+            color="text.body"
+            iconColor='#FF5574'
+            _checked={{
+              "& .chakra-checkbox__control": { background: "white", border: "2px solid #ECECEC", outline:"none", borderRadius:'2px' }
+            }} 
+            iconSize='1rem'
+            onChange={() => setShowFallBack(prevState => !prevState)}
+        >
+          Question
+        </Checkbox>
+        }
+      </Box>
+      <Box marginTop={"20px"}>
         {/* Here i will show fallback message editor */}
         {showFallBack && (<>
           <FallBackMessageEditor  fallBackMsgOne={fallBackMsgOne} setFallBackMsgOne={setFallBackMsgOne} comp={comp} 
@@ -57,6 +80,7 @@ const TextBody = (props) => {
          <FallBackMessageEditorOne  fallBackMsgTwo={fallBackMsgTwo} setFallBackMsgTwo={setFallBackMsgTwo} comp={comp} 
          components={components} setComp={setComp} />
         </>)}
+        </Box>
         </Box>
         <Box
             cursor="pointer"
@@ -70,27 +94,6 @@ const TextBody = (props) => {
         </Box>
       </Box>
 
-      <Box
-          marginLeft="10px"
-          marginTop="10px"
-      >
-        {type === "customer_response_node" ? <Checkbox
-            color="text.body"
-            iconColor='blue.400'
-            iconSize='1rem'
-            onChange={() => {setShowCaptureResponse(!showCaptureResponse);}}
-        >
-          Capture response
-        </Checkbox> : <Checkbox
-            color="text.body"
-            iconColor='blue.400'
-            iconSize='1rem'
-            onChange={() => setShowFallBack(prevState => !prevState)}
-        >
-          Question
-        </Checkbox>
-        }
-      </Box>
 
       {type === "customer_response_node" && showCaptureResponse ? <>
         <Box
@@ -385,45 +388,45 @@ useEffect(() => {
   return(
     <>
     <Editor
-    editorClassName="editor-class nopan nodrag"
-    editorState={editorState}
-    onEditorStateChange={setEditorState}
-    placeholder="Add text here"
-    tabIndex={0}
-    toolbar={{
-      image: {
-        alt: { present: true, mandatory: false },
-        previewImage: true,
-        inputAccept: 'svg',
-      },
-      options: ['inline', 'link'],
-      inline: {
-        inDropdown: false,
-        options: ['bold', 'italic', 'underline', 'strikethrough'],
-      },
-      link: {
-        inDropdown: false,
-        options: ['link'],
-      },
-    }}
-    toolbarClassName="toolbar-class nopan nodrag"
-    toolbarCustomButtons={[
-      <div style={{
-      display: 'flex',
-      alignItems: 'center'
-    }}
-      >
-        <div
-            className="insert-entity"
-            onClick={() => alert('Coming Soon!')}
-        >
-          Insert Entity
-        </div>
-      </div>,
-  ]}
-    wrapperClassName="wrapper-class"
-/>
-<br/>
+          editorClassName="editor-class nopan nodrag"
+          editorState={editorState}
+          onEditorStateChange={setEditorState}
+          placeholder="Add text here"
+          tabIndex={0}
+          toolbar={{
+            image: {
+              alt: { present: true, mandatory: false },
+              previewImage: true,
+              inputAccept: 'svg',
+            },
+            options: ['inline', 'link'],
+            inline: {
+              inDropdown: false,
+              options: ['bold', 'italic', 'underline', 'strikethrough'],
+            },
+            link: {
+              inDropdown: false,
+              options: ['link'],
+            },
+          }}
+            toolbarClassName="toolbar-class nopan nodrag"
+            toolbarCustomButtons={[
+              <div style={{
+              display: 'flex',
+              alignItems: 'center'
+            }}
+              >
+              <div
+                  className="insert-entity"
+                  onClick={() => alert('Coming Soon!')}
+              >
+                Insert Entity
+              </div>
+            </div>,
+        ]}
+          wrapperClassName="wrapper-class"
+      />
+      <div style={{margin: "20px 0"}}></div>
 </>
   )
 }
@@ -624,7 +627,7 @@ useEffect(() => {
 
   return(
     <>
-    <Text>Fall Back Message 1</Text>
+    <Text color="text.body" fontSize={"10px"}>Fall Back Message 1</Text>
     <Editor
     editorClassName="editor-class nopan nodrag"
     editorState={editorState}
@@ -865,7 +868,7 @@ useEffect(() => {
 
   return(
     <>
-    <Text>Fall Back Message 2</Text>
+    <Text color="text.body" fontSize={"10px"}>Fall Back Message 2</Text>
     <Editor
     editorClassName="editor-class nopan nodrag"
     editorState={editorState}
