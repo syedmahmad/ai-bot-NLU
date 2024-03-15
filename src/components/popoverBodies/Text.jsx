@@ -31,6 +31,7 @@ const TextBody = (props) => {
     const newData = components.filter((data) => data.order !== comp.order);
     setComp(newData);
   };
+
   return (
     <>
       <Box
@@ -337,56 +338,81 @@ const EditorComponent = ({comp, components, setComp, setEditorList, index, item,
     setEditorState(editorStateWithSelection);
   }, []);
 
-useEffect(() => {
-  const contentState = editorState.getCurrentContent();
-  let html = '';
+  useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    let html = '';
 
-  contentState.getBlockMap().forEach(block => {
-    let blockHtml = '';
+    contentState.getBlockMap().forEach(block => {
+      let blockHtml = '';
 
-    // Get block text
-    const text = block.getText();
+      // Get block text
+      const text = block.getText();
 
-    // Check if block has any inline styles
-    if (block.getInlineStyleAt(0).size !== 0) {
-      // Apply inline styles
-      blockHtml += text.split('').map((char, index) => {
-        const styles = block.getInlineStyleAt(index);
-        let styledChar = char;
-        styles.forEach(style => {
-          switch (style) {
-            case 'BOLD':
-              styledChar = `<strong>${styledChar}</strong>`;
-              break;
-            case 'ITALIC':
-              styledChar = `<em>${styledChar}</em>`;
-              break;
-            case 'UNDERLINE':
-              styledChar = `<u>${styledChar}</u>`;
-              break;
-            case 'STRIKETHROUGH':
-              styledChar = `<s>${styledChar}</s>`;
-              break;
-            default:
-              break;
-          }
-        });
-        return styledChar;
-      }).join('');
-    } else {
-      // No inline styles, use plain text
-      blockHtml = text;
-    }
+      // Check if block has any inline styles
+      if (block.getInlineStyleAt(0).size !== 0) {
+        // Apply inline styles
+        blockHtml += text.split('').map((char, index) => {
+          const styles = block.getInlineStyleAt(index);
+          let styledChar = char;
+          styles.forEach(style => {
+            switch (style) {
+              case 'BOLD':
+                styledChar = `<strong>${styledChar}</strong>`;
+                break;
+              case 'ITALIC':
+                styledChar = `<em>${styledChar}</em>`;
+                break;
+              case 'UNDERLINE':
+                styledChar = `<u>${styledChar}</u>`;
+                break;
+              case 'STRIKETHROUGH':
+                styledChar = `<s>${styledChar}</s>`;
+                break;
+              default:
+                break;
+            }
+          });
+          return styledChar;
+        }).join('');
+      } else {
+        // No inline styles, use plain text
+        blockHtml = text;
+      }
 
-    html += `<p>${blockHtml}</p>`;
-  });
+      html += `<p>${blockHtml}</p>`;
+    });
 
-  html = replaceEmptyPTagWithBrTa(html);
-  setConvertedContent(html);
-}, [editorState]);
+    html = replaceEmptyPTagWithBrTa(html);
+    setConvertedContent(html);
+  }, [editorState]);
+
+  const deleteVariant = (editorIndex) => {
+    delete editorList[editorIndex];
+    setEditorList(editorList);
+    
+    const clearArray = editorList.filter(i => i);
+    const firstEditor = clearArray[0];
+    // Remove the first item from clearArray to only store the variants in the variants array.
+    const updatedEditorList = clearArray.slice(1);
+    const variants = updatedEditorList.map((item) => item);
+    const arr = components?.map((item) => {
+      if (item.order === comp.order) {
+        item.props = {
+          ...item.props,
+          value: firstEditor
+        };
+        item.variants = variants
+      }
+      return item
+    });
+    setComp(arr);
+  }
 
   return(
-    <>
+    <Box
+      display="flex"
+      margin={index !== 0 ? "20px 0px" : "0px"}
+    >
     <Editor
           editorClassName="editor-class nopan nodrag"
           editorState={editorState}
@@ -426,8 +452,17 @@ useEffect(() => {
         ]}
           wrapperClassName="wrapper-class"
       />
-      <div style={{margin: "20px 0"}}></div>
-</>
+    {index !== 0 && <Box
+        cursor="pointer"
+        onClick={() => deleteVariant(index)}
+        style={{height: 'fit-content'}}
+    >
+      <Icon
+          color='hsla(0, 0%, 85%, 1)'
+          icon="ic:outline-delete"
+      />
+    </Box>}
+    </Box>
   )
 }
 

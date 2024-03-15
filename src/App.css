@@ -118,3 +118,7 @@ tbody > tr > td {
 .rdw-option-active{
   background: #D8D8D8 !important;
 }
+
+.rdw-editor-main{
+  overflow: hidden;
+}
