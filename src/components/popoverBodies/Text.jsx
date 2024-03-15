@@ -21,6 +21,9 @@ const TextBody = React.forwardRef((props, ref) => {
   const [showCaptureResponse, setShowCaptureResponse] = useState(false);
   const { comp, components, setComp, type } = props;
   const [editorList, setEditorList] = useState(comp.props.value === 'Add something here' ? [comp.props.value] : [comp.props.value, ...comp.variants]);
+  const [showFallBack,setShowFallBack] = useState(false)
+  const [fallBackMsgOne, setFallBackMsgOne] = useState(comp.fallback_messages ? comp.fallback_messages[0] : '');
+  const [fallBackMsgTwo, setFallBackMsgTwo] = useState(comp.fallback_messages ? comp?.fallback_messages[1] : '');
   const deleteNode = () => {
     if (components.length === 1) {
       alert("Node should contain at least 1 widget!");
@@ -47,6 +50,14 @@ const TextBody = React.forwardRef((props, ref) => {
          editorList={editorList}
 
          />)}
+        <br/>
+        {/* Here i will show fallback message editor */}
+        {showFallBack && (<>
+          <FallBackMessageEditor  fallBackMsgOne={fallBackMsgOne} setFallBackMsgOne={setFallBackMsgOne} comp={comp} 
+         components={components} setComp={setComp} />
+         <FallBackMessageEditorOne  fallBackMsgTwo={fallBackMsgTwo} setFallBackMsgTwo={setFallBackMsgTwo} comp={comp} 
+         components={components} setComp={setComp} />
+        </>)}
         </Box>
         <Box
             cursor="pointer"
@@ -75,7 +86,7 @@ const TextBody = React.forwardRef((props, ref) => {
             color="text.body"
             iconColor='blue.400'
             iconSize='1rem'
-            onChange={() => alert("fdsafdasfasf")}
+            onChange={() => setShowFallBack(prevState => !prevState)}
         >
           Question
         </Checkbox>
@@ -426,3 +437,484 @@ useEffect(() => {
   )
 }
 
+const FallBackMessageEditor = ({comp, components, setComp, fallBackMsgOne, setFallBackMsgOne}) => {
+  const [convertedContent, setConvertedContent] = useState(fallBackMsgOne);
+  const [editorState, setEditorState] = useState(() => {
+    const contentState = stateFromHTML(convertedContent);
+    return EditorState.createWithContent(contentState);
+  });
+
+  useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    contentState.getBlockMap().forEach(block => {
+      block.getText();
+      block.getInlineStyleAt(0).toJS();
+    });
+    const html = convertToHTML(editorState.getCurrentContent());
+    // setting new editor state based on index
+    setFallBackMsgOne(html);
+    setConvertedContent(html);
+  }, [editorState]);
+
+  useEffect(() => {
+    const arr = components?.map((item) => {
+      if (item.order === comp.order) {
+        item.props = {
+          ...item.props,
+          value: item.props.value
+        };
+        try {
+          item.fallback_messages = [convertedContent, item.fallback_messages[1]];
+        } catch(error) {
+          item.fallback_messages = [convertedContent, ''];
+        }
+      }
+      return item
+    });
+    setComp(arr);
+  }, [convertedContent]);
+
+
+  const moveSelectionToEnd = (editorState) => {
+    const contentState = editorState.getCurrentContent();
+    const blockMap = contentState.getBlockMap();
+    const lastBlock = blockMap.last();
+    const currentSelection = editorState.getSelection();
+
+    // If the cursor is already at the end, do nothing
+    if (
+      currentSelection.getAnchorKey() === lastBlock.getKey() &&
+      currentSelection.getAnchorOffset() === lastBlock.getLength()
+    ) {
+      return editorState;
+    }
+
+    // Create a selection at the end of the content
+    const selection = new SelectionState({
+      anchorKey: lastBlock.getKey(),
+      anchorOffset: lastBlock.getLength(),
+      focusKey: lastBlock.getKey(),
+      focusOffset: lastBlock.getLength() + 1,
+      // focusOffset: contentState.getBlockForKey(currentSelection.getAnchorKey()).getLength() + 1,
+
+    });
+
+    // Use Modifier to set the content of the last block to end with a space
+    const contentWithSpace = Modifier.replaceText(
+      contentState,
+      selection,
+      ' '
+    );
+
+    // Apply the updated content to the editor state
+    const newEditorState = EditorState.push(
+      editorState,
+      contentWithSpace,
+      'insert-characters'
+    );
+
+    // Move the selection to the end
+    const editorStateWithSelection = EditorState.forceSelection(
+      newEditorState,
+      selection
+    );
+
+    // If backspace is pressed and the cursor is at the end, remove the space
+    const afterBackspaceEditorState = handleBackspace(editorStateWithSelection);
+
+    return afterBackspaceEditorState;
+  };
+
+
+  const handleBackspace = (editorState) => {
+    const currentSelection = editorState.getSelection();
+    const contentState = editorState.getCurrentContent();
+
+    // Check if the backspace key is pressed and the cursor is at the end
+    if (
+      currentSelection.isCollapsed() &&
+      currentSelection.getAnchorOffset() === 0 &&
+      currentSelection.getAnchorKey() !== contentState.getFirstBlock().getKey()
+    ) {
+      // Get the previous block
+      const beforeBlock = contentState.getBlockBefore(
+        currentSelection.getAnchorKey()
+      );
+
+      // Calculate the new selection at the end of the previous block
+      const newSelection = new SelectionState({
+        anchorKey: beforeBlock.getKey(),
+        anchorOffset: beforeBlock.getLength(),
+        focusKey: beforeBlock.getKey(),
+        focusOffset: beforeBlock.getLength(),
+      });
+
+      // Remove the space
+      const contentWithoutSpace = Modifier.replaceText(
+        contentState,
+        newSelection,
+        ''
+      );
+
+      // Apply the updated content to the editor state
+      const newEditorState = EditorState.push(
+        editorState,
+        contentWithoutSpace,
+        'remove-range'
+      );
+
+      // Move the selection to the end of the previous block
+      const finalEditorState = EditorState.forceSelection(
+        newEditorState,
+        newSelection
+      );
+
+      return finalEditorState;
+    }
+
+    return editorState;
+  };
+
+  useEffect(() => {
+    const contentState = stateFromHTML(convertedContent);
+    const newEditorState = EditorState.createWithContent(contentState);
+    const editorStateWithSelection = moveSelectionToEnd(newEditorState);
+
+    setEditorState(editorStateWithSelection);
+  }, []);  
+
+useEffect(() => {
+  const contentState = editorState.getCurrentContent();
+  let html = '';
+
+  contentState.getBlockMap().forEach(block => {
+    let blockHtml = '';
+
+    // Get block text
+    const text = block.getText();
+
+    // Check if block has any inline styles
+    if (block.getInlineStyleAt(0).size !== 0) {
+      // Apply inline styles
+      blockHtml += text.split('').map((char, index) => {
+        const styles = block.getInlineStyleAt(index);
+        let styledChar = char;
+        styles.forEach(style => {
+          switch (style) {
+            case 'BOLD':
+              styledChar = `<strong>${styledChar}</strong>`;
+              break;
+            case 'ITALIC':
+              styledChar = `<em>${styledChar}</em>`;
+              break;
+            case 'UNDERLINE':
+              styledChar = `<u>${styledChar}</u>`;
+              break;
+            case 'STRIKETHROUGH':
+              styledChar = `<s>${styledChar}</s>`;
+              break;
+            default:
+              break;
+          }
+        });
+        return styledChar;
+      }).join('');
+    } else {
+      // No inline styles, use plain text
+      blockHtml = text;
+    }
+
+    html += `<p>${blockHtml}</p>`;
+  });
+
+  html = replaceEmptyPTagWithBrTa(html);
+  setConvertedContent(html);
+}, [editorState]);
+
+  return(
+    <>
+    <Text>Fall Back Message 1</Text>
+    <Editor
+    editorClassName="editor-class nopan nodrag"
+    editorState={editorState}
+    onEditorStateChange={setEditorState}
+    placeholder="Add text here"
+    tabIndex={0}
+    toolbar={{
+      image: {
+        alt: { present: true, mandatory: false },
+        previewImage: true,
+        inputAccept: 'svg',
+      },
+      options: ['inline', 'link'],
+      inline: {
+        inDropdown: false,
+        options: ['bold', 'italic', 'underline', 'strikethrough'],
+      },
+      link: {
+        inDropdown: false,
+        options: ['link'],
+      },
+    }}
+    toolbarClassName="toolbar-class nopan nodrag"
+    toolbarCustomButtons={[
+      <div style={{
+      display: 'flex',
+      alignItems: 'center'
+    }}
+      >
+        <div
+            className="insert-entity"
+            onClick={() => alert('Coming Soon!')}
+        >
+          Insert Entity
+        </div>
+      </div>,
+  ]}
+    wrapperClassName="wrapper-class"
+/>
+<br/>
+</>
+)
+} 
+
+const FallBackMessageEditorOne = ({comp, components, setComp, index, fallBackMsgTwo, setFallBackMsgTwo}) => {
+  const [convertedContent, setConvertedContent] = useState(fallBackMsgTwo);
+  const [editorState, setEditorState] = useState(() => {
+    const contentState = stateFromHTML(convertedContent);
+    return EditorState.createWithContent(contentState);
+  });
+
+  useEffect(() => {
+    const contentState = editorState.getCurrentContent();
+    contentState.getBlockMap().forEach(block => {
+      block.getText();
+      block.getInlineStyleAt(0).toJS();
+    });
+    const html = convertToHTML(editorState.getCurrentContent());
+    // setting new editor state based on index
+    setFallBackMsgTwo(html);
+    setConvertedContent(html);
+  }, [editorState]);
+
+  useEffect(() => {
+    const arr = components?.map((item) => {
+      if (item.order === comp.order) {
+        item.props = {
+          ...item.props,
+          value: item.props.value
+        };
+        try {
+          item.fallback_messages = [item.fallback_messages[0], convertedContent];
+        } catch(error) {
+          item.fallback_messages = ['', convertedContent];
+        }
+      }
+      return item
+    });
+    setComp(arr);
+  }, [convertedContent]);
+
+
+  const moveSelectionToEnd = (editorState) => {
+    const contentState = editorState.getCurrentContent();
+    const blockMap = contentState.getBlockMap();
+    const lastBlock = blockMap.last();
+    const currentSelection = editorState.getSelection();
+
+    // If the cursor is already at the end, do nothing
+    if (
+      currentSelection.getAnchorKey() === lastBlock.getKey() &&
+      currentSelection.getAnchorOffset() === lastBlock.getLength()
+    ) {
+      return editorState;
+    }
+
+    // Create a selection at the end of the content
+    const selection = new SelectionState({
+      anchorKey: lastBlock.getKey(),
+      anchorOffset: lastBlock.getLength(),
+      focusKey: lastBlock.getKey(),
+      focusOffset: lastBlock.getLength() + 1,
+      // focusOffset: contentState.getBlockForKey(currentSelection.getAnchorKey()).getLength() + 1,
+
+    });
+
+    // Use Modifier to set the content of the last block to end with a space
+    const contentWithSpace = Modifier.replaceText(
+      contentState,
+      selection,
+      ' '
+    );
+
+    // Apply the updated content to the editor state
+    const newEditorState = EditorState.push(
+      editorState,
+      contentWithSpace,
+      'insert-characters'
+    );
+
+    // Move the selection to the end
+    const editorStateWithSelection = EditorState.forceSelection(
+      newEditorState,
+      selection
+    );
+
+    // If backspace is pressed and the cursor is at the end, remove the space
+    const afterBackspaceEditorState = handleBackspace(editorStateWithSelection);
+
+    return afterBackspaceEditorState;
+  };
+
+
+  const handleBackspace = (editorState) => {
+    const currentSelection = editorState.getSelection();
+    const contentState = editorState.getCurrentContent();
+
+    // Check if the backspace key is pressed and the cursor is at the end
+    if (
+      currentSelection.isCollapsed() &&
+      currentSelection.getAnchorOffset() === 0 &&
+      currentSelection.getAnchorKey() !== contentState.getFirstBlock().getKey()
+    ) {
+      // Get the previous block
+      const beforeBlock = contentState.getBlockBefore(
+        currentSelection.getAnchorKey()
+      );
+
+      // Calculate the new selection at the end of the previous block
+      const newSelection = new SelectionState({
+        anchorKey: beforeBlock.getKey(),
+        anchorOffset: beforeBlock.getLength(),
+        focusKey: beforeBlock.getKey(),
+        focusOffset: beforeBlock.getLength(),
+      });
+
+      // Remove the space
+      const contentWithoutSpace = Modifier.replaceText(
+        contentState,
+        newSelection,
+        ''
+      );
+
+      // Apply the updated content to the editor state
+      const newEditorState = EditorState.push(
+        editorState,
+        contentWithoutSpace,
+        'remove-range'
+      );
+
+      // Move the selection to the end of the previous block
+      const finalEditorState = EditorState.forceSelection(
+        newEditorState,
+        newSelection
+      );
+
+      return finalEditorState;
+    }
+
+    return editorState;
+  };
+
+  useEffect(() => {
+    const contentState = stateFromHTML(convertedContent);
+    const newEditorState = EditorState.createWithContent(contentState);
+    const editorStateWithSelection = moveSelectionToEnd(newEditorState);
+
+    setEditorState(editorStateWithSelection);
+  }, []);  
+
+useEffect(() => {
+  const contentState = editorState.getCurrentContent();
+  let html = '';
+
+  contentState.getBlockMap().forEach(block => {
+    let blockHtml = '';
+
+    // Get block text
+    const text = block.getText();
+
+    // Check if block has any inline styles
+    if (block.getInlineStyleAt(0).size !== 0) {
+      // Apply inline styles
+      blockHtml += text.split('').map((char, index) => {
+        const styles = block.getInlineStyleAt(index);
+        let styledChar = char;
+        styles.forEach(style => {
+          switch (style) {
+            case 'BOLD':
+              styledChar = `<strong>${styledChar}</strong>`;
+              break;
+            case 'ITALIC':
+              styledChar = `<em>${styledChar}</em>`;
+              break;
+            case 'UNDERLINE':
+              styledChar = `<u>${styledChar}</u>`;
+              break;
+            case 'STRIKETHROUGH':
+              styledChar = `<s>${styledChar}</s>`;
+              break;
+            default:
+              break;
+          }
+        });
+        return styledChar;
+      }).join('');
+    } else {
+      // No inline styles, use plain text
+      blockHtml = text;
+    }
+
+    html += `<p>${blockHtml}</p>`;
+  });
+
+  html = replaceEmptyPTagWithBrTa(html);
+  setConvertedContent(html);
+}, [editorState]);
+
+  return(
+    <>
+    <Text>Fall Back Message 2</Text>
+    <Editor
+    editorClassName="editor-class nopan nodrag"
+    editorState={editorState}
+    onEditorStateChange={setEditorState}
+    placeholder="Add text here"
+    tabIndex={0}
+    toolbar={{
+      image: {
+        alt: { present: true, mandatory: false },
+        previewImage: true,
+        inputAccept: 'svg',
+      },
+      options: ['inline', 'link'],
+      inline: {
+        inDropdown: false,
+        options: ['bold', 'italic', 'underline', 'strikethrough'],
+      },
+      link: {
+        inDropdown: false,
+        options: ['link'],
+      },
+    }}
+    toolbarClassName="toolbar-class nopan nodrag"
+    toolbarCustomButtons={[
+      <div style={{
+      display: 'flex',
+      alignItems: 'center'
+    }}
+      >
+        <div
+            className="insert-entity"
+            onClick={() => alert('Coming Soon!')}
+        >
+          Insert Entity
+        </div>
+      </div>,
+  ]}
+    wrapperClassName="wrapper-class"
+/>
+<br/>
+</>
+)
+} 
