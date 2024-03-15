@@ -8,7 +8,7 @@ import CarousalBody from '../../popoverBodies/Carousal';
 import LogicBody from '../../popoverBodies/Logic';
 import { Icon } from '@iconify/react';
 
-function EditComponent({ initialRef, comps, setComp, node }) {
+function EditComponent({ comps, setComp, node }) {
   return (
     <Box>
       { 
@@ -61,7 +61,6 @@ function EditComponent({ initialRef, comps, setComp, node }) {
                           <TextBody
                               comp={comp}
                               components={comps}
-                              ref={initialRef}
                               setComp={setComp}
                               type={node.type}
                           />

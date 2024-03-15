@@ -17,9 +17,11 @@ import { BotIcon } from '../../../assets/BotIcon';
 import { CustomerIcon } from '../../../assets/CustomerIcon';
 
 function WidgetComponent({ data, isConnectable }) {
-  // needed this state to capture Text Editor ref so it will help us to close the editor
-  // properly on blur event.
-  const initialFocusRef = React.useRef(null);
+  // // needed this state to capture Text Editor ref so it will help us to close the editor
+  // // properly on blur event.
+  // const initialFocusRef = React.useRef(null);
+  // chakra popover open or cloase...
+  const [isOpen, setIsOpen] = useState(false);
   const [comp, setComp] = useState(data?.components || []);
   const { widget, addWidget, selectedComp } = useWidgets();
 
@@ -73,35 +75,10 @@ function WidgetComponent({ data, isConnectable }) {
     // saving node id to use it later when user try to create new ndoe
     event.target.setAttribute('data-id', data.sourceHandle);
     data.onNodeClick(event);
-
     // on reactflow panel popover does not close properly so that is little hack otherwise.
     // you will see Editor buttons always there.
-    if (initialFocusRef.current) {
-      setTimeout(() => {
-        document.getElementsByClassName('chakra-popover__close-btn')[0].click();
-      }, 10);
-    }
+    setIsOpen(!isOpen);
   };
-
-  // const getPopOverHeading = (typeName) => {
-  //   switch (typeName) {
-  //     case 'logic_widget':
-  //       return 'Conditions'
-  //     case 'text_widget':
-  //       return 'Text Input'
-  //     case 'button_widget':
-  //       return 'Button'
-  //     case 'image_widget':
-  //       return 'Image'
-  //     case 'calendar_widget':
-  //       return 'Calendar'
-  //     case 'carousel_widget':
-  //       return 'Carousel'
-  //     default:
-  //       return 'Text'
-  //   }
-  // }
-
 
   return (
     <>
@@ -118,6 +95,8 @@ function WidgetComponent({ data, isConnectable }) {
 
       <Popover
           isLazy
+          isOpen={isOpen}
+          onClose={() => setTimeout(() => {setIsOpen(false)}, 50)}
           placement={data.type === 'customer_response_node' ? "right-start" : "left-start"}
           variant="responsive"
       >
@@ -197,7 +176,6 @@ function WidgetComponent({ data, isConnectable }) {
           >
             <EditComponent
                 comps={comp}
-                initialRef={initialFocusRef}
                 node={data}
                 setComp={setComp}
             />
