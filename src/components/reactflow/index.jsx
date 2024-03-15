@@ -258,6 +258,8 @@ function ReactFlowComponent() {
 
   const onPaneClick = async () => {
     const data11 = prepareDataForAPIs(edges, nodes, currentNode);
+    // on reactflow panel popover does not close properly so that is little hack otherwise.
+    // you will see Editor buttons always there.
     setTimeout(() => {
       document.getElementsByClassName('chakra-popover__close-btn')[0].click();
     }, 50);

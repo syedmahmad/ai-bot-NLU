@@ -16,8 +16,7 @@ import { stateFromHTML } from 'draft-js-import-html';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-/* eslint-disable react/display-name */
-const TextBody = React.forwardRef((props, ref) => {
+const TextBody = (props) => {
   const [showCaptureResponse, setShowCaptureResponse] = useState(false);
   const { comp, components, setComp, type } = props;
   const [editorList, setEditorList] = useState(comp.props.value === 'Add something here' ? [comp.props.value] : [comp.props.value, ...comp.variants]);
@@ -42,7 +41,7 @@ const TextBody = React.forwardRef((props, ref) => {
         >
          {/* Editor Component */}
          {editorList.map((item,index) => <EditorComponent comp={comp} 
-         components={components} setComp={setComp} ref={ref} item={item}
+         components={components} setComp={setComp} item={item}
          setEditorList={setEditorList} index={index} 
          editorList={editorList}
 
@@ -155,7 +154,7 @@ const TextBody = React.forwardRef((props, ref) => {
       )}
     </>
   )
-});
+};
 
 export default TextBody;
 
@@ -176,7 +175,7 @@ function replaceEmptyPTagWithBrTa(htmlString) {
 }
 
 
-const EditorComponent = ({comp, components, setComp, ref, setEditorList, index, item, editorList }) => {
+const EditorComponent = ({comp, components, setComp, setEditorList, index, item, editorList }) => {
   const [convertedContent, setConvertedContent] = useState(item);
   const [editorState, setEditorState] = useState(() => {
     const contentState = stateFromHTML(convertedContent);
@@ -324,13 +323,6 @@ const EditorComponent = ({comp, components, setComp, ref, setEditorList, index, 
     setEditorState(editorStateWithSelection);
   }, []);
 
-  useEffect(() => {
-    if (ref) {
-      ref.current.focusEditor();
-    }
-  }, [ref, convertedContent]);
-  
-
 useEffect(() => {
   const contentState = editorState.getCurrentContent();
   let html = '';
@@ -386,7 +378,6 @@ useEffect(() => {
     editorState={editorState}
     onEditorStateChange={setEditorState}
     placeholder="Add text here"
-    ref={ref}
     tabIndex={0}
     toolbar={{
       image: {
