@@ -59,9 +59,9 @@
   border: 1.5px solid hsla(0, 0%, 93%, 1);
 }
 
-.react-flow__minimap-mask {
+/* .react-flow__minimap-mask {
   fill: white;
-}
+} */
 
 .ant-table, .ant-table-container, .ant-table-header, .ant-table-wrapper {
   border-radius: 10px 10px 0px 0px !important;

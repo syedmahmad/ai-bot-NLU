@@ -5,10 +5,10 @@ import {
     ModalBody,
     Box,
     Text,
-    Button
+    Button,
   } from '@chakra-ui/react';
   import {
-    ReactFlow, useReactFlow
+    ReactFlow, useReactFlow, Controls
   } from 'reactflow';
   
   function MiniMapModal(props) {
@@ -63,13 +63,19 @@ import {
                   onInit={() => setViewport({ x: 400, y: 10, zoom: 0.35 }, { duration: 100 })}
                   onPaneClick={() => {}}
                   onPaneScroll={() => {}}
-                  panOnDrag={false}
-                  panOnScroll={false}
+                  panOnDrag
+                  panOnScroll
                   proOptions={{ hideAttribution: true }}
                   selectionOnDrag
                   zoomOnScroll={false}  
                   // onMove={handleMove}
               />
+
+              <Controls 
+                  showInteractive={false} 
+                  showZoom={false}
+              />
+                
             </Box>
 
             <Button

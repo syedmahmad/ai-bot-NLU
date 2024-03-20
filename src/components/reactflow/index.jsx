@@ -67,7 +67,7 @@ function ReactFlowComponent() {
     if (navigator.userAgent.indexOf("Firefox") != -1) {
       svgElement.style.maxHeight = '150px';
     } else {
-      svgElement.style.maxHeight = '285px';
+      // svgElement.style.maxHeight = '285px';
     }
   }, []);
 
