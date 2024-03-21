@@ -12,9 +12,19 @@ import {
   } from 'reactflow';
   
   function MiniMapModal(props) {
-    const { setViewport } = useReactFlow();
+    const { setViewport, fitView } = useReactFlow();
     const { showMiniMap, setShowMiniMap, nodes, edges, nodeTypes } = props;
 
+    const initialize = () => {
+      setViewport({ x: 400, y: 10, zoom: 0.35 }, { duration: 100 })
+    }
+
+    const handleFitView = () => {
+      fitView({
+        nodes: [{ id: nodes[0].id }],
+        duration: 500,
+      });
+    }
 
     return (
       <Modal
@@ -47,6 +57,7 @@ import {
                 border="1px solid"
                 borderColor="stroke.menuOrCard"
                 height="85vh"
+                id="parent-minimap"
                 overflow="hidden"
                 position="relative"
                 width="100%"
@@ -60,7 +71,7 @@ import {
                   nodes={nodes}
                   nodesConnectable={false}
                   nodesDraggable={false}
-                  onInit={() => setViewport({ x: 400, y: 10, zoom: 0.35 }, { duration: 100 })}
+                  onInit={initialize}
                   onPaneClick={() => {}}
                   onPaneScroll={() => {}}
                   panOnDrag
@@ -72,6 +83,7 @@ import {
               />
 
               <Controls 
+                  onFitView={handleFitView}
                   showInteractive={false} 
                   showZoom={false}
               />

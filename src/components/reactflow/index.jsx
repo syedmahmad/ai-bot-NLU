@@ -55,22 +55,6 @@ function ReactFlowComponent() {
     [],
   );
 
-  useEffect(() => {
-    // Find the parent element by its data-testid
-    var parentElement = document.querySelector('[data-testid="rf__minimap"]');
-
-    // Find the SVG element within the parent
-    var svgElement = parentElement.querySelector('svg');
-
-    // Change the height attribute
-    svgElement.setAttribute('height', 'inherit'); 
-    if (navigator.userAgent.indexOf("Firefox") != -1) {
-      svgElement.style.maxHeight = '150px';
-    } else {
-      // svgElement.style.maxHeight = '285px';
-    }
-  }, []);
-
   // onpage load, reading the exsitng flow.
   useEffect(() => {
     fetchDocument();

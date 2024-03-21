@@ -1,4 +1,5 @@
 import { Box, Text, Select, Input } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import {
   MiniMap,
@@ -6,6 +7,21 @@ import {
 
 function RightSidebar(props) {
   const { setShowMiniMap } = props;
+  useEffect(() => {
+    // svgElement.setAttribute('height', 'inherit'); 
+    setTimeout(() => {
+      // Find the parent element by its data-testid
+      var parent = document.getElementById('#parent-minimap');
+      parent = parent?.getBoundingClientRect();
+      console.log("parent", parent)
+      // Find the SVG element within the parent
+      var parentElement = document.querySelector('[data-testid="rf__minimap"]');
+      var svgElement = parentElement.querySelector('svg');
+      console.log("parent.height", parent.height);
+      svgElement.style.maxHeight = parent.height + "px";
+    }, 1000);
+  }, []);
+
   const nodeColor = (node) => {
     switch (node.data.type) {
       case 'customer_response_node':
@@ -61,16 +77,17 @@ function RightSidebar(props) {
       </Box>
 
       <Box
+          background="#f6f6f6"
           backgroundColor="white"
           border="1px solid"
           borderColor="stroke.menuOrCard"
           height="calc(55vh - 113px)"
+          id="#parent-minimap"
           position="relative"
           width="100%"
-
       >
         <MiniMap
-            fill="white"
+            // fill="white"
             nodeColor={nodeColor}
             nodeStrokeWidth={3}
             pannable
@@ -81,7 +98,9 @@ function RightSidebar(props) {
               padding: "0",
               width: '430',
               height: '375',
-              fill: 'white'
+              fill: "#f6f6f6",
+              color: "#f6f6f6",
+              // background: "#f6f6f6"
             }}
             zoomable
         />
