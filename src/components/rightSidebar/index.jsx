@@ -88,7 +88,7 @@ function RightSidebar(props) {
           width="100%"
       >
         <MiniMap
-            // fill="white"
+            fill="white"
             nodeColor={nodeColor}
             nodeStrokeWidth={3}
             pannable
@@ -99,7 +99,7 @@ function RightSidebar(props) {
               padding: "0",
               width: '430',
               height: '375',
-              fill: "#f6f6f6",
+              fill: "#ffffff",
               color: "#f6f6f6",
               // background: "#f6f6f6"
             }}

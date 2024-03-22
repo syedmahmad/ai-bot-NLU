@@ -59,10 +59,6 @@
   border: 1.5px solid hsla(0, 0%, 93%, 1);
 }
 
-/* .react-flow__minimap-mask {
-  fill: white;
-} */
-
 .ant-table, .ant-table-container, .ant-table-header, .ant-table-wrapper {
   border-radius: 10px 10px 0px 0px !important;
   border-start-start-radius: 10px !important;
@@ -123,7 +119,11 @@ tbody > tr > td {
   overflow: hidden;
 }
 
-.react-flow__minimap {
+/* .react-flow__minimap { */
   /* Modify background color */
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
+/* } */
+
+.react-flow__minimap-mask {
+  fill: transparent;
 }
