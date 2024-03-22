@@ -18,6 +18,7 @@ function RightSidebar(props) {
       var svgElement = parentElement.querySelector('svg');
       console.log("parent.height", parent.height, parent.width, svgElement);
       svgElement.style.maxHeight = parent.height + "px";
+      svgElement.style.height = parent.height + "px";
       svgElement.style.width = "100% !important";
       // svgElement.style.minWidth = parent.width + "px";
     }, 700);
