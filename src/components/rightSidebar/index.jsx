@@ -13,13 +13,14 @@ function RightSidebar(props) {
       // Find the parent element by its data-testid
       var parent = document.getElementById('#parent-minimap');
       parent = parent?.getBoundingClientRect();
-      console.log("parent", parent)
       // Find the SVG element within the parent
       var parentElement = document.querySelector('[data-testid="rf__minimap"]');
       var svgElement = parentElement.querySelector('svg');
-      console.log("parent.height", parent.height);
+      console.log("parent.height", parent.height, parent.width, svgElement);
       svgElement.style.maxHeight = parent.height + "px";
-    }, 1000);
+      svgElement.style.width = "100% !important";
+      // svgElement.style.minWidth = parent.width + "px";
+    }, 700);
   }, []);
 
   const nodeColor = (node) => {
