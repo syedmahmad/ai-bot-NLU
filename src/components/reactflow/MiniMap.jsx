@@ -12,7 +12,7 @@ import {
   } from 'reactflow';
   
   function MiniMapModal(props) {
-    const { setViewport, fitView } = useReactFlow();
+    const { setViewport } = useReactFlow();
     const { showMiniMap, setShowMiniMap, nodes, edges, nodeTypes } = props;
 
     const initialize = () => {
@@ -20,10 +20,7 @@ import {
     }
 
     const handleFitView = () => {
-      fitView({
-        nodes: [{ id: nodes[0].id }],
-        duration: 500,
-      });
+      initialize();
     }
 
     return (
@@ -65,7 +62,7 @@ import {
               <ReactFlow
                   edges={edges}
                   elementsSelectable={false}
-                  fitView
+                  // fitView
                   free={false}
                   nodeTypes={nodeTypes}
                   nodes={nodes}
