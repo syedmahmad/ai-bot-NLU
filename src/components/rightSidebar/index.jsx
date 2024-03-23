@@ -1,5 +1,5 @@
 import { Box, Text, Select, Input } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Icon } from '@iconify/react';
 import {
   MiniMap,
@@ -7,22 +7,22 @@ import {
 
 function RightSidebar(props) {
   const { setShowMiniMap } = props;
-  useEffect(() => {
-    // svgElement.setAttribute('height', 'inherit'); 
-    setTimeout(() => {
-      // Find the parent element by its data-testid
-      var parent = document.getElementById('#parent-minimap');
-      parent = parent?.getBoundingClientRect();
-      // Find the SVG element within the parent
-      var parentElement = document.querySelector('[data-testid="rf__minimap"]');
-      var svgElement = parentElement.querySelector('svg');
-      console.log("parent.height", parent.height, parent.width, svgElement);
-      svgElement.style.maxHeight = parent.height + "px";
-      svgElement.style.height = parent.height + "px";
-      svgElement.style.width = "100% !important";
-      // svgElement.style.minWidth = parent.width + "px";
-    }, 700);
-  }, []);
+  // useEffect(() => {
+  //   // svgElement.setAttribute('height', 'inherit'); 
+  //   setTimeout(() => {
+  //     // Find the parent element by its data-testid
+  //     var parent = document.getElementById('#parent-minimap');
+  //     parent = parent?.getBoundingClientRect();
+  //     // Find the SVG element within the parent
+  //     var parentElement = document.querySelector('[data-testid="rf__minimap"]');
+  //     var svgElement = parentElement.querySelector('svg');
+  //     console.log("parent.height", parent.height, parent.width, svgElement);
+  //     svgElement.style.maxHeight = parent.height + "px";
+  //     svgElement.style.height = parent.height + "px";
+  //     svgElement.style.width = "100% !important";
+  //     // svgElement.style.minWidth = parent.width + "px";
+  //   }, 700);
+  // }, []);
 
   const nodeColor = (node) => {
     switch (node.data.type) {

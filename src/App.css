@@ -126,4 +126,13 @@ tbody > tr > td {
 
 .react-flow__minimap-mask {
   fill: transparent;
+  position: absolute;
+}
+
+.react-flow__minimap svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
